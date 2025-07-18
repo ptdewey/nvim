@@ -3,18 +3,16 @@ return {
         -- "ptdewey/deez-nvim",
         -- branch = "feat-explorer",
         dir = "~/projects/deez-nvim/",
+
         keys = {
             { "<leader>gb", desc = "[G]it [B]rowse" },
             { "<leader>tf", desc = "Open Al[T]ernate [F]ile" },
-            {
-                mode = "x",
-                "<leader>wc",
-                desc = "[W]ord [C]ount",
-            },
+            { mode = "x", "<leader>wc", desc = "[W]ord [C]ount" },
             { "<leader>nn", desc = "File Explorer" },
             { "<C-n>", desc = "File Explorer" },
         },
-        cmd = { "GitBrowse", "RenameFile" },
+        cmd = { "GitBrowse", "RenameFile", "AltFile", "ExOpen" },
+
         config = function()
             require("deez.gitbrowse").setup({})
             require("deez.altfile").setup({})
