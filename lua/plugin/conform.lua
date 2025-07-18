@@ -40,7 +40,7 @@ return {
                         -- adjust stylua to use custom config file
                         append_args = {
                             "--config-path",
-                            vim.fn.expand("$HOME/dotfiles/home/stylua.toml"),
+                            vim.fn.expand("$HOME/.config/nvim/.stylua.toml"),
                         },
                     },
                 },
