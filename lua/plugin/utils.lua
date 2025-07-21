@@ -1,32 +1,50 @@
 return {
     {
-        -- "ptdewey/deez-nvim",
+        "https://codeberg.org/pdewey/pathfinder-nvim",
+        -- dir = "~/projects/pathfinder-nvim/",
+        keys = {
+            { "<leader>N", desc = "Pathfinder" },
+            { "<C-n>", desc = "Pathfinder" },
+            { "<leader>sd", desc = "[S]earch [D]irectories" },
+        },
+        cmd = { "Pathfinder" },
+        config = function()
+            require("pathfinder").setup({
+                keys = { toggle = { key = "<C-n>" } },
+                open_in_current_dir = true,
+                style = { show_goto_parent = false },
+            })
+
+            vim.keymap.set("n", "<leader>N", function()
+                require("pathfinder").toggle({ open_in_current_dir = false })
+            end, { desc = "Pathfinder" })
+
+            vim.keymap.set(
+                "n",
+                "<leader>sd",
+                require("pathfinder").select_directory,
+                { silent = true }
+            )
+        end,
+    },
+
+    {
+        "https://codeberg.org/pdewey/deez-nvim",
         -- branch = "feat-explorer",
-        dir = "~/projects/deez-nvim/",
+        -- dir = "~/projects/deez-nvim/",
 
         keys = {
             { "<leader>gb", desc = "[G]it [B]rowse" },
             { "<leader>tf", desc = "Open Al[T]ernate [F]ile" },
             { mode = "x", "<leader>wc", desc = "[W]ord [C]ount" },
-            { "<leader>nn", desc = "File Explorer" },
-            { "<C-n>", desc = "File Explorer" },
         },
-        cmd = { "GitBrowse", "RenameFile", "AltFile", "ExOpen" },
+        cmd = { "GitBrowse", "RenameFile", "AltFile" },
 
         config = function()
             require("deez.gitbrowse").setup({})
             require("deez.altfile").setup({})
             require("deez.wordcount").setup({})
             require("deez.rename").setup({})
-            require("deez.files").setup({
-                keys = { toggle = { key = "<C-n>" } },
-                open_in_current_dir = true,
-                style = { show_goto_parent = false },
-            })
-
-            vim.keymap.set("n", "<leader>nn", function()
-                require("deez.files").open({ open_in_current_dir = false })
-            end, { desc = "File Explorer" })
 
             vim.keymap.set("n", "<leader>gb", function()
                 require("deez.gitbrowse").open()

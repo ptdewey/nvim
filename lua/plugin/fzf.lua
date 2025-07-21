@@ -125,10 +125,6 @@ return {
                 fzf.grep_project({ cwd = "~/notes", hidden = false })
             end, { desc = "[G]rep [N]otes" })
 
-            vim.keymap.set("n", "<leader>sd", function()
-                fzf.lsp_document_symbols()
-            end, { desc = "[H]ome [W]orkspace symbols" })
-
             vim.keymap.set("n", "gr", function()
                 fzf.lsp_references({
                     winopts = {
