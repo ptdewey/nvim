@@ -37,14 +37,21 @@ return {
 
             vim.keymap.set("n", "<leader>a", function()
                 local path = vim.fn.expand("%:p")
-                if path ~= "" then
-                    require("mini.visits").add_label(
-                        "pin",
-                        path,
-                        get_git_root()
-                    )
+                if path == "" then
+                    return
                 end
-            end, { desc = "add visit" })
+                local pins = require("mini.visits").list_paths(
+                    get_git_root(),
+                    { filter = "pin" }
+                )
+                for i, pin in ipairs(pins) do
+                    if pin == path then
+                        require("mini.visits").remove_label("pin", path)
+                        return
+                    end
+                end
+                require("mini.visits").add_label("pin", path, get_git_root())
+            end, { desc = "[A]dd visit" })
 
             for i, key in ipairs({ "<C-h>", "<C-j>", "<C-k>", "<C-l>" }) do
                 vim.keymap.set("n", key, function()
@@ -53,14 +60,16 @@ return {
             end
 
             vim.keymap.set("n", "<C-e>", function()
-                -- TODO: keybinds for removing from list?
+                -- TODO: keybinds for removing from list (<C-x>)?
                 require("mini.visits").select_path(
                     get_git_root(),
                     { filter = "pin" }
                 )
             end, {})
 
-            vim.keymap.set("n", "<leader>vr", require("mini.visits").select_path, {})
+            vim.keymap.set("n", "<leader>vv", function()
+                require("mini.visits").select_path(get_git_root())
+            end, { desc = "[V]isits [V]iew" })
         end,
     },
 }
