@@ -39,13 +39,6 @@ return {
                 return { winopts = { height = h, width = 0.50, row = 0.40 } }
             end)
 
-            vim.keymap.set("n", "<leader>sr", function()
-                fzf.live_grep({
-                    fzf_opts = { ["--nth"] = "2.." },
-                    winopts = { preview = { horizontal = "right:40%" } },
-                })
-            end, { desc = "[S]earch [R]egex" })
-
             vim.keymap.set("n", "<leader>sg", function()
                 fzf.grep_project({
                     fzf_opts = { ["--nth"] = "2.." },
@@ -144,6 +137,18 @@ return {
             vim.keymap.set("n", "<leader>gs", function()
                 fzf.git_status()
             end, { noremap = true, desc = "[G]it [S]tatus" })
+
+            vim.keymap.set("n", "<leader>ci", function()
+                fzf.lsp_incoming_calls()
+            end, { noremap = true, desc = "[C]alls [I]ncoming" })
+
+            vim.keymap.set("n", "<leader>co", function()
+                fzf.lsp_incoming_calls()
+            end, { noremap = true, desc = "[C]alls [O]utgoing" })
+
+            vim.keymap.set("n", "<leader>sr", function()
+                fzf.lsp_references()
+            end, { noremap = true, desc = "[S]earch [R]eferences" })
         end,
     },
 
