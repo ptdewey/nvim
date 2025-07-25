@@ -55,7 +55,7 @@ return {
                     require("neotest-golang")({
                         runner = "go",
                         go_test_args = {
-                            "-v",
+                            -- "-v",
                             "-race",
                             "-count=1",
                             "-coverpkg=./...",

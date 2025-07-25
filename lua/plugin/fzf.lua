@@ -9,13 +9,17 @@ return {
                     height = 0.85,
                     width = 0.85,
                     preview = {
-                        horizontal = "right:50%",
+                        default = "builtin",
+                        -- default = "bat_native", -- faster
+                        vertical = "down:40%",
+                        layout = "vertical",
                     },
                 },
                 fzf_opts = {
                     ["--no-info"] = "",
                     ["--info"] = "hidden",
                     ["--header"] = " ",
+                    -- ["--ansi"] = false,
                     -- ["--layout"] = "default",
                     ["--layout"] = "reverse-list",
                 },
@@ -40,15 +44,7 @@ return {
             end)
 
             vim.keymap.set("n", "<leader>sg", function()
-                fzf.grep_project({
-                    fzf_opts = { ["--nth"] = "2.." },
-                    winopts = {
-                        preview = {
-                            vertical = "down:40%",
-                            layout = "vertical",
-                        },
-                    },
-                })
+                fzf.grep_project({ fzf_opts = { ["--nth"] = "2.." } })
             end, { desc = "[S]earch [G]rep" })
 
             vim.keymap.set("n", "<leader>sb", function()
@@ -74,18 +70,18 @@ return {
 
             vim.keymap.set("n", "<leader>f", function()
                 fzf.files({
-                    winopts = { preview = { horizontal = "right:60%" } },
+                    winopts = {
+                        preview = {
+                            horizontal = "right:65%",
+                            layout = "horizontal",
+                        },
+                    },
                 })
             end, { desc = "[S]earch [F]iles" })
 
             vim.keymap.set("n", "<leader>d", function()
                 fzf.diagnostics_workspace({
-                    winopts = {
-                        preview = {
-                            vertical = "down:40%",
-                            layout = "vertical",
-                        },
-                    },
+                    severity_limit = vim.diagnostic.severity.INFO,
                 })
             end, { desc = "Search [D]iagnostics" })
 
@@ -107,7 +103,14 @@ return {
             end, { desc = "Search [T]odo", noremap = true })
 
             vim.keymap.set("n", "<leader>ca", function()
-                fzf.lsp_code_actions()
+                fzf.lsp_code_actions({
+                    winopts = {
+                        preview = {
+                            vertical = "down:60%",
+                            layout = "vertical",
+                        },
+                    },
+                })
             end, { desc = "[C]ode [A]ction preview" })
 
             vim.keymap.set("n", "<leader>nf", function()
@@ -120,7 +123,10 @@ return {
 
             vim.keymap.set("n", "gr", function()
                 fzf.lsp_references({
+                    ignore_current_line = true,
+                    includeDeclaration = false,
                     winopts = {
+                        default = nil,
                         preview = {
                             vertical = "down:60%",
                             layout = "vertical",
@@ -143,7 +149,7 @@ return {
             end, { noremap = true, desc = "[C]alls [I]ncoming" })
 
             vim.keymap.set("n", "<leader>co", function()
-                fzf.lsp_incoming_calls()
+                fzf.lsp_outgoing_calls()
             end, { noremap = true, desc = "[C]alls [O]utgoing" })
 
             vim.keymap.set("n", "<leader>sr", function()
