@@ -1,8 +1,6 @@
 -- theme options
--- vim.cmd.colorscheme("witchesbrew")
--- vim.cmd.colorscheme("darkearth")
-vim.cmd.colorscheme("monalisa")
--- vim.cmd.colorscheme("lackluster-hack")
+vim.cmd.colorscheme("darkearth")
+-- vim.cmd.colorscheme("monalisa")
 
 local options = {
     number = true,

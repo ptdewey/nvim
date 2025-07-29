@@ -6,10 +6,15 @@ return {
     },
 
     {
-        -- "ptdewey/monalisa-nvim",
-        dir = "~/projects/monalisa-nvim/",
+        "ptdewey/monalisa-nvim",
+        -- dir = "~/projects/monalisa-nvim/",
         priority = 1000,
     },
+
+    -- {
+    --     "gbprod/nord.nvim",
+    --     priority = 1000,
+    -- },
 
     -- {
     --     "ptdewey/witchesbrew.nvim",
@@ -18,10 +23,10 @@ return {
 
     -- { "ficcdaf/ashen.nvim", priority = 1000 },
 
-    {
-        "slugbyte/lackluster.nvim",
-        priority = 1000,
-    },
+    -- {
+    --     "slugbyte/lackluster.nvim",
+    --     priority = 1000,
+    -- },
 
     -- {
     --     "sho-87/kanagawa-paper.nvim",

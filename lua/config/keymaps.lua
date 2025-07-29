@@ -96,6 +96,18 @@ vim.keymap.set(
     { desc = "Clear search highlight on escape", silent = true }
 )
 
+vim.keymap.set({ "x", "v" }, "<leader>p", function()
+    vim.cmd('normal! "_dP')
+end, { silent = true, noremap = true, desc = "[P]aste without yank" })
+
+vim.keymap.set({ "x", "v" }, "<leader>d", function()
+    vim.cmd('normal! "_d')
+end, { silent = true, noremap = true, desc = "[D]elete without yank" })
+
+-- TODO:
+-- vim.diagnostic.config({ jump = { severity = { min = vim.diagnostic.severity.WARN } } })
+-- vim.diagnostic.set(0, 0, nil, vim.diagnostic.config({ jump = { severity = { min = vim.diagnostic.severity.WARN } } }))
+
 -- diagnostics
 vim.keymap.set("n", "[d", function()
     local d = vim.diagnostic.get_prev()
