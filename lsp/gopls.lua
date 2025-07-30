@@ -1,4 +1,4 @@
-vim.lsp.config["gopls"] = {
+return {
     settings = {
         gopls = {
             hints = {

@@ -1,8 +1,8 @@
 return {
     {
-        -- dir = "~/projects/pendulum-nvim.git/main",
-        "ptdewey/pendulum-nvim",
-        branch = "main",
+        dir = "~/projects/pendulum-nvim.git/v2",
+        -- "ptdewey/pendulum-nvim",
+        -- branch = "main",
         config = function()
             require("pendulum").setup({
                 log_file = vim.fn.expand("$HOME/.pendulum-log.csv"),
@@ -21,6 +21,8 @@ return {
                     filetype = { "unknown_filetype" },
                     project = { "unknown_project" },
                 },
+                -- lsp_binary = "/home/patrick/projects/pendulum-nvim.git/v2/target/debug/pendulum-lsp",
+                lsp_binary = "/home/patrick/projects/pendulum-nvim.git/v2/pendulum-server",
             })
         end,
     },

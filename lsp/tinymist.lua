@@ -1,4 +1,4 @@
-vim.lsp.config["tinymist"] = {
+return {
     -- NOTE: as long as lspconfig is being used, cmd is likely not necesary
     -- cmd = { "tinymist" },
 
