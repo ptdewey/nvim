@@ -1,4 +1,4 @@
-vim.lsp.config["ts_ls"] = {
+return {
     filetypes = { "typescript", "javascript" },
     settings = {
         implicitProjectConfiguration = {

@@ -1,4 +1,4 @@
-vim.lsp.config["ruff"] = {
+return {
     init_options = {
         settings = {
             logLevel = "debug",
