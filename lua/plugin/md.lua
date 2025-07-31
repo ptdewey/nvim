@@ -37,6 +37,7 @@ return {
         },
         config = function()
             require("obsidian").setup({
+                legacy_commands = false,
                 workspaces = {
                     {
                         name = "notes",

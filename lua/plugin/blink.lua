@@ -100,13 +100,20 @@ return {
                     snippets = { score_offset = 55 },
                     path = { score_offset = 10 },
                     buffer = { score_offset = 15 },
-                    lazydev = { name = "LazyDev", module = "lazydev.integrations.blink", score_offset = 46 },
+                    lazydev = {
+                        name = "LazyDev",
+                        module = "lazydev.integrations.blink",
+                        score_offset = 46,
+                    },
                     ripgrep = {
                         module = "blink-ripgrep",
                         name = "Ripgrep",
                         opts = {
-                            max_filesize = "200K",
-                            future_features = {},
+                            backend = {
+                                ripgrep = {
+                                    max_filesize = "400K",
+                                },
+                            },
                         },
                         score_offset = 1,
                     },
@@ -116,7 +123,6 @@ return {
                         score_offset = 100,
                         async = true,
                     },
-
                 },
             },
 
