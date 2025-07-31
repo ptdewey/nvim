@@ -14,12 +14,11 @@ return {
                     svelte = { "svelte" },
                     go = { "gofmt", "goimports" },
                     rust = { "rustfmt" },
-                    -- bash = { "beautysh" },
-                    -- zsh = { "beautysh" },
-                    -- sh = { "beautysh" },
                     python = { "ruff" },
                     typst = { "tinymist" },
-                    ["_"] = { "trim_whitespace" },
+                    yaml = { "prettierd" },
+                    -- ["_"] = { "trim_whitespace" },
+                    ["_"] = {},
                 },
                 format_on_save = function(bufnr)
                     if

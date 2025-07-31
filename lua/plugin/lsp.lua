@@ -18,6 +18,8 @@ return {
                 harper_ls = vim.lsp.config["harper_ls"],
                 rust_analyzer = {},
                 svelte = {},
+                nil_ls = {},
+                just = {},
             },
         },
 
