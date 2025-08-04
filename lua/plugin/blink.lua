@@ -3,7 +3,6 @@ return {
         "saghen/blink.cmp",
         dependencies = {
             "L3MON4D3/LuaSnip",
-            "fang2hou/blink-copilot",
             "mikavilpas/blink-ripgrep.nvim",
         },
 
@@ -91,7 +90,6 @@ return {
                     "snippets",
                     "buffer",
                     "ripgrep",
-                    "copilot",
                     -- "dictionary",
                 },
 
@@ -116,12 +114,6 @@ return {
                             },
                         },
                         score_offset = 1,
-                    },
-                    copilot = {
-                        name = "copilot",
-                        module = "blink-copilot",
-                        score_offset = 100,
-                        async = true,
                     },
                 },
             },

@@ -13,6 +13,12 @@ return {
             require("mini.visits").setup({})
             -- require("mini.pairs").setup({}) -- NOTE: doesn't function as well as autopairs
 
+            require("mini.hipatterns").setup({
+                highlighters = {
+                    hex_color = require("mini.hipatterns").gen_highlighter.hex_color(),
+                },
+            })
+
             local get_git_root = function()
                 local result = vim.fn.systemlist(
                     "git rev-parse --show-toplevel 2>/dev/null"

@@ -45,7 +45,8 @@ vim.api.nvim_create_autocmd("BufLeave", {
 })
 
 -- remove trailing whitespace upon save
-local trim_whitespace_group = vim.api.nvim_create_augroup("TrimTrailingWhitespace", { clear = true })
+local trim_whitespace_group =
+    vim.api.nvim_create_augroup("TrimTrailingWhitespace", { clear = true })
 
 local function enable_trim_whitespace()
     vim.api.nvim_create_autocmd("BufWritePre", {
@@ -63,8 +64,16 @@ local function disable_trim_whitespace()
     print("Trim trailing whitespace on save: DISABLED")
 end
 
-vim.api.nvim_create_user_command("EnableTrimWhitespace", enable_trim_whitespace, {})
-vim.api.nvim_create_user_command("DisableTrimWhitespace", disable_trim_whitespace, {})
+vim.api.nvim_create_user_command(
+    "EnableTrimWhitespace",
+    enable_trim_whitespace,
+    {}
+)
+vim.api.nvim_create_user_command(
+    "DisableTrimWhitespace",
+    disable_trim_whitespace,
+    {}
+)
 
 vim.api.nvim_create_autocmd({ "TermOpen" }, {
     callback = function()

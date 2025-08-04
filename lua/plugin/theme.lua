@@ -12,11 +12,6 @@ return {
     },
 
     -- {
-    --     "gbprod/nord.nvim",
-    --     priority = 1000,
-    -- },
-
-    -- {
     --     "ptdewey/witchesbrew.nvim",
     --     priority = 1000,
     -- },
@@ -42,13 +37,13 @@ return {
     -- },
 
     -- highlight color codes
-    {
-        "brenoprata10/nvim-highlight-colors",
-        event = { "BufReadPost", "BufNewFile" },
-        config = function()
-            require("nvim-highlight-colors").setup({})
-        end,
-    },
+    -- {
+    --     "brenoprata10/nvim-highlight-colors",
+    --     event = { "BufReadPost", "BufNewFile" },
+    --     config = function()
+    --         require("nvim-highlight-colors").setup({})
+    --     end,
+    -- },
 
     -- for designing colorschemes
     {
