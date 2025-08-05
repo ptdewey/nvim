@@ -17,6 +17,7 @@ return {
                     python = { "ruff" },
                     typst = { "tinymist" },
                     yaml = { "prettierd" },
+                    fennel = { "fnlfmt" },
                     -- ["_"] = { "trim_whitespace" },
                     ["_"] = {},
                 },

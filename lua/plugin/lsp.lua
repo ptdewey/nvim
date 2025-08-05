@@ -16,10 +16,11 @@ return {
                 pyright = vim.lsp.config["pyright"],
                 tinymist = vim.lsp.config["tinymist"],
                 harper_ls = vim.lsp.config["harper_ls"],
-                rust_analyzer = {},
+                rust_analyzer = vim.lsp.config["rust_analyzer"],
                 svelte = {},
                 nil_ls = {},
                 just = {},
+                fennel_ls = vim.lsp.config["fennel_ls"],
             },
         },
 
