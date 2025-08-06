@@ -20,7 +20,7 @@ return {
                 svelte = {},
                 nil_ls = {},
                 just = {},
-                fennel_ls = vim.lsp.config["fennel_ls"],
+                fennel_ls = {}, --vim.lsp.config["fennel_ls"],
             },
         },
 

@@ -6,10 +6,17 @@ for key, _ in pairs(_G) do
 end
 
 return {
-    -- by default, build all fnl/ files into lua/
-    build = true,
+    build = {
+        -- { verbose = false, atomic = true },
+        { "fnl/**/*macro*.fnl", false },
+        { "fnl/**/*.fnl", false },
+        { "fnl/plugin/**/*.fnl", true },
+        { "lsp/*.fnl", false },
+    },
+
     -- remove stale lua/ files
     clean = false,
+
     compiler = {
         modules = {
             -- enforce unknown variable errors
