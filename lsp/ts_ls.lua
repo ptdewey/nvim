@@ -1,5 +1,10 @@
 return {
-    filetypes = { "typescript", "javascript" },
+    filetypes = {
+        "typescript",
+        "javascript",
+        "typescriptreact",
+        "javascriptreact",
+    },
     settings = {
         implicitProjectConfiguration = {
             checkJs = true,

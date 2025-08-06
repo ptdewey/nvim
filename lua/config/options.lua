@@ -54,6 +54,9 @@ local options = {
     -- different colors for different mods (green: new, red: deletes, blue: changes?)
     signcolumn = "auto", -- alterntive: "auto, number, yes"
     background = "dark", -- alternative: "light"
+
+    -- ctags
+    tags = "./tags,tags;$HOME",
 }
 
 -- custom variables

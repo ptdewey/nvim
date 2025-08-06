@@ -2,6 +2,9 @@ return {
     {
         "ibhagwan/fzf-lua",
         event = "VeryLazy",
+        -- dependencies = {
+        --     "elanmed/fzf-lua-frecency.nvim",
+        -- },
         config = function()
             local fzf = require("fzf-lua")
             fzf.setup({
@@ -77,6 +80,15 @@ return {
                         },
                     },
                 })
+                -- require("fzf-lua-frecency").frecency({
+                --     cwd_only = true,
+                --     winopts = {
+                --         preview = {
+                --             horizontal = "right:65%",
+                --             layout = "horizontal",
+                --         },
+                --     },
+                -- })
             end, { desc = "[S]earch [F]iles" })
 
             vim.keymap.set("n", "<leader>d", function()
@@ -85,9 +97,9 @@ return {
                 })
             end, { desc = "Search [D]iagnostics" })
 
-            vim.keymap.set("n", "<leader>b", function()
+            vim.keymap.set("n", "<leader>j", function()
                 fzf.buffers()
-            end, { desc = "Browse [B]uffers" })
+            end, { desc = "Browse Buffers" })
 
             vim.keymap.set("n", "<leader>tt", function()
                 fzf.grep_project({

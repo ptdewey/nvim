@@ -9,19 +9,11 @@ return {
         },
         build = "go install github.com/lotusirous/gostdsym/stdsym@latest",
         cmd = { "GoDoc" },
-        ft = { "go" },
         config = function()
             require("godoc").setup({
                 window = { type = "vsplit" },
                 picker = { type = "fzf_lua" },
             })
-
-            vim.keymap.set(
-                "n",
-                "<leader>cg",
-                "<cmd>GoDoc<CR>",
-                { desc = "View [G]o Docs" }
-            )
         end,
     },
 
