@@ -1,7 +1,6 @@
 return {
     {
         "ibhagwan/fzf-lua",
-        event = "VeryLazy",
         -- dependencies = {
         --     "elanmed/fzf-lua-frecency.nvim",
         -- },
@@ -64,9 +63,14 @@ return {
 
             vim.keymap.set("n", "<leader>sh", function()
                 fzf.help_tags({
-                    winopts = { preview = { horizontal = "right:60%" } },
+                    winopts = {
+                        preview = {
+                            horizontal = "right:65%",
+                            layout = "horizontal",
+                        },
+                    },
                     actions = {
-                        ["default"] = fzf.actions.buf_tabedit,
+                        ["default"] = fzf.actions.buf_edit,
                     },
                 })
             end, { desc = "[S]earch [H]elp tags" })

@@ -37,6 +37,7 @@ return {
     {
         "williamboman/mason.nvim",
         cmd = { "Mason" },
+        lazy = true,
         config = function()
             ---@diagnostic disable-next-line: missing-fields
             require("mason").setup({})

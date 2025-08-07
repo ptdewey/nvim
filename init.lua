@@ -40,7 +40,10 @@ vim.loader.enable()
 require("hotpot")
 
 -- load plugins outlined in 'plugin' directory with lazy
-require("lazy").setup({ { "rktjmp/hotpot.nvim" }, { import = "plugin" } }, {
+require("lazy").setup({
+    { "rktjmp/hotpot.nvim" },
+    { import = "plugin" },
+}, {
     ui = { border = "rounded" },
     performance = {
         rtp = {

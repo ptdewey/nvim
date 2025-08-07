@@ -2,16 +2,47 @@ return {
     {
         "echasnovski/mini.nvim",
         version = false,
-        event = "VeryLazy",
         config = function()
             -- better `a/i` text objects
-            require("mini.ai").setup({})
+            require("mini.ai").setup()
             -- better f/t motions
-            require("mini.jump").setup({})
-            require("mini.icons").setup({})
-            require("mini.tabline").setup({})
-            require("mini.visits").setup({})
+            require("mini.jump").setup()
+            require("mini.jump2d").setup({ mappings = { start_jumping = "s" } })
+            require("mini.icons").setup()
+            require("mini.tabline").setup()
+            require("mini.visits").setup()
             -- require("mini.pairs").setup({}) -- NOTE: doesn't function as well as autopairs
+            --
+
+            local starter = require("mini.starter")
+            starter.setup({
+                items = {
+                    {
+                        name = "Find Files",
+                        action = [[lua require("fzf-lua").files({winopts={preview={horizontal="right:65%",layout="horizontal"}}})]],
+                        section = "Quick Actions",
+                    },
+                    {
+                        name = "Search Directories",
+                        action = "Pathfinder select",
+                        section = "Quick Actions",
+                    },
+                    {
+                        name = "Lazy",
+                        action = "Lazy",
+                        section = "Quick Actions",
+                    },
+                    {
+                        name = "Profile",
+                        action = "Lazy profile",
+                        section = "Quick Actions",
+                    },
+                    starter.sections.recent_files(5, true),
+                    starter.sections.builtin_actions(),
+                },
+                footer = "",
+                silent = false,
+            })
 
             require("mini.hipatterns").setup({
                 highlighters = {
@@ -50,7 +81,7 @@ return {
                     get_git_root(),
                     { filter = "pin" }
                 )
-                for i, pin in ipairs(pins) do
+                for _, pin in ipairs(pins) do
                     if pin == path then
                         require("mini.visits").remove_label("pin", path)
                         return
