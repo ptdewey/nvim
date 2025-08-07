@@ -11,6 +11,7 @@ return {
                     javascriptreact = { "prettierd" },
                     typescriptreact = { "prettierd" },
                     html = { "prettierd" },
+                    css = { "prettierd" },
                     svelte = { "svelte" },
                     go = { "gofmt", "goimports" },
                     rust = { "rustfmt" },
@@ -22,47 +23,21 @@ return {
                     -- ["_"] = { "trim_whitespace" },
                     ["_"] = {},
                 },
+
                 format_on_save = function(bufnr)
-                    if
-                        vim.g.disable_autoformat
-                        or vim.b[bufnr].disable_autoformat
-                    then
-                        return
+                    if not vim.b[bufnr].disable_autoformat then
+                        return { lsp_format = "fallback", timeout_ms = 500 }
                     end
-                    return {
-                        timeout_ms = 500,
-                        -- lsp_format = "never",
-                        lsp_format = "fallback",
-                        -- async = true,
-                    }
                 end,
-                formatters = {
-                    stylua = {
-                        -- adjust stylua to use custom config file
-                        append_args = {
-                            "--config-path",
-                            vim.fn.expand("$HOME/.config/nvim/.stylua.toml"),
-                        },
-                    },
-                },
             })
         end,
+
         vim.api.nvim_create_user_command("ConformDisable", function(args)
-            if args.bang then
-                -- FormatDisable! will disable formatting just for this buffer
-                vim.b.disable_autoformat = true
-            else
-                vim.g.disable_autoformat = true
-            end
-        end, {
-            desc = "Disable autoformat-on-save",
-            bang = true,
-        }),
+            vim.b.disable_autoformat = true
+        end, { desc = "Disable autoformat-on-save" }),
+
         vim.api.nvim_create_user_command("ConformEnable", function()
             vim.b.disable_autoformat = false
-            vim.g.disable_autoformat = false
-        end, {
-            desc = "Re-enable autoformat-on-save",
-        }),
+        end, { desc = "Re-enable autoformat-on-save" }),
     },
 }

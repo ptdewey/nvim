@@ -51,9 +51,7 @@ return {
             })
 
             local get_git_root = function()
-                local result = vim.fn.systemlist(
-                    "git rev-parse --show-toplevel 2>/dev/null"
-                )
+                local result = vim.fn.systemlist("git rev-parse --show-toplevel 2>/dev/null")
                 if vim.v.shell_error == 0 and #result > 0 then
                     return result[1]
                 end
@@ -61,10 +59,8 @@ return {
             end
 
             local open_index = function(i, cwd)
-                local pins = require("mini.visits").list_paths(
-                    cwd or get_git_root(),
-                    { filter = "pin" }
-                )
+                local pins =
+                    require("mini.visits").list_paths(cwd or get_git_root(), { filter = "pin" })
                 if #pins >= i then
                     vim.cmd("edit " .. pins[i])
                 else
@@ -77,10 +73,7 @@ return {
                 if path == "" then
                     return
                 end
-                local pins = require("mini.visits").list_paths(
-                    get_git_root(),
-                    { filter = "pin" }
-                )
+                local pins = require("mini.visits").list_paths(get_git_root(), { filter = "pin" })
                 for _, pin in ipairs(pins) do
                     if pin == path then
                         require("mini.visits").remove_label("pin", path)
@@ -98,10 +91,7 @@ return {
 
             vim.keymap.set("n", "<C-e>", function()
                 -- TODO: keybinds for removing from list (<C-x>)?
-                require("mini.visits").select_path(
-                    get_git_root(),
-                    { filter = "pin" }
-                )
+                require("mini.visits").select_path(get_git_root(), { filter = "pin" })
             end, {})
 
             vim.keymap.set("n", "<leader>vv", function()

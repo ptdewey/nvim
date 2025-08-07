@@ -1,10 +1,5 @@
 -- buffer switching
-vim.keymap.set(
-    "n",
-    "<tab>",
-    ":bnext <CR>zz",
-    { noremap = true, desc = "tab to switch buffers" }
-)
+vim.keymap.set("n", "<tab>", ":bnext <CR>zz", { noremap = true, desc = "tab to switch buffers" })
 vim.keymap.set(
     "n",
     "<S-tab>",
@@ -13,44 +8,14 @@ vim.keymap.set(
 )
 
 -- window movement
-vim.keymap.set(
-    "n",
-    "<A-h>",
-    "<C-w>h",
-    { noremap = true, desc = "move to left window" }
-)
-vim.keymap.set(
-    "n",
-    "<A-l>",
-    "<C-w>l",
-    { noremap = true, desc = "move to right window" }
-)
-vim.keymap.set(
-    "n",
-    "<A-j>",
-    "<C-w>j",
-    { noremap = true, desc = "move to lower window" }
-)
-vim.keymap.set(
-    "n",
-    "<A-k>",
-    "<C-w>k",
-    { noremap = true, desc = "move to upper window" }
-)
+vim.keymap.set("n", "<A-h>", "<C-w>h", { noremap = true, desc = "move to left window" })
+vim.keymap.set("n", "<A-l>", "<C-w>l", { noremap = true, desc = "move to right window" })
+vim.keymap.set("n", "<A-j>", "<C-w>j", { noremap = true, desc = "move to lower window" })
+vim.keymap.set("n", "<A-k>", "<C-w>k", { noremap = true, desc = "move to upper window" })
 
 -- move down visual lines
-vim.keymap.set(
-    { "n", "x" },
-    "k",
-    "v:count == 0 ? 'gk' : 'k'",
-    { expr = true, silent = true }
-)
-vim.keymap.set(
-    { "n", "x" },
-    "j",
-    "v:count == 0 ? 'gj' : 'j'",
-    { expr = true, silent = true }
-)
+vim.keymap.set({ "n", "x" }, "k", "v:count == 0 ? 'gk' : 'k'", { expr = true, silent = true })
+vim.keymap.set({ "n", "x" }, "j", "v:count == 0 ? 'gj' : 'j'", { expr = true, silent = true })
 
 -- recenter cursor upon page navigation
 vim.keymap.set("n", "<C-b>", "<C-b>zz", { desc = "Move up a page" })
@@ -68,26 +33,11 @@ vim.keymap.set("n", "g*", "g*zz", { desc = "Recenter on search" })
 vim.keymap.set("n", "g#", "g#zz", { desc = "Recenter on search" })
 
 -- allow moving of highlighted blocks
-vim.keymap.set(
-    "x",
-    "J",
-    ":m '>+1<CR>gv=gv",
-    { desc = "Move highlighted block down 1 line" }
-)
-vim.keymap.set(
-    "x",
-    "K",
-    ":m '<-2<CR>gv=gv",
-    { desc = "Move highlighted block up 1 line" }
-)
+vim.keymap.set("x", "J", ":m '>+1<CR>gv=gv", { desc = "Move highlighted block down 1 line" })
+vim.keymap.set("x", "K", ":m '<-2<CR>gv=gv", { desc = "Move highlighted block up 1 line" })
 
 -- misc
-vim.keymap.set(
-    "t",
-    "<Esc>",
-    "<C-\\><C-n>",
-    { nowait = true, desc = "Exit terminal insert mode" }
-)
+vim.keymap.set("t", "<Esc>", "<C-\\><C-n>", { nowait = true, desc = "Exit terminal insert mode" })
 
 vim.keymap.set(
     "n",
@@ -132,12 +82,7 @@ vim.keymap.set(
     { desc = "Open floating diagnostic msg" }
 )
 
-vim.keymap.set(
-    "n",
-    "<leader>q",
-    vim.diagnostic.setloclist,
-    { desc = "Open diagnostics List" }
-)
+vim.keymap.set("n", "<leader>q", vim.diagnostic.setloclist, { desc = "Open diagnostics List" })
 
 -- LSP settings
 vim.keymap.set("n", "gd", function() -- TODO: override this in fzf_lua config
@@ -146,18 +91,8 @@ vim.keymap.set("n", "gd", function() -- TODO: override this in fzf_lua config
 end, { desc = "LSP jump to definition" })
 
 -- Surround without surround
-vim.keymap.set(
-    "x",
-    "'",
-    [[:s/\%V\(.*\)\%V/'\1'/ <CR>]],
-    { desc = "Surround selection with ''" }
-)
-vim.keymap.set(
-    "x",
-    '"',
-    [[:s/\%V\(.*\)\%V/"\1"/ <CR>]],
-    { desc = 'Surround selection with ""' }
-)
+vim.keymap.set("x", "'", [[:s/\%V\(.*\)\%V/'\1'/ <CR>]], { desc = "Surround selection with ''" })
+vim.keymap.set("x", '"', [[:s/\%V\(.*\)\%V/"\1"/ <CR>]], { desc = 'Surround selection with ""' })
 vim.keymap.set(
     "x",
     "<leader>s'",
@@ -240,6 +175,12 @@ vim.keymap.set(
     { desc = "Treesitter [I]nspect", noremap = true }
 )
 
+-- Remove default binds that collide with `gr`
+vim.keymap.del({ "n", "x" }, "gra")
+vim.keymap.del("n", "grn")
+vim.keymap.del("n", "gri")
+vim.keymap.del("n", "grr")
+
 vim.keymap.set("n", "<leader>rn", vim.lsp.buf.rename, { desc = "[R]e[n]ame" })
 
 vim.keymap.set("n", "<leader>k", function()
@@ -250,12 +191,7 @@ vim.keymap.set("i", "<C-k>", function()
     vim.lsp.buf.signature_help()
 end, { desc = "LSP: Signature Documentation" })
 
-vim.keymap.set(
-    "n",
-    "gD",
-    vim.lsp.buf.declaration,
-    { desc = "[G]oto [D]eclaration" }
-)
+vim.keymap.set("n", "gD", vim.lsp.buf.declaration, { desc = "[G]oto [D]eclaration" })
 
 vim.keymap.set(
     "n",
