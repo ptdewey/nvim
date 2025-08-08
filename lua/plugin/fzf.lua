@@ -1,3 +1,4 @@
+---@diagnostic disable: missing-fields
 return {
     {
         "ibhagwan/fzf-lua",
@@ -101,7 +102,7 @@ return {
                 })
             end, { desc = "Search [D]iagnostics" })
 
-            vim.keymap.set("n", "<leader>j", function()
+            vim.keymap.set("n", "<leader>b", function()
                 fzf.buffers()
             end, { desc = "Browse Buffers" })
 
@@ -109,23 +110,13 @@ return {
                 fzf.grep_project({
                     search = [[\b(TODO|PERF|NOTE|FIX|DOC|REFACTOR|BUG):]],
                     no_esc = true,
-                    winopts = {
-                        preview = {
-                            vertical = "down:35%",
-                            layout = "vertical",
-                        },
-                    },
+                    winopts = { preview = { vertical = "down:35%", layout = "vertical" } },
                 })
             end, { desc = "Search [T]odo", noremap = true })
 
             vim.keymap.set("n", "<leader>ca", function()
                 fzf.lsp_code_actions({
-                    winopts = {
-                        preview = {
-                            vertical = "down:60%",
-                            layout = "vertical",
-                        },
-                    },
+                    winopts = { preview = { vertical = "down:60%", layout = "vertical" } },
                 })
             end, { desc = "[C]ode [A]ction preview" })
 

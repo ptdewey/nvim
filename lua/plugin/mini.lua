@@ -12,7 +12,20 @@ return {
             require("mini.tabline").setup()
             require("mini.visits").setup()
             -- require("mini.pairs").setup({}) -- NOTE: doesn't function as well as autopairs
-            --
+
+            require("mini.notify").setup({
+                window = {
+                    config = function()
+                        local has_statusline = vim.o.laststatus > 0
+                        local pad = vim.o.cmdheight + (has_statusline and 1 or 0)
+                        return { anchor = "SE", col = vim.o.columns, row = vim.o.lines - pad }
+                    end,
+                },
+            })
+
+            require("mini.diff").setup({
+                view = { signs = { add = "+", change = "~", delete = "-" } },
+            })
 
             local starter = require("mini.starter")
             starter.setup({
@@ -27,16 +40,8 @@ return {
                         action = "Pathfinder select",
                         section = "Quick Actions",
                     },
-                    {
-                        name = "Lazy",
-                        action = "Lazy",
-                        section = "Quick Actions",
-                    },
-                    {
-                        name = "Profile",
-                        action = "Lazy profile",
-                        section = "Quick Actions",
-                    },
+                    { name = "Lazy", action = "Lazy", section = "Quick Actions" },
+                    { name = "Profile", action = "Lazy profile", section = "Quick Actions" },
                     starter.sections.recent_files(5, true),
                     starter.sections.builtin_actions(),
                 },

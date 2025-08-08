@@ -244,3 +244,6 @@ leasable
 nonleasable
 LSP
 entrypoint
+formatter
+Resize
+leasability

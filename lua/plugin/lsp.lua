@@ -26,9 +26,7 @@ return {
 
         config = function(_, opts)
             for server, config in pairs(opts.servers) do
-                config.capabilities = require("blink.cmp").get_lsp_capabilities(
-                    config.capabilities
-                )
+                config.capabilities = require("blink.cmp").get_lsp_capabilities(config.capabilities)
                 require("lspconfig")[server].setup(config)
             end
         end,
@@ -41,16 +39,6 @@ return {
         config = function()
             ---@diagnostic disable-next-line: missing-fields
             require("mason").setup({})
-        end,
-    },
-
-    {
-        -- useful status updates for LSP
-        "j-hui/fidget.nvim",
-        event = "LspAttach",
-        tag = "legacy",
-        config = function()
-            require("fidget").setup({})
         end,
     },
 

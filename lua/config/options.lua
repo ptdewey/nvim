@@ -57,6 +57,9 @@ local options = {
 
     -- ctags
     tags = "./tags,tags;$HOME",
+
+    -- swapfile
+    swapfile = false,
 }
 
 -- custom variables

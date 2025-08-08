@@ -5,6 +5,7 @@ return {
             "L3MON4D3/LuaSnip",
             "mikavilpas/blink-ripgrep.nvim",
         },
+        event = "VeryLazy",
 
         version = "1.*",
         opts = {
@@ -57,14 +58,10 @@ return {
                         components = {
                             label = {
                                 text = function(ctx)
-                                    return require("colorful-menu").blink_components_text(
-                                        ctx
-                                    )
+                                    return require("colorful-menu").blink_components_text(ctx)
                                 end,
                                 highlight = function(ctx)
-                                    return require("colorful-menu").blink_components_highlight(
-                                        ctx
-                                    )
+                                    return require("colorful-menu").blink_components_highlight(ctx)
                                 end,
                             },
                             source_name = {
