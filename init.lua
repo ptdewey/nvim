@@ -29,8 +29,10 @@ local function ensure_installed(plugin, branch)
     end
     return repo_path
 end
+
 local lazy_path = ensure_installed("folke/lazy.nvim", "stable")
 local hotpot_path = ensure_installed("rktjmp/hotpot.nvim", "v0.14.8")
+
 -- As per Lazy's install instructions, but also include hotpot
 vim.opt.runtimepath:prepend({ hotpot_path, lazy_path })
 
@@ -40,10 +42,11 @@ vim.loader.enable()
 require("hotpot")
 
 -- load plugins outlined in 'plugin' directory with lazy
-require("lazy").setup({
+local plugins = {
     { "rktjmp/hotpot.nvim" },
     { import = "plugin" },
-}, {
+}
+require("lazy").setup(plugins, {
     ui = { border = "rounded" },
     performance = {
         rtp = {
@@ -66,3 +69,5 @@ require("config.options")
 require("autocmds")
 
 require("config.maps")
+require("config.opts")
+-- require("plugin.mini-better")

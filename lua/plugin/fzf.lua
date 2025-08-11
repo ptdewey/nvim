@@ -162,6 +162,13 @@ return {
             vim.keymap.set("n", "<leader>sr", function()
                 fzf.lsp_references()
             end, { noremap = true, desc = "[S]earch [R]eferences" })
+
+            vim.keymap.set(
+                "n",
+                "<leader>hh",
+                fzf.highlights,
+                { noremap = true, desc = "Search [H]ighlights" }
+            )
         end,
     },
 

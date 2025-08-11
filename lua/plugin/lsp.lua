@@ -2,11 +2,7 @@ return {
     {
         "neovim/nvim-lspconfig",
         event = { "BufReadPost", "BufNewFile", "FileType" },
-        dependencies = {
-            "williamboman/mason.nvim",
-            "saghen/blink.cmp",
-        },
-
+        dependencies = { "saghen/blink.cmp" },
         opts = {
             servers = {
                 lua_ls = vim.lsp.config["lua_ls"],
@@ -23,8 +19,11 @@ return {
                 fennel_ls = {}, --vim.lsp.config["fennel_ls"],
             },
         },
-
         config = function(_, opts)
+            -- Avoid loading mason
+            -- TODO: load if directory does not exist
+            vim.env.PATH = vim.env.PATH .. ":" .. vim.fn.stdpath("data") .. "/mason/bin"
+
             for server, config in pairs(opts.servers) do
                 config.capabilities = require("blink.cmp").get_lsp_capabilities(config.capabilities)
                 require("lspconfig")[server].setup(config)

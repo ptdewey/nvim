@@ -18,10 +18,7 @@ return {
 
     -- { "ficcdaf/ashen.nvim", priority = 1000 },
 
-    -- {
-    --     "slugbyte/lackluster.nvim",
-    --     priority = 1000,
-    -- },
+    -- { "slugbyte/lackluster.nvim", priority = 1000 },
 
     -- {
     --     "sho-87/kanagawa-paper.nvim",
@@ -35,16 +32,4 @@ return {
     --         })
     --     end,
     -- },
-
-    -- for designing colorschemes
-    {
-        "rktjmp/lush.nvim",
-        cmd = "Lushify",
-    },
-
-    -- for building with lush
-    {
-        "rktjmp/shipwright.nvim",
-        cmd = "Shipwright",
-    },
 }

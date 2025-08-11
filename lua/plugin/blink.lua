@@ -1,9 +1,16 @@
+-- Helper function for using highlights from mini.icons
+local function mini_hl(ctx)
+    local _, hl, _ = require("mini.icons").get("lsp", ctx.kind)
+    return hl
+end
+
 return {
     {
         "saghen/blink.cmp",
         dependencies = {
             "L3MON4D3/LuaSnip",
             "mikavilpas/blink-ripgrep.nvim",
+            "mini.nvim",
         },
         event = "VeryLazy",
 
@@ -30,11 +37,8 @@ return {
                     "hide_documentation",
                 },
                 ["<C-e>"] = { "hide" },
-                ["<Up>"] = { "select_prev", "fallback" },
-                ["<Down>"] = { "select_next", "fallback" },
                 ["<C-n>"] = { "select_next", "fallback_to_mappings" },
                 ["<C-p>"] = { "select_prev", "fallback_to_mappings" },
-                ["<C-l>"] = { "show_signature", "hide_signature", "fallback" },
             },
 
             appearance = {
@@ -44,30 +48,29 @@ return {
             },
 
             completion = {
-                -- (Default) Only show the documentation popup when manually triggered
-                documentation = { auto_show = true },
+                documentation = { auto_show = false },
                 menu = {
                     draw = {
                         align_to = "cursor",
                         columns = {
                             { "label" },
-                            { "kind", "source_name", gap = 1 },
-                            -- { "label_description" },
+                            { "kind_icon", "kind", "source_name", gap = 1 },
                         },
-
                         components = {
-                            label = {
+                            kind_icon = {
                                 text = function(ctx)
-                                    return require("colorful-menu").blink_components_text(ctx)
+                                    local kind_icon, _, _ =
+                                        require("mini.icons").get("lsp", ctx.kind)
+                                    return kind_icon
                                 end,
-                                highlight = function(ctx)
-                                    return require("colorful-menu").blink_components_highlight(ctx)
-                                end,
+                                highlight = mini_hl,
                             },
+                            kind = { highlight = mini_hl },
                             source_name = {
                                 text = function(ctx)
                                     return "[" .. ctx.source_name .. "]"
                                 end,
+                                highlight = mini_hl,
                             },
                         },
                     },
@@ -79,7 +82,6 @@ return {
             -- Default list of enabled providers defined so that you can extend it
             -- elsewhere in your config, without redefining it, due to `opts_extend`
             sources = {
-
                 default = {
                     "lazydev",
                     "lsp",
@@ -87,7 +89,6 @@ return {
                     "snippets",
                     "buffer",
                     "ripgrep",
-                    -- "dictionary",
                 },
 
                 providers = {
@@ -102,7 +103,7 @@ return {
                     },
                     ripgrep = {
                         module = "blink-ripgrep",
-                        name = "Ripgrep",
+                        name = "rg",
                         opts = {
                             backend = {
                                 ripgrep = {
@@ -123,15 +124,6 @@ return {
             fuzzy = { implementation = "prefer_rust_with_warning" },
         },
         opts_extend = { "sources.default" },
-    },
-
-    {
-        "xzbdmw/colorful-menu.nvim",
-        lazy = true,
-        config = function()
-            ---@diagnostic disable-next-line: missing-fields
-            require("colorful-menu").setup({})
-        end,
     },
 
     {

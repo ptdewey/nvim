@@ -1,7 +1,6 @@
 -- theme options
 vim.cmd.colorscheme("darkearth")
 -- vim.cmd.colorscheme("monalisa")
-
 local options = {
     number = true,
     rnu = true,
@@ -16,7 +15,6 @@ local options = {
     fileformats = "unix,dos",
 
     -- tabs
-    -- softtabstop = 4,
     shiftwidth = 4,
     tabstop = 4,
     expandtab = true,
@@ -50,13 +48,8 @@ local options = {
 
     -- aesthetics
     termguicolors = true,
-    -- TODO: highlight numbers instead of showing git signs?
-    -- different colors for different mods (green: new, red: deletes, blue: changes?)
     signcolumn = "auto", -- alterntive: "auto, number, yes"
     background = "dark", -- alternative: "light"
-
-    -- ctags
-    tags = "./tags,tags;$HOME",
 
     -- swapfile
     swapfile = false,
@@ -68,29 +61,17 @@ local vars = {
     netrw_banner = 0,
     netrw_bufsettings = "noma nomod nu nobl nowrap ro",
     netrw_list_hide = [[\(^\|\s\s\)\zs\.\S\+]],
-    -- netrw_list_hide = [[\(^|\s\s\)\zs\.\S\+]], -- TODO: this doesnt seem to work right
     netrw_hide = 1,
     -- have_nerd_font = true,
-
-    -- TODO: probably check if this exists
-    -- python3_host_prog = vim.fn.expand("~/.virtualenvs/neovim/bin/python3"),
 }
 
 -- TODO: replace todo-comments for this
 -- vim.fn.matchadd("DiagnosticInfo", "\\(TODO:\\)")
 -- vim.fn.matchadd("DiagnosticWarn", "\\(HACK:\\)")
 -- vim.fn.matchadd("DiagnosticWarn", "\\(WARN:\\)")
--- vim.fn.matchadd("DiagnosticWarn", "\\(WARNING:\\)")
--- vim.fn.matchadd("DiagnosticWarn", "\\(XXX:\\)")
 -- vim.fn.matchadd("Identifier", "\\(PERF:\\)")
--- vim.fn.matchadd("Identifier", "\\(PERFORMANCE:\\)")
--- vim.fn.matchadd("Identifier", "\\(OPTIM:\\)")
--- vim.fn.matchadd("Identifier", "\\(OPTIMIZE:\\)")
 -- vim.fn.matchadd("DiagnosticHint", "\\(NOTE:\\)")
 -- vim.fn.matchadd("Identifier", "\\(TEST:\\)")
--- vim.fn.matchadd("Identifier", "\\(TESTING:\\)")
--- vim.fn.matchadd("Identifier", "\\(PASSED:\\)")
--- vim.fn.matchadd("Identifier", "\\(FAILED:\\)")
 
 -- LSP diagnostic config
 vim.diagnostic.config({

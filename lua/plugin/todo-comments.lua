@@ -28,37 +28,4 @@ return {
             end, { desc = "Previous todo comment" })
         end,
     },
-
-    {
-        "mbbill/undotree",
-        keys = {
-            {
-                "<leader>ut",
-                ":UndotreeToggle<CR>",
-                desc = "[U]ndoTree [T]oggle",
-            },
-        },
-    },
-
-    {
-        "windwp/nvim-autopairs",
-        event = "InsertEnter",
-        config = function()
-            require("nvim-autopairs").setup({})
-        end,
-    },
-
-    {
-        "lukas-reineke/indent-blankline.nvim",
-        event = { "BufReadPost", "BufNewFile" },
-        main = "ibl",
-        config = function()
-            require("ibl").setup({
-                scope = {
-                    show_start = false,
-                    show_end = false,
-                },
-            })
-        end,
-    },
 }

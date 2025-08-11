@@ -9,9 +9,10 @@ return {
     build = {
         -- { verbose = false, atomic = true },
         { "fnl/**/*macro*.fnl", false },
-        { "fnl/**/*.fnl", false },
+        { "fnl/macro*/**.fnl", false },
+        -- { "fnl/**/*.fnl", true },
         { "fnl/plugin/*.fnl", false },
-        { "lsp/*.fnl", false },
+        { "lsp/*.fnl", true },
     },
 
     -- remove stale lua/ files
