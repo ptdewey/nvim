@@ -1,11 +1,6 @@
 -- buffer switching
-vim.keymap.set("n", "<tab>", ":bnext <CR>zz", { noremap = true, desc = "tab to switch buffers" })
-vim.keymap.set(
-    "n",
-    "<S-tab>",
-    ":bprev <CR>zz",
-    { noremap = true, desc = "shift tab to switch buffers" }
-)
+vim.keymap.set("n", "<tab>", ":bnext <CR>zz", { noremap = true })
+vim.keymap.set("n", "<S-tab>", ":bprev <CR>zz", { noremap = true })
 
 -- window movement
 vim.keymap.set("n", "<A-h>", "<C-w>h", { noremap = true, desc = "move to left window" })
@@ -18,10 +13,10 @@ vim.keymap.set({ "n", "x" }, "k", "v:count == 0 ? 'gk' : 'k'", { expr = true, si
 vim.keymap.set({ "n", "x" }, "j", "v:count == 0 ? 'gj' : 'j'", { expr = true, silent = true })
 
 -- recenter cursor upon page navigation
-vim.keymap.set("n", "<C-b>", "<C-b>zz", { desc = "Move up a page" })
-vim.keymap.set("n", "<C-u>", "<C-u>zz", { desc = "Move up a half page" })
-vim.keymap.set("n", "<C-f>", "<C-f>zz", { desc = "Move down a page" })
 vim.keymap.set("n", "<C-d>", "<C-d>zz", { desc = "Move down a half page" })
+vim.keymap.set("n", "<C-u>", "<C-u>zz", { desc = "Move up a half page" })
+vim.keymap.set("n", "<C-b>", "<C-b>zz", { desc = "Move up a page" })
+vim.keymap.set("n", "<C-f>", "<C-f>zz", { desc = "Move down a page" })
 vim.keymap.set("n", "J", "mzJ`z", { desc = "Stay in place on line merging" })
 
 -- recenter cursor on search
@@ -38,6 +33,7 @@ vim.keymap.set("x", "K", ":m '<-2<CR>gv=gv", { desc = "Move highlighted block up
 
 -- misc
 vim.keymap.set("t", "<Esc>", "<C-\\><C-n>", { nowait = true, desc = "Exit terminal insert mode" })
+vim.keymap.set("n", "s", "<nop>", { silent = true, desc = "Unbind 's'" })
 
 vim.keymap.set(
     "n",
@@ -85,56 +81,10 @@ vim.keymap.set(
 vim.keymap.set("n", "<leader>q", vim.diagnostic.setloclist, { desc = "Open diagnostics List" })
 
 -- LSP settings
-vim.keymap.set("n", "gd", function() -- TODO: override this in fzf_lua config
-    vim.lsp.buf.definition()
-    vim.cmd("normal! zz")
-end, { desc = "LSP jump to definition" })
-
--- Surround without surround
-vim.keymap.set("x", "'", [[:s/\%V\(.*\)\%V/'\1'/ <CR>]], { desc = "Surround selection with ''" })
-vim.keymap.set("x", '"', [[:s/\%V\(.*\)\%V/"\1"/ <CR>]], { desc = 'Surround selection with ""' })
-vim.keymap.set(
-    "x",
-    "<leader>s'",
-    [[:s/\%V\(.*\)\%V/'\1'/ <CR>]],
-    { desc = "[S]urround selection with ''" }
-)
-vim.keymap.set(
-    "x",
-    '<leader>s"',
-    [[:s/\%V\(.*\)\%V/"\1"/ <CR>]],
-    { desc = '[S]urround selection with ""' }
-)
-vim.keymap.set(
-    "x",
-    "<leader>s(",
-    [[:s/\%V\(.*\)\%V/(\1)/ <CR>]],
-    { desc = "[S]urround selection with ()" }
-)
-vim.keymap.set(
-    "x",
-    "<leader>s{",
-    [[:s/\%V\(.*\)\%V/{\1}/ <CR>]],
-    { desc = "[S]urround selection with {}" }
-)
-vim.keymap.set(
-    "x",
-    "<leader>s[",
-    [[:s/\%V\(.*\)\%V/[\1]/ <CR>]],
-    { desc = "[S]urround selection with []" }
-)
-vim.keymap.set(
-    "x",
-    "<leader>s<",
-    [[:s/\%V\(.*\)\%V/<\1>/ <CR>]],
-    { desc = "[S]urround selection with <>" }
-)
-vim.keymap.set(
-    "x",
-    "<leader>s`",
-    [[:s/\%V\(.*\)\%V/`\1`/ <CR>]],
-    { desc = "[S]urround selection with ``" }
-)
+-- vim.keymap.set("n", "gd", function()
+--     vim.lsp.buf.definition()
+--     vim.cmd("normal! zz")
+-- end, { desc = "LSP jump to definition" })
 
 -- Toggle Netrw
 -- vim.keymap.set("n", "<C-n>", function()
@@ -194,28 +144,22 @@ end, { desc = "LSP: Signature Documentation" })
 
 vim.keymap.set("n", "gD", vim.lsp.buf.declaration, { desc = "[G]oto [D]eclaration" })
 
+-- TODO: are these even helpful?
 vim.keymap.set(
     "n",
     "<leader>wa",
     vim.lsp.buf.add_workspace_folder,
     { desc = "[W]orkspace [A]dd Folder" }
 )
-
 vim.keymap.set(
     "n",
     "<leader>wr",
     vim.lsp.buf.remove_workspace_folder,
     { desc = "[W]orkspace [R]emove Folder" }
 )
-
 vim.keymap.set("n", "<leader>wl", function()
     print(vim.inspect(vim.lsp.buf.list_workspace_folders()))
 end, { desc = "[W]orkspace [L]ist Folders" })
-
--- Create a command `:Format` local to the LSP buffer
--- vim.api.nvim_buf_create_user_command(bufnr, "Format", function(_)
---     vim.lsp.buf.format()
--- end, { desc = "Format current buffer with LSP" })
 
 -- Commenting
 vim.keymap.set("n", "<leader>/", function()

@@ -7,11 +7,12 @@ return {
             require("mini.ai").setup()
             -- better f/t motions
             require("mini.jump").setup()
-            require("mini.jump2d").setup({ mappings = { start_jumping = "s" } })
+            require("mini.jump2d").setup()
             require("mini.icons").setup()
             require("mini.tabline").setup()
             -- LSP notifications
             require("mini.notify").setup()
+            require("mini.surround").setup()
 
             -- Git diff column
             require("mini.diff").setup({
@@ -114,13 +115,15 @@ return {
                 require("mini.visits").add_label("pin", path, get_root())
             end, { desc = "[A]dd visit" })
 
-            for i, key in ipairs({ "<C-h>", "<C-j>", "<C-k>", "<C-l>" }) do
+            for i, key in ipairs({ "<C-h>", "<C-j>" }) do
                 vim.keymap.set("n", key, function()
                     open_index(i)
                 end, {})
             end
 
-            vim.keymap.set("n", "<C-e>", function()
+            vim.keymap.set("n", "<C-e>", require("mini.visits").select_path, {})
+
+            vim.keymap.set("n", "<leader>vp", function()
                 require("mini.visits").select_path(get_root(), { filter = "pin" })
             end, {})
         end,

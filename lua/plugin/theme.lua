@@ -3,12 +3,14 @@ return {
         "ptdewey/darkearth-nvim",
         -- dir = "~/projects/darkearth-nvim",
         priority = 1000,
+        lazy = true,
     },
 
     {
         "ptdewey/monalisa-nvim",
         -- dir = "~/projects/monalisa-nvim/",
         priority = 1000,
+        lazy = true,
     },
 
     -- {
