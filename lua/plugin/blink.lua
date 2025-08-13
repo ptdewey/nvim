@@ -12,7 +12,8 @@ return {
             "mikavilpas/blink-ripgrep.nvim",
             "mini.nvim",
         },
-        event = "VeryLazy",
+        -- event = "VeryLazy",
+        event = "InsertEnter",
 
         version = "1.*",
         opts = {

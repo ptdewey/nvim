@@ -38,12 +38,11 @@ return {
                         section = "Quick Actions",
                     },
                     {
-                        name = "Search Directories",
+                        name = "Directories",
                         action = "Pathfinder select",
                         section = "Quick Actions",
                     },
                     { name = "Lazy", action = "Lazy", section = "Quick Actions" },
-                    { name = "Profile", action = "Lazy profile", section = "Quick Actions" },
                     starter.sections.recent_files(5, true),
                     starter.sections.builtin_actions(),
                 },
