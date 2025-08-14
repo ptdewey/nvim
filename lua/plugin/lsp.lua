@@ -1,8 +1,10 @@
 return {
     {
         "neovim/nvim-lspconfig",
-        event = { "BufReadPost", "BufNewFile", "FileType" },
+        event = { "BufReadPost", "BufNewFile" },
         dependencies = { "saghen/blink.cmp" },
+
+        -- TODO: custom lazy loading of plugins
         opts = {
             servers = {
                 lua_ls = vim.lsp.config["lua_ls"],
@@ -19,6 +21,7 @@ return {
                 fennel_ls = {}, --vim.lsp.config["fennel_ls"],
             },
         },
+
         config = function(_, opts)
             -- Avoid loading mason
             -- TODO: load if directory does not exist
@@ -39,6 +42,17 @@ return {
             ---@diagnostic disable-next-line: missing-fields
             require("mason").setup({})
         end,
+    },
+
+    {
+        "folke/lazydev.nvim",
+        ft = "lua",
+        opts = {
+            library = {
+                { path = "${3rd}/luv/library", words = { "vim%.uv" } },
+                "lazy.nvim",
+            },
+        },
     },
 
     {
