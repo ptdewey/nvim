@@ -176,7 +176,7 @@ return {
         "bassamsdata/namu.nvim",
         cmd = { "Namu" },
         keys = {
-            { "<leader>ss", desc = "[S]earch [S]ymbols" },
+            { "<leader>sd", desc = "[S]earch [S]ymbols" },
             { "<leader>sw", desc = "[S]ymbols [W]orkspace" },
             { "<leader>so", desc = "[S]earch [O]pen symbols" },
         },
@@ -186,7 +186,7 @@ return {
                 namu_ctags = { enable = true, options = {} },
             })
 
-            vim.keymap.set("n", "<leader>ss", "<cmd>Namu symbols<cr>", {
+            vim.keymap.set("n", "<leader>sd", "<cmd>Namu symbols<cr>", {
                 desc = "[S]earch [S]ymbols",
                 silent = true,
             })

@@ -5,7 +5,7 @@ return {
         keys = {
             { "<leader>N", desc = "Pathfinder" },
             { "<C-n>", desc = "Pathfinder" },
-            { "<leader>sd", desc = "[S]earch [D]irectories" },
+            { "<leader>sp", desc = "[S]earch [D]irectories" },
         },
         cmd = { "Pathfinder" },
         config = function()
@@ -21,7 +21,7 @@ return {
 
             vim.keymap.set(
                 "n",
-                "<leader>sd",
+                "<leader>sp",
                 require("pathfinder").select_directory,
                 { silent = true }
             )
