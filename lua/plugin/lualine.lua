@@ -1,7 +1,6 @@
 return {
     {
         "ptdewey/lualine.nvim",
-        -- event = "VeryLazy",
         opts = {
             options = {
                 icons_enabled = true,
@@ -16,9 +15,7 @@ return {
                 },
             },
             sections = {
-                lualine_b = {
-                    { "grapple" },
-                },
+                lualine_b = {},
                 lualine_c = {
                     { "filename", path = 5, padding = 1 },
                 },
