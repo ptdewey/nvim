@@ -41,6 +41,8 @@ vim.opt.runtimepath:prepend({ hotpot_path, lazy_path })
 vim.loader.enable()
 require("hotpot")
 
+require("timer").setup()
+
 -- load plugins outlined in 'plugin' directory with lazy
 local plugins = {
     { "rktjmp/hotpot.nvim" },
@@ -70,4 +72,5 @@ require("autocmds")
 
 require("config.maps")
 require("config.opts")
--- require("plugin.mini-better")
+
+-- require("pack")

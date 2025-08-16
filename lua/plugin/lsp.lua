@@ -45,20 +45,9 @@ return {
     },
 
     {
-        "folke/lazydev.nvim",
-        ft = "lua",
-        opts = {
-            library = {
-                { path = "${3rd}/luv/library", words = { "vim%.uv" } },
-                "lazy.nvim",
-            },
-        },
-    },
-
-    {
         -- floating signature help
         "ray-x/lsp_signature.nvim",
-        event = "LspAttach",
+        event = { "InsertEnter" },
         config = function()
             require("lsp_signature").setup({
                 doc_lines = 0,
@@ -68,5 +57,16 @@ return {
                 handler_opts = { border = "rounded" },
             })
         end,
+    },
+
+    {
+        "ptdewey/lazydev.nvim",
+        ft = "lua",
+        opts = {
+            library = {
+                { path = "${3rd}/luv/library", words = { "vim%.uv" } },
+                "lazy.nvim",
+            },
+        },
     },
 }

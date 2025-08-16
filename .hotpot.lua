@@ -1,6 +1,6 @@
 -- By default, the Fennel compiler wont complain if unknown variables are
 -- referenced, we can force a compiler error so we don't try to run faulty code.
-local allowed_globals = { vim }
+local allowed_globals = {}
 for key, _ in pairs(_G) do
     table.insert(allowed_globals, key)
 end
@@ -10,9 +10,9 @@ return {
         -- { verbose = false, atomic = true },
         { "fnl/*macro*.fnl", false },
         { "fnl/macro*/**.fnl", false },
-        { "fnl/**/*.fnl", true },
+        -- { "fnl/**/*.fnl", true },
         { "fnl/plugin/*.fnl", false },
-        { "lsp/*.fnl", true },
+        { "lsp/*.fnl", false },
     },
 
     -- remove stale lua/ files
