@@ -4,7 +4,8 @@ return {
         version = false,
         config = function()
             -- better `a/i` text objects
-            require("mini.ai").setup()
+            require("timer").require_and_setup("mini.ai")
+            -- require("mini.ai").setup()
             -- better f/t motions
             require("mini.jump").setup()
             require("mini.jump2d").setup()

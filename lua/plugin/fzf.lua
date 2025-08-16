@@ -70,9 +70,9 @@ return {
                             layout = "horizontal",
                         },
                     },
-                    actions = {
-                        ["default"] = fzf.actions.buf_edit,
-                    },
+                    -- actions = {
+                    --     ["default"] = fzf.actions.buf_edit,
+                    -- },
                 })
             end, { desc = "[S]earch [H]elp tags" })
 
