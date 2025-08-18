@@ -14,7 +14,10 @@ local function ns_to_ms(nanoseconds)
     return nanoseconds / 1e6
 end
 
--- Core timer function to track plugin loading
+---Core timer function to track plugin loading
+---@param name string
+---@param opts table|function?
+---@return table
 function M.time_plugin(name, opts)
     if not M.enabled then
         -- If profiling is disabled, just execute without timing
@@ -215,7 +218,8 @@ end
 -- Pretty print timing report
 function M.report(opts)
     opts = opts or {}
-    local results = M.get_results(opts)
+    -- local results = M.get_results(opts)
+    local results = require("profiler").get_results(opts)
     local limit = opts.limit or 20
 
     print("\n" .. string.rep("=", 85))
@@ -229,7 +233,7 @@ function M.report(opts)
     local lazy_loaded = 0
 
     for _, data in ipairs(results) do
-        if not data.name:match("^__batch_") then
+        if not data.modname:match("^__batch_") then
             total_plugins = total_plugins + 1
             total_time = total_time + data.total_time
             if data.lazy_load then
@@ -272,7 +276,7 @@ function M.report(opts)
         if i > limit then
             break
         end
-        if data.name:match("^__batch_") then
+        if data.modname:match("^__batch_") then
             goto continue
         end
 
@@ -282,7 +286,7 @@ function M.report(opts)
         print(
             string.format(
                 "%-25s %10.2f %10.2f %10.2f %12s %8s",
-                data.name:sub(1, 25),
+                data.modname:sub(1, 25),
                 data.total_time,
                 data.require_time or 0,
                 data.setup_time or 0,
@@ -338,31 +342,6 @@ function M.time_with_dependencies(name, deps, opts)
     return plugin, loaded_deps
 end
 
--- Export timing data for external analysis
-function M.export_json(filename)
-    filename = filename or "plugin_timings.json"
-    local data = {
-        timestamp = os.time(),
-        timings = M.timings,
-        summary = {
-            total_plugins = vim.tbl_count(M.timings),
-            total_time = vim.tbl_reduce(function(acc, v)
-                return acc + (v.total_time or 0)
-            end, M.timings, 0),
-        },
-    }
-
-    local json_str = vim.fn.json_encode(data)
-    local file = io.open(filename, "w")
-    if file then
-        file:write(json_str)
-        file:close()
-        print(string.format("Timing data exported to %s", filename))
-    else
-        print(string.format("Failed to export to %s", filename))
-    end
-end
-
 -- Clear timing data
 function M.clear()
     M.timings = {}
@@ -395,11 +374,12 @@ function M.setup()
     end, { nargs = "?" })
 
     vim.api.nvim_create_user_command("PluginTimingToggle", function()
-        if M.enabled then
-            M.disable()
+        local p = require("profiler")
+        if p.enabled then
+            p.disable()
             print("Plugin timing disabled")
         else
-            M.enable()
+            p.enable()
             print("Plugin timing enabled")
         end
     end, {})
