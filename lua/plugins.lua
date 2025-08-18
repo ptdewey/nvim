@@ -1,38 +1,25 @@
+local p = require("profiler")
+
 -- NOTE: this should be the default
 vim.o.packpath = vim.fs.joinpath(vim.fn.stdpath("data"), "site")
 
 vim.pack.add({
-    { src = "https://github.com/folke/tokyonight.nvim" },
+    { src = "https://github.com/vague2k/vague.nvim" },
     -- { src = vim.fn.expand("file:///$HOME/projects/pendulum-nvim.git/v2"), name = "pendulum" },
     -- { src = vim.fn.expand("file:///$HOME/projects/darkearth-nvim") },
     -- { src = vim.fn.expand("https://github.com/ptdewey/darkearth-nvim") },
     -- { src = "https://github.com/ptdewey/pendulum-nvim", branch = "v2" },
 })
 
-local p = require("profiler")
+-- p.colorscheme("darkearth")
+p.colorscheme("monalisa")
+-- p.require_and_setup("vague", { bold = false, italic = false })
+-- p.colorscheme("vague")
 
-require("profiler").require_and_setup("tokyonight")
+vim.api.nvim_create_user_command("PackDel", function(args)
+    vim.pack.del({ args.args })
+end, { nargs = 1 })
+
+-- require("profiler").require_and_setup("tokyonight")
 -- p.require_and_setup("tokyonight")
-p.colorscheme("darkearth")
 -- p.colorscheme("tokyonight")
-
--- require("profiler").require_and_setup("pendulum", {
---     -- require("pendulum").setup({
---     log_file = vim.fn.expand("$HOME/.pendulum-log.csv"),
---     timeout_len = 180,
---     timer_len = 120,
---     gen_reports = true,
---     top_n = 5,
---     top_hours = 10,
---     time_zone = "America/New_York",
---     time_format = "12h",
---     report_section_excludes = {},
---     report_excludes = {
---         branch = { "unknown_branch" },
---         directory = {},
---         file = {},
---         filetype = { "unknown_filetype" },
---         project = { "unknown_project" },
---     },
---     lsp_binary = "/home/patrick/projects/pendulum-nvim.git/v2/pendulum-server",
--- })
