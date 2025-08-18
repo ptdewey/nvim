@@ -73,4 +73,4 @@ require("autocmds")
 require("config.maps")
 require("config.opts")
 
--- require("pack")
+require("plugins")

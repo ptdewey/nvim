@@ -10,7 +10,7 @@ return {
         -- { verbose = false, atomic = true },
         { "fnl/*macro*.fnl", false },
         { "fnl/macro*/**.fnl", false },
-        -- { "fnl/**/*.fnl", true },
+        { "fnl/**/*.fnl", true },
         { "fnl/plugin/*.fnl", false },
         { "lsp/*.fnl", false },
     },
