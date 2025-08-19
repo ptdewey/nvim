@@ -1,35 +1,27 @@
 return {
     {
         "neovim/nvim-lspconfig",
-        event = { "BufReadPost", "BufNewFile" },
-        dependencies = { "saghen/blink.cmp" },
-
-        -- TODO: custom lazy loading of plugins
-        opts = {
-            servers = {
-                lua_ls = vim.lsp.config["lua_ls"],
-                gopls = vim.lsp.config["gopls"],
-                ts_ls = vim.lsp.config["ts_ls"],
-                ruff = vim.lsp.config["ruff"],
-                pyright = vim.lsp.config["pyright"],
-                tinymist = vim.lsp.config["tinymist"],
-                harper_ls = vim.lsp.config["harper_ls"],
-                rust_analyzer = vim.lsp.config["rust_analyzer"],
-                svelte = {},
-                nil_ls = {},
-                just = {},
-                fennel_ls = {}, --vim.lsp.config["fennel_ls"],
-            },
-        },
-
-        config = function(_, opts)
+        config = function()
+            -- TODO: figure out if there is a way to keep this up to date with mason install dir (i.e. append all binary names)
+            local servers = {
+                "lua_ls",
+                "gopls",
+                "ts_ls",
+                "ruff",
+                "pyright",
+                "tinymist",
+                "harper_ls",
+                "rust_analyzer",
+                "svelte",
+                "just",
+                "fennel_ls",
+            }
             -- Avoid loading mason
             -- TODO: load if directory does not exist
             vim.env.PATH = vim.env.PATH .. ":" .. vim.fn.stdpath("data") .. "/mason/bin"
 
-            for server, config in pairs(opts.servers) do
-                config.capabilities = require("blink.cmp").get_lsp_capabilities(config.capabilities)
-                require("lspconfig")[server].setup(config)
+            for _, server in ipairs(servers) do
+                vim.lsp.enable(server)
             end
         end,
     },
