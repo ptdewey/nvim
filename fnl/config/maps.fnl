@@ -90,7 +90,7 @@
 (nmap :zS vim.show_pos {:desc :inspect})
 
 ;; delete unwanted lsp binds
-(each [_ key (ipairs [:grn :gri :grr :grt])]
-  (del :n key))
-
-(del [:n :x] :gra)
+; (each [_ key (ipairs [:grn :gri :grr :grt])]
+;   (del :n key))
+; (del [:n :x] :gra)
+; (del :n :grr)

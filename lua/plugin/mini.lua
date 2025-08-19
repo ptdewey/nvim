@@ -2,13 +2,14 @@ return {
     {
         "echasnovski/mini.nvim",
         version = false,
+
         config = function()
             -- better `a/i` text objects
             require("timer").require_and_setup("mini.ai")
             -- require("mini.ai").setup()
             -- better f/t motions
             require("mini.jump").setup()
-            require("mini.jump2d").setup()
+            -- require("mini.jump2d").setup()
             require("mini.icons").setup()
             require("mini.tabline").setup()
             -- LSP notifications

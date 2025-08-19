@@ -3,6 +3,7 @@ return {
         "neovim/nvim-lspconfig",
         config = function()
             -- TODO: figure out if there is a way to keep this up to date with mason install dir (i.e. append all binary names)
+            -- - there are also linters/formatters so this may cause issues (possibly write my own mason fork that stores to separate dirs? -- use mason registry)
             local servers = {
                 "lua_ls",
                 "gopls",

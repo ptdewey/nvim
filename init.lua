@@ -66,11 +66,10 @@ require("lazy").setup(plugins, {
 })
 
 -- load required files
-require("config.keymaps")
+require("config.maps")
 require("config.options")
 require("autocmds")
 
-require("config.maps")
 require("config.opts")
 
 require("plugins")
