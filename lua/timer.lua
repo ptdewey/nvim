@@ -368,11 +368,6 @@ function M.setup()
         M.clear()
     end, {})
 
-    vim.api.nvim_create_user_command("PluginTimingExport", function(args)
-        local filename = args.args ~= "" and args.args or nil
-        M.export_json(filename)
-    end, { nargs = "?" })
-
     vim.api.nvim_create_user_command("PluginTimingToggle", function()
         local p = require("profiler")
         if p.enabled then

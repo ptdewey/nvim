@@ -3,38 +3,42 @@ return {
     {
         "nvim-treesitter/nvim-treesitter",
         build = ":TSUpdate",
+        branch = "main",
         lazy = false,
         config = function()
-            ---@diagnostic disable: missing-fields
-            require("nvim-treesitter.configs").setup({
-                -- ensure_installed = { "markdown", "lua", "go" },
-                auto_install = true,
-                highlight = { enable = true },
-                indent = { enable = true },
-                incremental_selection = {
-                    enable = true,
-                    keymaps = {
-                        init_selection = "<c-space>",
-                        node_incremental = "<c-space>",
-                    },
-                },
-            })
+            vim.api.nvim_create_autocmd("FileType", {
+                callback = function(event)
+                    local ignored_fts = {
+                        "mininotify",
+                        "ministarter",
+                    }
 
-            -- local parser_config =
-            --     require("nvim-treesitter.parsers").get_parser_configs()
-            -- parser_config.plantuml = {
-            --     install_info = {
-            --         url = "https://github.com/ptdewey/tree-sitter-plantuml.git",
-            --         -- url = "/home/patrick/projects/tree-sitter-plantuml.git/main",
-            --         -- location = "plantuml.so",
-            --         files = { "src/parser.c" },
-            --         branch = "main",
-            --     },
-            --     filetype = "plantuml",
-            --     highlight = {
-            --         enable = true,
-            --     },
-            -- }
+                    if vim.tbl_contains(ignored_fts, event.match) then
+                        return
+                    end
+
+                    -- make sure nvim-treesitter is loaded
+                    local ok, nvim_treesitter = pcall(require, "nvim-treesitter")
+
+                    -- no nvim-treesitter, maybe fresh install
+                    if not ok then
+                        return
+                    end
+
+                    local ft = vim.bo[event.buf].ft
+                    local lang = vim.treesitter.language.get_lang(ft)
+                    nvim_treesitter.install({ lang }):await(function(err)
+                        if err then
+                            vim.notify("Treesitter install error for ft: " .. ft .. " err: " .. err)
+                            return
+                        end
+
+                        pcall(vim.treesitter.start, event.buf)
+                        vim.bo.indentexpr = "v:lua.require'nvim-treesitter'.indentexpr()"
+                        vim.wo.foldexpr = "v:lua.vim.treesitter.foldexpr()"
+                    end)
+                end,
+            })
         end,
     },
 }
