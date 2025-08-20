@@ -17,10 +17,8 @@ return {
                         return
                     end
 
-                    -- make sure nvim-treesitter is loaded
                     local ok, nvim_treesitter = pcall(require, "nvim-treesitter")
 
-                    -- no nvim-treesitter, maybe fresh install
                     if not ok then
                         return
                     end

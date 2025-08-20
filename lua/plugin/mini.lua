@@ -33,6 +33,7 @@ return {
             local starter = require("mini.starter")
             starter.setup({
                 items = {
+                    starter.sections.recent_files(5, true),
                     {
                         name = "Find Files",
                         action = [[lua require("fzf-lua").files({winopts={preview={horizontal="right:65%",layout="horizontal"}}})]],
@@ -44,7 +45,6 @@ return {
                         section = "Quick Actions",
                     },
                     { name = "Lazy", action = "Lazy", section = "Quick Actions" },
-                    starter.sections.recent_files(5, true),
                     starter.sections.builtin_actions(),
                 },
                 footer = "",

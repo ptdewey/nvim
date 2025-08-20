@@ -22,14 +22,11 @@
 (nmap :j "v:count == 0 ? 'gj' : 'j'" {:expr true :silent true})
 
 ;; center cursor on navigation
-(nmap :<C-d> :<C-d>zz)
-(nmap :<C-u> :<C-u>zz)
+(each [_ key (ipairs [:<C-d> :<C-u> "{" "}" "(" ")" "*" "#" :g* "g#" :G])]
+  (nmap key (.. key :zz)))
+
 (nmap :n :nzzzv)
 (nmap :N :Nzzzv)
-(nmap "*" :*zz)
-(nmap "#" "#zz")
-(nmap :g* :g*zz)
-(nmap "g#" "g#zz")
 
 ;; move visual selections
 (map :x :J ":m '>+1<CR>gv=gv")
