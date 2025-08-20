@@ -3,8 +3,6 @@ return {
     {
         "ibhagwan/fzf-lua",
         config = function()
-            -- local fzf = require("fzf-lua")
-            -- require("profiler").require_and_setup("fzf-lua", function()
             local fzf = require("fzf-lua")
             fzf.setup({
                 winopts = {
@@ -63,12 +61,6 @@ return {
 
             vim.keymap.set("n", "<leader>sh", function()
                 fzf.help_tags({
-                    winopts = {
-                        preview = {
-                            horizontal = "right:65%",
-                            layout = "horizontal",
-                        },
-                    },
                     -- actions = {
                     --     ["default"] = fzf.actions.buf_edit,
                     -- },
@@ -78,13 +70,14 @@ return {
             vim.keymap.set("n", "<leader>f", function()
                 fzf.files({
                     winopts = {
+                        height = 0.6,
+                        width = 0.5,
                         preview = {
-                            horizontal = "right:65%",
-                            layout = "horizontal",
+                            hidden = true,
                         },
                     },
                 })
-            end, { desc = "[S]earch [F]iles" })
+            end, { desc = "Find [F]iles" })
 
             vim.keymap.set("n", "<leader>d", function()
                 fzf.diagnostics_workspace({
@@ -111,7 +104,16 @@ return {
             end, { desc = "[C]ode [A]ction preview" })
 
             vim.keymap.set("n", "<leader>nf", function()
-                fzf.files({ cwd = "~/notes" })
+                fzf.files({
+                    cwd = "~/notes",
+                    winopts = {
+                        height = 0.6,
+                        width = 0.5,
+                        preview = {
+                            hidden = true,
+                        },
+                    },
+                })
             end, { desc = "Search [N]ote [F]iles" })
 
             vim.keymap.set("n", "<leader>ng", function()
