@@ -58,8 +58,9 @@
 (each [key cmd (pairs {"]d" vim.diagnostic.get_next
                        "[d" vim.diagnostic.get_prev})]
   (nmap key (fn []
-              (let [d (cmd)]
-                (if d (vim.diagnostic.jump {:diagnostic d})
+              (let [d (cmd {:severity {:min vim.diagnostic.severity.WARN}})]
+                (if d
+                    (vim.diagnostic.jump {:diagnostic d})
                     (vim.cmd "normal! zz"))))))
 
 ;; open diagnostics
@@ -89,8 +90,5 @@
 ;; treesitter inspect
 (nmap :zS vim.show_pos {:desc :inspect})
 
-;; delete unwanted lsp binds
-; (each [_ key (ipairs [:grn :gri :grr :grt])]
-;   (del :n key))
-; (del [:n :x] :gra)
-; (del :n :grr)
+;; alternate file
+(nmap :<C-j> :<C-^>)

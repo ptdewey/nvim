@@ -2,10 +2,9 @@
 return {
     {
         "ibhagwan/fzf-lua",
-        -- dependencies = {
-        --     "elanmed/fzf-lua-frecency.nvim",
-        -- },
         config = function()
+            -- local fzf = require("fzf-lua")
+            -- require("profiler").require_and_setup("fzf-lua", function()
             local fzf = require("fzf-lua")
             fzf.setup({
                 winopts = {
@@ -85,15 +84,6 @@ return {
                         },
                     },
                 })
-                -- require("fzf-lua-frecency").frecency({
-                --     cwd_only = true,
-                --     winopts = {
-                --         preview = {
-                --             horizontal = "right:65%",
-                --             layout = "horizontal",
-                --         },
-                --     },
-                -- })
             end, { desc = "[S]earch [F]iles" })
 
             vim.keymap.set("n", "<leader>d", function()
@@ -128,7 +118,7 @@ return {
                 fzf.grep_project({ cwd = "~/notes", hidden = false })
             end, { desc = "[G]rep [N]otes" })
 
-            vim.keymap.set("n", "gr", function()
+            vim.keymap.set("n", "grr", function()
                 fzf.lsp_references({
                     ignore_current_line = true,
                     includeDeclaration = false,
@@ -169,6 +159,7 @@ return {
                 fzf.highlights,
                 { noremap = true, desc = "Search [H]ighlights" }
             )
+            -- end)
         end,
     },
 
@@ -181,7 +172,7 @@ return {
             { "<leader>so", desc = "[S]earch [O]pen symbols" },
         },
         config = function()
-            require("namu").setup({
+            require("timer").require_and_setup("namu", {
                 namu_symbols = { enable = true, options = {} },
                 namu_ctags = { enable = true, options = {} },
             })
