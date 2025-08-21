@@ -11,6 +11,7 @@ return {
         { "fnl/*macro*.fnl", false },
         { "fnl/macro*/**.fnl", false },
         { "fnl/config/*.fnl", false },
+        -- { "fnl/*.fnl", true },
         { "fnl/**/*.fnl", false },
         { "fnl/plugin/*.fnl", false },
         { "lsp/*.fnl", false },

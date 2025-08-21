@@ -1,31 +1,23 @@
-return {
-    {
-        "folke/todo-comments.nvim",
-        dependencies = { "ibhagwan/fzf-lua" },
-        event = { "BufReadPost", "BufNewFile" },
+vim.pack.add({ "https://github.com/folke/todo-comments.nvim" })
 
-        -- TODO: replace plugin with vanilla variant + custom telescope keybind
-        -- https://www.reddit.com/r/neovim/comments/1cmgp9k/comment/l33co7r/?utm_source=share&utm_medium=web3x&utm_name=web3xcss&utm_term=1&utm_content=share_button
+-- TODO: replace plugin with vanilla hl groups
 
-        config = function()
-            require("todo-comments").setup({
-                signs = false,
-                keywords = {
-                    DOC = { alt = { "DOCS" } },
-                    REFACTOR = { color = "warning" },
-                    CHANGE = { color = "warning" },
-                },
-            })
-            -- navigation
-            vim.keymap.set("n", "]t", function()
-                require("todo-comments").jump_next()
-                vim.cmd("normal! zz")
-            end, { desc = "Next todo comment" })
-
-            vim.keymap.set("n", "[t", function()
-                require("todo-comments").jump_prev()
-                vim.cmd("normal! zz")
-            end, { desc = "Previous todo comment" })
-        end,
+require("profiler").require_and_setup("todo-comments", {
+    signs = false,
+    keywords = {
+        DOC = { alt = { "DOCS" } },
+        REFACTOR = { color = "warning" },
+        CHANGE = { color = "warning" },
     },
-}
+})
+
+-- navigation
+vim.keymap.set("n", "]t", function()
+    require("todo-comments").jump_next()
+    vim.cmd("normal! zz")
+end, { desc = "Next todo comment" })
+
+vim.keymap.set("n", "[t", function()
+    require("todo-comments").jump_prev()
+    vim.cmd("normal! zz")
+end, { desc = "Previous todo comment" })

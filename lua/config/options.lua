@@ -1,6 +1,5 @@
 -- theme options
 -- vim.cmd.colorscheme("darkearth")
--- vim.cmd.colorscheme("monalisa")
 
 -- local options = {
 --     number = true,

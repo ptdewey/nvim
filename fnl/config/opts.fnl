@@ -30,7 +30,7 @@
 
 ;; aesthetics
 (o :termguicolors true)
-(o :signcolumn :auto)
+(o :signcolumn :yes)
 (o :background :dark)
 (o :winborder :rounded)
 

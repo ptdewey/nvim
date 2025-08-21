@@ -1,37 +1,21 @@
-return {
-    {
-        "ptdewey/darkearth-nvim",
-        -- dir = "~/projects/darkearth-nvim",
-        priority = 1000,
-        lazy = true,
-    },
+vim.pack.add({
+    { src = "https://github.com/ptdewey/darkearth-nvim" },
+    { src = "https://github.com/ptdewey/monalisa-nvim" },
+    { src = "https://github.com/vague2k/vague.nvim" },
+})
 
-    {
-        "ptdewey/monalisa-nvim",
-        -- dir = "~/projects/monalisa-nvim/",
-        priority = 1000,
-        lazy = true,
-    },
+local p = require("profiler")
 
-    -- {
-    --     "ptdewey/witchesbrew.nvim",
-    --     priority = 1000,
-    -- },
+-- p.require_and_setup("vague", {
+--     bold = false,
+--     italic = false,
+--     on_highlights = function(highlights, colors)
+--         highlights["IblIndent"] = { fg = "#27272a" }
+--         highlights["DiagnosticHint"] = highlights["Comment"]
+--         highlights["DiagnosticVirtualTextHint"] = highlights["DiagnosticHint"]
+--     end,
+-- })
 
-    -- { "ficcdaf/ashen.nvim", priority = 1000 },
-
-    -- { "slugbyte/lackluster.nvim", priority = 1000 },
-
-    -- {
-    --     "sho-87/kanagawa-paper.nvim",
-    --     priority = 1000,
-    --     config = function()
-    --         require("kanagawa-paper").setup({
-    --             undercurl = false,
-    --             commentStyle = { italic = false },
-    --             functionStyle = { italic = false },
-    --             keywordStyle = { italic = false },
-    --         })
-    --     end,
-    -- },
-}
+-- p.colorscheme("vague")
+-- p.colorscheme("darkearth")
+p.colorscheme("monalisa")

@@ -1,3 +1,5 @@
+local M = {}
+
 return {
     settings = {
         Lua = {
@@ -8,9 +10,7 @@ return {
             globals = { "vim", "hs" },
             workspace = {
                 library = {
-                    vim.fn.expand(
-                        "~/.hammerspoon/Spoons/EmmyLua.spoon/annotations"
-                    ),
+                    vim.fn.expand("~/.hammerspoon/Spoons/EmmyLua.spoon/annotations"),
                 },
                 checkThirdParty = false,
             },

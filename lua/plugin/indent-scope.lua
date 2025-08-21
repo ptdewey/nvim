@@ -1,10 +1,7 @@
-return {
-    "lukas-reineke/indent-blankline.nvim",
-    event = { "BufReadPost", "BufNewFile" },
-    main = "ibl",
-    config = function()
-        require("ibl").setup({
-            scope = { enabled = false },
-        })
-    end,
-}
+vim.pack.add({
+    { src = "https://github.com/lukas-reineke/indent-blankline.nvim" },
+})
+
+require("profiler").require_and_setup("ibl", {
+    scope = { enabled = false },
+})
