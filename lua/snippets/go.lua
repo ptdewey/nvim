@@ -3,20 +3,11 @@ local s = ls.s
 local i = ls.insert_node
 local t = ls.text_node
 local d = ls.dynamic_node
-local c = ls.choice_node
-local f = ls.function_node
 local sn = ls.sn
 local fmta = require("luasnip.extras.fmt").fmta
 local rep = require("luasnip.extras").rep
-
 local fmt = require("luasnip.extras.fmt").fmt
 
-local ts_locals = require("nvim-treesitter.locals")
-local ts_utils = require("nvim-treesitter.ts_utils")
-
-local get_node_text = vim.treesitter.get_node_text
-
--- Define transforms from function return type to return value
 local transforms = {
     int = function(_, _)
         return t("0")
@@ -37,13 +28,13 @@ local transforms = {
     -- Types with a "*" mean they are pointers, so return nil
     [function(text)
         return not string.find(text, "*", 1, true)
-            and string.upper(string.sub(text, 1, 1))
-                == string.sub(text, 1, 1)
+            and string.upper(string.sub(text, 1, 1)) == string.sub(text, 1, 1)
     end] = function(_, _)
         return t("nil")
     end,
 
     -- Struct types, non-pointer case
+    -- TODO: improve handling here
     [function(text)
         return string.find(text, "*", 1, true)
     end] = function(_, _)
@@ -77,7 +68,7 @@ local handlers = {
         for idx = 0, count - 1 do
             local matching_node = node:named_child(idx)
             local type_node = matching_node:field("type")[1]
-            table.insert(result, transform(get_node_text(type_node, 0), info))
+            table.insert(result, transform(vim.treesitter.get_node_text(type_node, 0), info))
             if idx ~= count - 1 then
                 table.insert(result, t({ ", " }))
             end
@@ -87,7 +78,7 @@ local handlers = {
     end,
 
     type_identifier = function(node, info)
-        local text = get_node_text(node, 0)
+        local text = vim.treesitter.get_node_text(node, 0)
         return { transform(text, info) }
     end,
 }
@@ -98,17 +89,36 @@ local function_node_types = {
     func_literal = true,
 }
 
-local function go_result_type(info)
-    local cursor_node = ts_utils.get_node_at_cursor()
-    local scope = ts_locals.get_scope_tree(cursor_node, 0)
+-- Helper function to get current node at cursor
+local function get_node_at_cursor()
+    local cursor = vim.api.nvim_win_get_cursor(0)
+    local row, col = cursor[1] - 1, cursor[2] -- Convert to 0-based indexing
 
-    local function_node
-    for _, v in ipairs(scope) do
-        if function_node_types[v:type()] then
-            function_node = v
-            break
-        end
+    local parser = vim.treesitter.get_parser(0, "go")
+    if not parser then
+        return
     end
+    local tree = parser:parse()[1]
+    local root = tree:root()
+
+    return root:named_descendant_for_range(row, col, row, col)
+end
+
+-- Helper function to find enclosing function node
+local function find_enclosing_function(node)
+    local current = node
+    while current do
+        if function_node_types[current:type()] then
+            return current
+        end
+        current = current:parent()
+    end
+    return nil
+end
+
+local function go_result_type(info)
+    local cursor_node = get_node_at_cursor()
+    local function_node = find_enclosing_function(cursor_node)
 
     if not function_node then
         print("Not inside of a function")
@@ -125,6 +135,7 @@ local function go_result_type(info)
             ]
         ]]
     )
+
     for _, node in query:iter_captures(function_node, 0) do
         if handlers[node:type()] then
             return handlers[node:type()](node, info)
@@ -145,7 +156,7 @@ local go_ret_vals = function(args)
     )
 end
 
--- Go snipets
+-- Go snippets
 ls.add_snippets("go", {
     -- function
     s("func", fmt("func {}({}) {}{{\n\t{}\n}}", { i(1), i(2), i(3), i(4) })),
@@ -162,19 +173,8 @@ ls.add_snippets("go", {
     -- error check
     s(
         "err",
-        fmt(
-            "if {} != nil {{\n\treturn {}\n}}\n{}",
-            { i(1, "err"), d(2, go_ret_vals, { 1 }), i(0) }
-        )
+        fmt("if {} != nil {{\n\treturn {}\n}}\n{}", { i(1, "err"), d(2, go_ret_vals, { 1 }), i(0) })
     ),
-
-    -- s(
-    --     "err",
-    --     fmt(
-    --         "{} := {}\nif {} != nil {{\n\treturn {}\n}}\n{}",
-    --         { i(2, "err"), i(1), rep(2), d(3, go_ret_vals, { 2 }), i(0) }
-    --     )
-    -- ),
 
     s("lerr", fmt("log.Println(err){}", { i(0) })),
 

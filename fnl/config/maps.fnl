@@ -22,14 +22,11 @@
 (nmap :j "v:count == 0 ? 'gj' : 'j'" {:expr true :silent true})
 
 ;; center cursor on navigation
-(nmap :<C-d> :<C-d>zz)
-(nmap :<C-u> :<C-u>zz)
+(each [_ key (ipairs [:<C-d> :<C-u> "{" "}" "(" ")" "*" "#" :g* "g#" :G])]
+  (nmap key (.. key :zz)))
+
 (nmap :n :nzzzv)
 (nmap :N :Nzzzv)
-(nmap "*" :*zz)
-(nmap "#" "#zz")
-(nmap :g* :g*zz)
-(nmap "g#" "g#zz")
 
 ;; move visual selections
 (map :x :J ":m '>+1<CR>gv=gv")
@@ -58,8 +55,9 @@
 (each [key cmd (pairs {"]d" vim.diagnostic.get_next
                        "[d" vim.diagnostic.get_prev})]
   (nmap key (fn []
-              (let [d (cmd)]
-                (if d (vim.diagnostic.jump {:diagnostic d})
+              (let [d (cmd {:severity {:min vim.diagnostic.severity.WARN}})]
+                (if d
+                    (vim.diagnostic.jump {:diagnostic d})
                     (vim.cmd "normal! zz"))))))
 
 ;; open diagnostics
@@ -89,8 +87,5 @@
 ;; treesitter inspect
 (nmap :zS vim.show_pos {:desc :inspect})
 
-;; delete unwanted lsp binds
-(each [_ key (ipairs [:grn :gri :grr :grt])]
-  (del :n key))
-
-(del [:n :x] :gra)
+;; alternate file
+(nmap :<C-j> :<C-^>)

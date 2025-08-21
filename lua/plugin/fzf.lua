@@ -2,9 +2,6 @@
 return {
     {
         "ibhagwan/fzf-lua",
-        -- dependencies = {
-        --     "elanmed/fzf-lua-frecency.nvim",
-        -- },
         config = function()
             local fzf = require("fzf-lua")
             fzf.setup({
@@ -64,12 +61,6 @@ return {
 
             vim.keymap.set("n", "<leader>sh", function()
                 fzf.help_tags({
-                    winopts = {
-                        preview = {
-                            horizontal = "right:65%",
-                            layout = "horizontal",
-                        },
-                    },
                     -- actions = {
                     --     ["default"] = fzf.actions.buf_edit,
                     -- },
@@ -79,22 +70,14 @@ return {
             vim.keymap.set("n", "<leader>f", function()
                 fzf.files({
                     winopts = {
+                        height = 0.6,
+                        width = 0.5,
                         preview = {
-                            horizontal = "right:65%",
-                            layout = "horizontal",
+                            hidden = true,
                         },
                     },
                 })
-                -- require("fzf-lua-frecency").frecency({
-                --     cwd_only = true,
-                --     winopts = {
-                --         preview = {
-                --             horizontal = "right:65%",
-                --             layout = "horizontal",
-                --         },
-                --     },
-                -- })
-            end, { desc = "[S]earch [F]iles" })
+            end, { desc = "Find [F]iles" })
 
             vim.keymap.set("n", "<leader>d", function()
                 fzf.diagnostics_workspace({
@@ -121,14 +104,23 @@ return {
             end, { desc = "[C]ode [A]ction preview" })
 
             vim.keymap.set("n", "<leader>nf", function()
-                fzf.files({ cwd = "~/notes" })
+                fzf.files({
+                    cwd = "~/notes",
+                    winopts = {
+                        height = 0.6,
+                        width = 0.5,
+                        preview = {
+                            hidden = true,
+                        },
+                    },
+                })
             end, { desc = "Search [N]ote [F]iles" })
 
             vim.keymap.set("n", "<leader>ng", function()
                 fzf.grep_project({ cwd = "~/notes", hidden = false })
             end, { desc = "[G]rep [N]otes" })
 
-            vim.keymap.set("n", "gr", function()
+            vim.keymap.set("n", "grr", function()
                 fzf.lsp_references({
                     ignore_current_line = true,
                     includeDeclaration = false,
@@ -169,6 +161,7 @@ return {
                 fzf.highlights,
                 { noremap = true, desc = "Search [H]ighlights" }
             )
+            -- end)
         end,
     },
 
@@ -181,7 +174,7 @@ return {
             { "<leader>so", desc = "[S]earch [O]pen symbols" },
         },
         config = function()
-            require("namu").setup({
+            require("timer").require_and_setup("namu", {
                 namu_symbols = { enable = true, options = {} },
                 namu_ctags = { enable = true, options = {} },
             })
