@@ -1,5 +1,6 @@
 vim.pack.add({
-    "https://github.com/andythigpen/nvim-coverage",
+    { src = "https://github.com/andythigpen/nvim-coverage" },
+    { src = "https://github.com/nvim-lua/plenary.nvim" },
 })
 
 local p = require("profiler")
