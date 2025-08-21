@@ -2,6 +2,10 @@ vim.pack.add({
     { src = "https://github.com/nvim-treesitter/nvim-treesitter", version = "main" },
 })
 
+require("profiler").require_and_setup("nvim-treesitter", {
+    install_dir = vim.fn.stdpath("data") .. "/site",
+})
+
 vim.api.nvim_create_autocmd("FileType", {
     callback = function(event)
         local ignored_fts = {
