@@ -24,6 +24,7 @@ p.require_and_setup("mini.diff", {
     view = {
         style = "sign",
         signs = { add = "+", change = "~", delete = "-" },
+        priority = 10,
     },
 })
 

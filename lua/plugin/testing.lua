@@ -1,6 +1,7 @@
 vim.pack.add({
     { src = "https://github.com/andythigpen/nvim-coverage" },
     { src = "https://github.com/nvim-lua/plenary.nvim" },
+    { src = "https://github.com/vim-test/vim-test" },
 })
 
 local p = require("profiler")
@@ -15,6 +16,24 @@ p.require_and_setup("coverage", {
         },
     },
 })
+
+-- vim-test config
+-- vim.g["test#strategy"] = "neovim"
+-- vim.g["test#go#gotest#options"] = "-cover -coverprofile=cover.out"
+
+vim.g["test#custom_transformations"] = {
+    cover = function(cmd)
+        if string.match(cmd, "go test") then
+            return cmd .. " && go tool cover -func=cover.out"
+        end
+        return cmd
+    end,
+}
+vim.g["test#transformation"] = "cover"
+
+vim.keymap.set("n", "<leader>tn", "<cmd>TestNearest<CR>", { desc = "test nearest", silent = true })
+vim.keymap.set("n", "<leader>tr", "<cmd>TestFile<CR>", { desc = "test file", silent = true })
+vim.keymap.set("n", "<leader>ta", "<cmd>TestSuite<CR>", { desc = "test suite", silent = true })
 
 -- TODO: figure out this stuff and replacements
 -- return {
