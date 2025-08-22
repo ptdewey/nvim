@@ -100,9 +100,7 @@ function M.time_plugin(name, opts)
         timing_data.after_time = ns_to_ms(now() - after_start)
         timing_data.phases.after = timing_data.after_time
 
-        if not after_success then
-            timing_data.after_error = after_error
-        end
+        if not after_success then timing_data.after_error = after_error end
     end
 
     timing_data.total_time = ns_to_ms(now() - total_start)
@@ -112,9 +110,7 @@ function M.time_plugin(name, opts)
     M.timings[name] = timing_data
 
     -- Optional callback for real-time monitoring
-    if opts.on_complete then
-        pcall(opts.on_complete, timing_data)
-    end
+    if opts.on_complete then pcall(opts.on_complete, timing_data) end
 
     return plugin
 end
@@ -186,19 +182,13 @@ function M.get_results(opts)
 
     for name, data in pairs(M.timings) do
         -- Skip batch entries if not requested
-        if not opts.include_batches and name:match("^__batch_") then
-            goto continue
-        end
+        if not opts.include_batches and name:match("^__batch_") then goto continue end
 
         -- Filter by minimum time
-        if opts.min_time and data.total_time < opts.min_time then
-            goto continue
-        end
+        if opts.min_time and data.total_time < opts.min_time then goto continue end
 
         -- Filter by plugin name pattern
-        if opts.pattern and not name:match(opts.pattern) then
-            goto continue
-        end
+        if opts.pattern and not name:match(opts.pattern) then goto continue end
 
         table.insert(results, data)
         ::continue::
@@ -236,15 +226,11 @@ function M.report(opts)
         if not data.modname:match("^__batch_") then
             total_plugins = total_plugins + 1
             total_time = total_time + data.total_time
-            if data.lazy_load then
-                lazy_loaded = lazy_loaded + 1
-            end
+            if data.lazy_load then lazy_loaded = lazy_loaded + 1 end
         end
     end
 
-    if total_plugins > 0 then
-        avg_time = total_time / total_plugins
-    end
+    if total_plugins > 0 then avg_time = total_time / total_plugins end
 
     print(
         string.format(
@@ -273,12 +259,8 @@ function M.report(opts)
 
     -- Plugin data
     for i, data in ipairs(results) do
-        if i > limit then
-            break
-        end
-        if data.modname:match("^__batch_") then
-            goto continue
-        end
+        if i > limit then break end
+        if data.modname:match("^__batch_") then goto continue end
 
         local setup_type = data.setup_type or "none"
         local lazy_marker = data.lazy_load and "✓" or ""
@@ -296,12 +278,8 @@ function M.report(opts)
         )
 
         -- Show errors if any
-        if data.error then
-            print(string.format("  ERROR: %s", data.error))
-        end
-        if data.setup_error then
-            print(string.format("  SETUP ERROR: %s", data.setup_error))
-        end
+        if data.error then print(string.format("  ERROR: %s", data.error)) end
+        if data.setup_error then print(string.format("  SETUP ERROR: %s", data.setup_error)) end
 
         ::continue::
     end

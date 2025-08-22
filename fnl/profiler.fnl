@@ -128,7 +128,7 @@
 (fn M.report [opts]
   (let [opts (or opts {})
         results (M.get_results opts)
-        limit (or opts.limit 20)]
+        limit (or opts.limit 50)]
     ;; TODO:
     (print :todo)))
 

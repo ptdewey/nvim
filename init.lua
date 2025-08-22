@@ -22,7 +22,6 @@ require("plugin.theme")
 -- load required files
 require("config.maps")
 require("config.opts")
-require("config.options")
 require("autocmds")
 
 vim.api.nvim_create_user_command("PackDel", function(args)
