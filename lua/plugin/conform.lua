@@ -2,31 +2,40 @@ vim.pack.add({
     "https://github.com/stevearc/conform.nvim",
 })
 
-require("profiler").require_and_setup("conform").setup({
-    formatters_by_ft = {
-        lua = { "stylua" },
-        javascript = { "prettierd" },
-        typescript = { "prettierd" },
-        javascriptreact = { "prettierd" },
-        typescriptreact = { "prettierd" },
-        html = { "prettierd" },
-        css = { "prettierd" },
-        svelte = { "svelte" },
-        go = { "gofmt", "goimports" },
-        rust = { "rustfmt" },
-        python = { "ruff" },
-        typst = { "tinymist" },
-        yaml = { "prettierd" },
-        json = { "prettierd" },
-        fennel = { "fnlfmt" },
-        -- ["_"] = { "trim_whitespace" },
-        ["_"] = {},
-    },
+local group = vim.api.nvim_create_augroup("ConformSetup", { clear = true })
 
-    format_on_save = function(bufnr)
-        if not vim.b[bufnr].disable_autoformat then
-            return { lsp_format = "fallback", timeout_ms = 500 }
-        end
+vim.api.nvim_create_autocmd("BufWritePre", {
+    group = group,
+    callback = function()
+        require("profiler").require_and_setup("conform").setup({
+            formatters_by_ft = {
+                lua = { "stylua" },
+                javascript = { "prettierd" },
+                typescript = { "prettierd" },
+                javascriptreact = { "prettierd" },
+                typescriptreact = { "prettierd" },
+                html = { "prettierd" },
+                css = { "prettierd" },
+                svelte = { "svelte" },
+                go = { "gofmt", "goimports" },
+                rust = { "rustfmt" },
+                python = { "ruff" },
+                typst = { "tinymist" },
+                yaml = { "prettierd" },
+                json = { "prettierd" },
+                fennel = { "fnlfmt" },
+                -- ["_"] = { "trim_whitespace" },
+                ["_"] = {},
+            },
+
+            format_on_save = function(bufnr)
+                if not vim.b[bufnr].disable_autoformat then
+                    return { lsp_format = "fallback", timeout_ms = 500 }
+                end
+            end,
+        })
+        require("conform").format()
+        vim.api.nvim_del_augroup_by_id(group)
     end,
 })
 

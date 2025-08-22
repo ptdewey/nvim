@@ -1,9 +1,8 @@
 vim.pack.add({
-    { src = "https://github.com/saghen/blink.cmp", version = "v1.*"},
-    { src = "https://github.com/L3MON4D3/LuaSnip"},
-    { src = "https://github.com/mikavilpas/blink-ripgrep.nvim"},
+    { src = "https://github.com/saghen/blink.cmp", version = "v1.*" },
+    { src = "https://github.com/L3MON4D3/LuaSnip" },
+    { src = "https://github.com/mikavilpas/blink-ripgrep.nvim" },
 })
-
 
 -- Helper function for using highlights from mini.icons
 local function mini_hl(ctx)
@@ -58,8 +57,7 @@ require("profiler").require_and_setup("blink-cmp", {
                 components = {
                     kind_icon = {
                         text = function(ctx)
-                            local kind_icon, _, _ =
-                            require("mini.icons").get("lsp", ctx.kind)
+                            local kind_icon, _, _ = require("mini.icons").get("lsp", ctx.kind)
                             return kind_icon
                         end,
                         highlight = mini_hl,
@@ -120,8 +118,10 @@ require("profiler").require_and_setup("blink-cmp", {
     -- when the Rust fuzzy matcher is not available, by using `implementation = "prefer_rust"`
     --
     -- See the fuzzy documentation for more information
-    fuzzy = { implementation = "prefer_rust_with_warning", prebuilt_binaries = { force_version = "v1.6.0"} },
-
+    fuzzy = {
+        implementation = "prefer_rust_with_warning",
+        prebuilt_binaries = { force_version = "v1.6.0" },
+    },
 })
 -- TODO: figure out how to use this with pack
 -- opts_extend = { "sources.default" }

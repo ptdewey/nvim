@@ -1,12 +1,6 @@
-local options = {
-    tabstop = 2,
-    shiftwidth = 2,
-    commentstring = "// %s",
-}
-
-for k, v in pairs(options) do
-    vim.opt_local[k] = v
-end
+vim.opt_local.tabstop = 2
+vim.opt_local.shiftwidth = 2
+vim.opt_local.commentstring = "// %s"
 
 local function open_pdf()
     local filepath = vim.api.nvim_buf_get_name(0)

@@ -1,11 +1,5 @@
-local options = {
-    tabstop = 2,
-    shiftwidth = 2,
-}
-
-for k, v in pairs(options) do
-    vim.opt_local[k] = v
-end
+vim.opt_local.tabstop = 2
+vim.opt_local.shiftwidth = 2
 
 local filename = vim.fn.expand("%:t")
 if filename == "openapi.yaml" or filename == "openapi.yml" then

@@ -11,12 +11,14 @@ vim.g.maplocalleader = " "
 vim.pack.add({
     { src = "https://github.com/rktjmp/hotpot.nvim", version = "v0.14.8" },
 })
+
 require("hotpot")
 
 -- Can only be loaded after hotpot
 require("timer").setup()
 require("profiler")
 
+-- Load themes first
 require("plugin.theme")
 
 -- load required files
@@ -29,6 +31,7 @@ vim.api.nvim_create_user_command("PackDel", function(args)
 end, { nargs = "+", complete = "packadd" })
 
 vim.api.nvim_create_user_command("PackUpdate", function(args)
+    -- TODO: update all if no args are passed?
     vim.pack.update(args.fargs)
 end, { nargs = "*", complete = "packadd" })
 

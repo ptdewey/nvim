@@ -6,7 +6,6 @@ local p = require("profiler")
 
 -- better `a/i` text objects
 p.require("mini.ai")
--- require("mini.ai").setup()
 -- better f/t motions
 p.require("mini.jump")
 p.require("mini.icons")
@@ -24,7 +23,7 @@ p.require_and_setup("mini.diff", {
     view = {
         style = "sign",
         signs = { add = "+", change = "~", delete = "-" },
-        priority = 10,
+        priority = 49,
     },
 })
 

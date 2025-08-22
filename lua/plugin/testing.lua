@@ -6,21 +6,26 @@ vim.pack.add({
 
 local p = require("profiler")
 
--- TODO: load on custom event where cover.out file exists (or on "Coverage" command)
-p.require_and_setup("coverage", {
-    auto_reload = true,
-    commands = true,
-    lang = {
-        go = {
-            coverage_file = "cover.out",
-        },
-    },
-})
+-- TODO: lazy load
+local coverage_loaded = false
+vim.api.nvim_create_user_command("Coverage", function()
+    if not coverage_loaded then
+        p.require_and_setup("coverage", {
+            auto_reload = true,
+            commands = true,
+            lang = {
+                go = {
+                    coverage_file = "cover.out",
+                },
+            },
+        })
+    end
+    vim.cmd("Coverage")
+end, {})
 
 -- vim-test config
--- vim.g["test#strategy"] = "neovim"
--- vim.g["test#go#gotest#options"] = "-cover -coverprofile=cover.out"
-
+vim.g["test#strategy"] = "neovim"
+vim.g["test#go#gotest#options"] = "-cover -coverprofile=cover.out"
 vim.g["test#custom_transformations"] = {
     cover = function(cmd)
         if string.match(cmd, "go test") then

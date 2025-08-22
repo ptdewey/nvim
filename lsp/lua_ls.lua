@@ -1,5 +1,3 @@
-local M = {}
-
 return {
     settings = {
         Lua = {

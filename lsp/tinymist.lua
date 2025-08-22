@@ -1,7 +1,6 @@
 return {
     -- NOTE: as long as lspconfig is being used, cmd is likely not necesary
     -- cmd = { "tinymist" },
-
     filetypes = { "typst" },
     settings = {
         exportPdf = "onSave",

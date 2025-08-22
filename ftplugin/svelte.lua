@@ -1,10 +1,2 @@
--- svelte filetype specific options
-local options = {
-    tabstop = 2,
-    shiftwidth = 2,
-}
-
--- apply options
-for k, v in pairs(options) do
-    vim.opt_local[k] = v
-end
+vim.opt_local.tabstop = 2
+vim.opt_local.shiftwidth = 2
