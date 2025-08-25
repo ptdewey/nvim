@@ -20,6 +20,7 @@ local servers = {
     "rust_analyzer",
     "svelte",
     "just",
+    "nil_ls",
     "fennel_ls",
 }
 
@@ -51,8 +52,10 @@ vim.api.nvim_create_autocmd("LspAttach", {
 })
 
 -- TODO: delete command during callback (make a BufEnter group, delete group)
-vim.api.nvim_create_autocmd("BufEnter", {
-    pattern = { "*.lua" },
+local group = vim.api.nvim_create_augroup("LazyDevSetup", {})
+vim.api.nvim_create_autocmd("FileType", {
+    pattern = { "lua" },
+    group = group,
     callback = function()
         p.require_and_setup("lazydev", {
             library = {
@@ -60,5 +63,6 @@ vim.api.nvim_create_autocmd("BufEnter", {
                 "lazy.nvim",
             },
         })
+        vim.api.nvim_del_augroup_by_id(group)
     end,
 })

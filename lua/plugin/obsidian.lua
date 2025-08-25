@@ -2,7 +2,7 @@ vim.pack.add({
     { src = "https://github.com/obsidian-nvim/obsidian.nvim" },
 })
 
-local group = vim.api.nvim_create_augroup("Obsidian", { clear = true })
+local group = vim.api.nvim_create_augroup("ObsidianSetup", {})
 
 local function setup()
     vim.api.nvim_del_user_command("Obsidian")
@@ -43,8 +43,8 @@ vim.api.nvim_create_user_command("Obsidian", function()
     vim.cmd("Obsidian")
 end, {})
 
-vim.api.nvim_create_autocmd("BufEnter", {
-    pattern = { "*.md" },
-    group = "Obsidian",
+vim.api.nvim_create_autocmd("FileType", {
+    pattern = { "markdown" },
+    group = group,
     callback = setup,
 })
