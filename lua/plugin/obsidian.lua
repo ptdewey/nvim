@@ -38,10 +38,10 @@ local function setup()
     })
 end
 
-vim.api.nvim_create_user_command("Obsidian", function()
+vim.api.nvim_create_user_command("Obsidian", function(args)
     setup()
-    vim.cmd("Obsidian")
-end, {})
+    vim.cmd("Obsidian " .. args.args)
+end, { nargs = "?" })
 
 vim.api.nvim_create_autocmd("FileType", {
     pattern = { "markdown" },

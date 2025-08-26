@@ -22,6 +22,7 @@ local servers = {
     "just",
     "nil_ls",
     "fennel_ls",
+    "jsonls",
 }
 
 -- Avoid loading mason

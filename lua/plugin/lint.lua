@@ -6,6 +6,7 @@ vim.pack.add({
 require("profiler").require("lint").linters_by_ft = {
     go = { "golangcilint" },
     sh = { "shellcheck" },
+    bash = { "shellcheck" },
     lua = { "selene" },
 }
 
