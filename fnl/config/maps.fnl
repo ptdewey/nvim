@@ -72,6 +72,8 @@
 (nmap :wa vim.lsp.buf.add_workspace_folder {:desc "workspace add dir"})
 (nmap :wr vim.lsp.buf.remove_workspace_folder {:desc "workspace remove dir"})
 (nmap :wl vim.lsp.buf.list_workspace_folders {:desc "workspace list dirs"})
+(nmap :gt (fn [] (vim.lsp.buf.type_definition) (vim.cmd "normal! zz"))
+      {:desc "goto type definition"})
 
 ;; paste/delete w/o yank
 (vmap :<leader>d (fn [] (vim.cmd "normal! \"_d")) {:desc :_d})

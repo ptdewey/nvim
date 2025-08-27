@@ -2,11 +2,13 @@ vim.pack.add({
     { src = "https://github.com/bassamsdata/namu.nvim" },
 })
 
--- namu
-require("profiler").require_and_setup("namu", {
-    namu_symbols = { enable = true, options = {} },
-    namu_ctags = { enable = true, options = {} },
-})
+vim.api.nvim_create_user_command("Namu", function(args)
+    require("profiler").require_and_setup("namu", {
+        namu_symbols = { enable = true, options = {} },
+        namu_ctags = { enable = true, options = {} },
+    })
+    vim.cmd("Namu" .. args.args)
+end, { nargs = "?" })
 
 vim.keymap.set("n", "<leader>sd", "<cmd>Namu symbols<cr>", {
     desc = "[S]earch [S]ymbols",
