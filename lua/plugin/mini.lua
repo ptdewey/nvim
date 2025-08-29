@@ -1,5 +1,5 @@
 vim.pack.add({
-    { src = "https://github.com/echasnovski/mini.nvim" },
+    { src = "https://github.com/nvim-mini/mini.nvim" },
 })
 
 local p = require("profiler")
