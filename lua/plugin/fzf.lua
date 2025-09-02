@@ -91,7 +91,7 @@ end, { desc = "Browse Buffers" })
 
 vim.keymap.set("n", "<leader>tt", function()
     fzf.grep_project({
-        search = [[\b(TODO|PERF|NOTE|FIX|DOC|REFACTOR|BUG):]],
+        search = [[\b(TODO|PERF|NOTE|FIX|FIXME|DOC|REFACTOR|BUG):]],
         no_esc = true,
         winopts = { preview = { vertical = "down:35%", layout = "vertical" } },
     })
@@ -151,4 +151,6 @@ vim.keymap.set("n", "<leader>co", function()
     fzf.lsp_outgoing_calls()
 end, { noremap = true, desc = "[C]alls [O]utgoing" })
 
-vim.keymap.set("n", "<leader>hh", fzf.highlights, { noremap = true, desc = "Search [H]ighlights" })
+vim.keymap.set("n", "<leader>hh", fzf.highlights, { desc = "Search [H]ighlights" })
+
+vim.keymap.set("n", "<leader>m", fzf.marks, { desc = "Search Marks" })

@@ -53,9 +53,9 @@ vim.keymap.set("n", "<leader>ta", "<cmd>TestSuite<CR>", { desc = "test suite", s
 --             { "<leader>tc", desc = "[T]oggle [C]overage" },
 --         },
 --         dependencies = {
---             "nvim-neotest/nvim-nio",
 --             "nvim-lua/plenary.nvim",
 --             "nvim-treesitter/nvim-treesitter",
+--             "nvim-neotest/nvim-nio",
 --             "antoinemadec/FixCursorHold.nvim",
 --             {
 --                 "fredrikaverpil/neotest-golang",
