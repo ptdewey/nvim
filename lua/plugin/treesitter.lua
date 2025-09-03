@@ -1,3 +1,4 @@
+---@diagnostic disable: missing-fields
 vim.pack.add({
     { src = "https://github.com/nvim-treesitter/nvim-treesitter", version = "main" },
 })
@@ -35,5 +36,27 @@ vim.api.nvim_create_autocmd("FileType", {
             vim.bo.indentexpr = "v:lua.require'nvim-treesitter'.indentexpr()"
             vim.wo.foldexpr = "v:lua.vim.treesitter.foldexpr()"
         end)
+    end,
+})
+
+vim.api.nvim_create_autocmd("User", {
+    pattern = "TSUpdate",
+    callback = function()
+        require("nvim-treesitter.parsers").asciidoc = {
+            install_info = {
+                url = "https://github.com/cathaysia/tree-sitter-asciidoc",
+                location = "tree-sitter-asciidoc",
+                revision = "fc36cdfc2577c5c64fcb1b1e00c910d572713586",
+                queries = "tree-sitter-asciidoc/queries",
+            },
+        }
+        require("nvim-treesitter.parsers").asciidoc_inline = {
+            install_info = {
+                url = "https://github.com/cathaysia/tree-sitter-asciidoc",
+                location = "tree-sitter-asciidoc_inline",
+                revision = "fc36cdfc2577c5c64fcb1b1e00c910d572713586",
+                queries = "tree-sitter-asciidoc_inline/queries",
+            },
+        }
     end,
 })
