@@ -35,7 +35,6 @@ local function setup()
 end
 
 vim.api.nvim_create_user_command("Obsidian", function(args)
-    vim.api.nvim_del_user_command("Obsidian")
     setup()
     vim.cmd("Obsidian " .. args.args)
 end, { nargs = "?" })

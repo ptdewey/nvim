@@ -69,9 +69,13 @@
 (nmap :<leader>k vim.lsp.buf.signature_help {:desc "signature help"})
 (imap :<C-k> vim.lsp.buf.signature_help)
 (nmap :gD vim.lsp.buf.declaration {:desc "goto declaration"})
-(nmap :wa vim.lsp.buf.add_workspace_folder {:desc "workspace add dir"})
-(nmap :wr vim.lsp.buf.remove_workspace_folder {:desc "workspace remove dir"})
-(nmap :wl vim.lsp.buf.list_workspace_folders {:desc "workspace list dirs"})
+(nmap :<leader>wa vim.lsp.buf.add_workspace_folder {:desc "workspace add dir"})
+(nmap :<leader>wr vim.lsp.buf.remove_workspace_folder
+      {:desc "workspace remove dir"})
+
+(nmap :<leader>wl vim.lsp.buf.list_workspace_folders
+      {:desc "workspace list dirs"})
+
 (nmap :gt (fn [] (vim.lsp.buf.type_definition) (vim.cmd "normal! zz"))
       {:desc "goto type definition"})
 
