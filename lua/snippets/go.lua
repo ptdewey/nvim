@@ -9,10 +9,6 @@ local rep = require("luasnip.extras").rep
 local fmt = require("luasnip.extras.fmt").fmt
 
 local transforms = {
-    int = function(_, _)
-        return t("0")
-    end,
-
     bool = function(_, _)
         return t("false")
     end,
@@ -25,20 +21,106 @@ local transforms = {
         return t("err")
     end,
 
-    -- Types with a "*" mean they are pointers, so return nil
+    -- All numeric types return 0
     [function(text)
-        return not string.find(text, "*", 1, true)
-            and string.upper(string.sub(text, 1, 1)) == string.sub(text, 1, 1)
+        local numeric_types = {
+            "int",
+            "int8",
+            "int16",
+            "int32",
+            "int64",
+            "uint",
+            "uint8",
+            "uint16",
+            "uint32",
+            "uint64",
+            "uintptr",
+            "float32",
+            "float64",
+            "complex64",
+            "complex128",
+            "byte",
+            "rune",
+        }
+        for _, t in ipairs(numeric_types) do
+            if text == t then
+                return true
+            end
+        end
+        return false
+    end] = function(_, _)
+        return t("0")
+    end,
+
+    -- Pointer types (e.g., *MyStruct, *int, etc.)
+    [function(text)
+        return string.match(text, "^%*")
     end] = function(_, _)
         return t("nil")
     end,
 
-    -- Struct types, non-pointer case
-    -- TODO: improve handling here
+    -- Slice types (e.g., []int, []MyStruct)
     [function(text)
-        return string.find(text, "*", 1, true)
+        return string.match(text, "^%[%]")
     end] = function(_, _)
         return t("nil")
+    end,
+
+    -- Map types (e.g., map[string]int)
+    [function(text)
+        return string.match(text, "^map%[")
+    end] = function(_, _)
+        return t("nil")
+    end,
+
+    -- Channel types (e.g., chan int, <-chan int, chan<- int)
+    [function(text)
+        return string.match(text, "chan")
+            or string.match(text, "^<%-chan")
+            or string.match(text, "chan<%-")
+    end] = function(_, _)
+        return t("nil")
+    end,
+
+    -- Array types (e.g., [5]int)
+    [function(text)
+        return string.match(text, "^%[%d+%]")
+    end] = function(text, _)
+        return t(text .. "{}")
+    end,
+
+    -- Interface types (interface{} or any)
+    [function(text)
+        return text == "interface{}" or text == "any"
+    end] = function(_, _)
+        return t("nil")
+    end,
+
+    -- Function types (func(...) ...)
+    [function(text)
+        return string.match(text, "^func%(")
+    end] = function(_, _)
+        return t("nil")
+    end,
+
+    -- Named struct types (e.g., MyStruct, http.Response, pkg.Type) - must be capitalized and not a built-in type
+    [function(text)
+        -- Check if it's a capitalized identifier or qualified name (pkg.Type) that doesn't match any of the above patterns
+        local first_char = string.sub(text, 1, 1)
+        local is_qualified = string.match(text, "^[%a_][%w_]*%.[%a_][%w_]*$") -- pkg.Type pattern
+        local is_simple = string.match(text, "^[%a_][%w_]*$") -- Simple identifier
+
+        return (string.upper(first_char) == first_char and is_simple)
+            or is_qualified
+                and not string.match(text, "^%*")
+                and not string.match(text, "^%[")
+                and not string.match(text, "^map%[")
+                and not string.match(text, "chan")
+                and not string.match(text, "^func%(")
+                and text ~= "interface{}"
+                and text ~= "any"
+    end] = function(text, _)
+        return t(text .. "{}")
     end,
 }
 
@@ -60,6 +142,12 @@ local transform = function(text, info)
     return t(text)
 end
 
+-- Generic handler for single types - extracts text and transforms it
+local function handle_single_type(node, info)
+    local text = vim.treesitter.get_node_text(node, 0)
+    return { transform(text, info) }
+end
+
 local handlers = {
     parameter_list = function(node, info)
         local result = {}
@@ -77,10 +165,16 @@ local handlers = {
         return result
     end,
 
-    type_identifier = function(node, info)
-        local text = vim.treesitter.get_node_text(node, 0)
-        return { transform(text, info) }
-    end,
+    -- All single type handlers use the same logic
+    type_identifier = handle_single_type,
+    pointer_type = handle_single_type,
+    qualified_type = handle_single_type,
+    slice_type = handle_single_type,
+    map_type = handle_single_type,
+    array_type = handle_single_type,
+    channel_type = handle_single_type,
+    function_type = handle_single_type,
+    interface_type = handle_single_type,
 }
 
 local function_node_types = {
@@ -158,19 +252,18 @@ end
 
 -- Go snippets
 ls.add_snippets("go", {
-    -- function
     s("func", fmt("func {}({}) {}{{\n\t{}\n}}", { i(1), i(2), i(3), i(4) })),
 
-    -- print statement
     s("print", fmt('fmt.Println("{}")', { i(1) })),
 
-    -- struct typedef
     s("typ", fmt("type {} struct {{\n\t{}\n}}{}", { i(1), i(2), i(0) })),
 
-    -- append
     s("app", fmt("{} = append({}, {}){}", { i(1), rep(1), i(2), i(0) })),
 
-    -- error check
+    -- TODO: autopopulate return? might need additional work to smartly grab variable if one matches the return type, otherwise add one
+    -- - repeat an entry for each return type in function signature.
+    -- s("return", fmt("return {}{}"), { d(1, go_ret_vals), i(0) }),
+
     s(
         "err",
         fmt("if {} != nil {{\n\treturn {}\n}}\n{}", { i(1, "err"), d(2, go_ret_vals, { 1 }), i(0) })

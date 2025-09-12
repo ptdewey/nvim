@@ -7,6 +7,7 @@ return {
                 LongSentences = false,
                 SentenceCapitalization = false,
                 ExpandDependencies = false,
+                PunctuationClusters = false,
             },
         },
     },
