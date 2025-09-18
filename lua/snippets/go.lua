@@ -258,7 +258,7 @@ ls.add_snippets("go", {
 
     s("typ", fmt("type {} struct {{\n\t{}\n}}{}", { i(1), i(2), i(0) })),
 
-    s("app", fmt("{} = append({}, {}){}", { i(1), rep(1), i(2), i(0) })),
+    -- s("app", fmt("{} = append({}, {}){}", { i(1), rep(1), i(2), i(0) })),
 
     -- TODO: autopopulate return? might need additional work to smartly grab variable if one matches the return type, otherwise add one
     -- - repeat an entry for each return type in function signature.
@@ -270,26 +270,4 @@ ls.add_snippets("go", {
     ),
 
     s("lerr", fmt("log.Println(err){}", { i(0) })),
-
-    s(
-        "efi",
-        fmta(
-            [[
-                <val>, <err> := <f>(<args>)
-                if <err_same> != nil {
-                    return <result>
-                }
-                <finish>
-            ]],
-            {
-                val = i(1),
-                err = i(2, "err"),
-                f = i(3),
-                args = i(4),
-                err_same = rep(2),
-                result = d(5, go_ret_vals, { 2 }),
-                finish = i(0),
-            }
-        )
-    ),
 })
