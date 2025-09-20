@@ -1,17 +1,4 @@
-(macro map [mode key action opts]
-  `(vim.keymap.set ,mode ,key ,action ,opts))
-
-(macro nmap [key action opts]
-  `(map :n ,key ,action ,opts))
-
-(macro vmap [key action opts]
-  `(map [:v :x] ,key ,action ,opts))
-
-(macro imap [key action opts]
-  `(map :i ,key ,action ,opts))
-
-(macro del [mode key]
-  `(vim.keymap.del ,mode ,key))
+(import-macros {: nmap : map : vmap : imap : tmap : normal!} :macros)
 
 ;; buffer switching
 (nmap :<tab> ":bnext <CR>zz" {:noremap true})
@@ -29,8 +16,8 @@
 (nmap :N :Nzzzv)
 
 ;; move visual selections
-(map :x :J ":m '>+1<CR>gv=gv")
-(map :x :K ":m '<-2<CR>gv=gv")
+(vmap :J ":m '>+1<CR>gv=gv")
+(vmap :K ":m '<-2<CR>gv=gv")
 
 ;; merge in place
 (nmap :J "mzJ`z")
@@ -38,7 +25,7 @@
 ;; clear highlights on <Esc>
 (nmap :<Esc> :<cmd>noh<CR> {:silent true})
 ;; exit terminal insert with <Esc>
-(map :t :<Esc> "<C-\\><C-n>" {:nowait true})
+(tmap :<Esc> "<C-\\><C-n>" {:nowait true})
 ;; unbind s
 (nmap :s :<nop> {:silent true})
 
@@ -58,7 +45,7 @@
               (let [d (cmd {:severity {:min vim.diagnostic.severity.WARN}})]
                 (if d
                     (vim.diagnostic.jump {:diagnostic d})
-                    (vim.cmd "normal! zz"))))))
+                    (normal! :zz))))))
 
 ;; open diagnostics
 (nmap :<leader>e vim.diagnostic.open_float {:desc "open floating diagnostic"})
@@ -76,12 +63,12 @@
 (nmap :<leader>wl vim.lsp.buf.list_workspace_folders
       {:desc "workspace list dirs"})
 
-(nmap :gt (fn [] (vim.lsp.buf.type_definition) (vim.cmd "normal! zz"))
+(nmap :gt (fn [] (vim.lsp.buf.type_definition) (normal! :zz))
       {:desc "goto type definition"})
 
 ;; paste/delete w/o yank
-(vmap :<leader>d (fn [] (vim.cmd "normal! \"_d")) {:desc :_d})
-(vmap :<leader>p (fn [] (vim.cmd "normal! \"_dP") {:desc :_dP}))
+(vmap :<leader>d (fn [] (normal! :_d)) {:desc :_d})
+(vmap :<leader>p (fn [] (normal! :_dP) {:desc :_dP}))
 
 ;; make file executable
 (nmap :<leader>x+ "<cmd>silent !chmod +x %<CR>" {:desc "chmod +x"})
@@ -95,3 +82,10 @@
 
 ;; alternate file
 (nmap :<C-j> :<C-^>)
+
+;; navigate to next/prev TODO comments
+(let [todo-pattern "\\v\\s*(TODO|FIXME|HACK|NOTE|DOC|DOCS|REFACTOR|CHANGE):\\s*"]
+  (nmap "]t" (fn [] (vim.fn.search todo-pattern)
+               (normal! :zz)) {:desc "next todo comment"})
+  (nmap "[t" (fn [] (vim.fn.search todo-pattern :b)
+               (normal! :zz)) {:desc "prev todo comment"}))

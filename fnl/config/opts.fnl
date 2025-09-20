@@ -1,8 +1,4 @@
-(macro o [key value]
-  `(set (. vim.opt ,key) ,value))
-
-(macro g [key value]
-  `(set (. vim.g ,key) ,value))
+(import-macros {: o : g} :macros)
 
 ;; core options
 (o :number true)

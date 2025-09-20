@@ -138,4 +138,11 @@
 (fn M.enable []
   (set M.enabled true))
 
+; (fn M.setup []
+;   (vim.api.nvim_create_user_command :ProfilerReport
+;                                     (fn [args]
+;                                       (M.report {:limit (or (tonumber args.args)
+;                                                             20)}))
+;                                     {:nargs "?"}))
+
 M

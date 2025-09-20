@@ -10,7 +10,7 @@ vim.g.maplocalleader = " "
 -- TODO: figure out how to get paths from this
 vim.pack.add({
     { src = "https://github.com/rktjmp/hotpot.nvim", version = "v0.14.8" },
-})
+}, { confirm = false })
 
 require("hotpot")
 
@@ -37,3 +37,4 @@ end, { nargs = "*", complete = "packadd" })
 
 -- Load all files in plugin dir (TODO: maybe not desirable?)
 require("plugin")
+require("plugins")
