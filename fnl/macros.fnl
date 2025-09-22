@@ -30,4 +30,21 @@
 (lambda cmd! [name command opts]
   `(vim.api.nvim_create_user_command ,name ,command ,opts))
 
-{: map : nmap : vmap : imap : tmap : del : normal! : o : g : cmd!}
+(fn pack! [specs opts]
+  `(vim.pack.add ,specs ,opts))
+
+(lambda autocmd! [event opts]
+  `(vim.api.nvim_create_autocmd ,event ,opts))
+
+{: map
+ : nmap
+ : vmap
+ : imap
+ : tmap
+ : del
+ : normal!
+ : o
+ : g
+ : cmd!
+ : pack!
+ : autocmd!}

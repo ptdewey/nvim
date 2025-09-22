@@ -1,6 +1,6 @@
-(import-macros {: nmap : cmd!} :macros)
+(import-macros {: nmap : cmd! : pack!} :macros)
 
-(vim.pack.add ["https://github.com/bassamsdata/namu.nvim"])
+(pack! ["https://github.com/bassamsdata/namu.nvim"])
 
 (cmd! :Namu (fn [args]
               (let [p (require :profiler)]
