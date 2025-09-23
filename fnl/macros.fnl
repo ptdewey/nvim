@@ -19,7 +19,7 @@
   `(vim.keymap.del ,mode ,key))
 
 (lambda normal! [arg]
-  `(vim.cmd ,arg))
+  `(vim.cmd (.. :normal! ,arg)))
 
 (lambda o [key value]
   `(set (. vim.opt ,key) ,value))
