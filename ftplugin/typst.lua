@@ -1,6 +1,6 @@
-vim.opt_local.tabstop = 2
-vim.opt_local.shiftwidth = 2
-vim.opt_local.commentstring = "// %s"
+vim.bo.tabstop = 2
+vim.bo.shiftwidth = 2
+vim.bo.commentstring = "// %s"
 
 local function open_pdf()
     local filepath = vim.api.nvim_buf_get_name(0)
