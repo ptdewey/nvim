@@ -48,6 +48,6 @@ vim.api.nvim_create_autocmd("FileType", {
 vim.keymap.set("n", "<leader>nd", "<cmd>Obsidian dailies<CR>", { desc = "daily notes" })
 vim.keymap.set("n", "<leader>no", "<cmd>Obsidian<CR>", { desc = "obsidian" })
 vim.keymap.set("n", "<leader>nt", "<cmd>Obsidian today<CR>", { desc = "daily note" })
-vim.keymap.set("n", "<leader>nl", "<cmd>Obsidian follow_link<CR>", { desc = "follow link" })
-vim.keymap.set("n", "<leader>nb", "<cmd>Obsidian backlinks<CR>", { desc = "note backlinks" })
+vim.keymap.set("n", "<leader>nl", "<cmd>Obsidian links<CR>", { desc = "links" })
+vim.keymap.set("n", "<leader>nb", "<cmd>Obsidian backlinks<CR>", { desc = "backlinks" })
 -- TODO: new from template
