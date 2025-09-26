@@ -1,8 +1,8 @@
 vim.pack.add({
     { src = "https://github.com/neovim/nvim-lspconfig" },
     { src = "https://github.com/williamboman/mason.nvim" },
-    { src = "https://github.com/ray-x/lsp_signature.nvim" },
     { src = "https://github.com/ptdewey/lazydev.nvim" },
+    -- { src = "https://github.com/ray-x/lsp_signature.nvim" },
 })
 
 local p = require("profiler")
@@ -27,31 +27,30 @@ local servers = {
 }
 
 -- Avoid loading mason
--- TODO: load if directory does not exist
+-- TODO: load mason if directory does not exist
 vim.env.PATH = vim.env.PATH .. ":" .. vim.fn.stdpath("data") .. "/mason/bin"
 
 for _, server in ipairs(servers) do
     vim.lsp.enable(server)
 end
 
--- TODO: only run on "Mason" command
 vim.api.nvim_create_user_command("Mason", function()
     vim.api.nvim_del_user_command("Mason")
     require("profiler").require_and_setup("mason")
     vim.cmd("Mason")
 end, {})
 
-vim.api.nvim_create_autocmd("LspAttach", {
-    callback = function()
-        p.require_and_setup("lsp_signature", {
-            doc_lines = 0,
-            hi_parameter = "IncSearch",
-            -- hint_inline = function() return true end,
-            hint_prefix = "",
-            handler_opts = { border = "rounded" },
-        })
-    end,
-})
+-- vim.api.nvim_create_autocmd("LspAttach", {
+--     callback = function()
+--         p.require_and_setup("lsp_signature", {
+--             doc_lines = 0,
+--             hi_parameter = "IncSearch",
+--             -- hint_inline = function() return true end,
+--             hint_prefix = "",
+--             handler_opts = { border = "rounded" },
+--         })
+--     end,
+-- })
 
 -- TODO: delete command during callback (make a BufEnter group, delete group)
 local group = vim.api.nvim_create_augroup("LazyDevSetup", {})

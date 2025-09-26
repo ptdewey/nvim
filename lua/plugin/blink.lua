@@ -2,6 +2,7 @@ vim.pack.add({
     { src = "https://github.com/saghen/blink.cmp", version = vim.version.range("1.*") },
     { src = "https://github.com/L3MON4D3/LuaSnip" },
     { src = "https://github.com/mikavilpas/blink-ripgrep.nvim" },
+    { src = "https://github.com/fang2hou/blink-copilot" },
 })
 
 -- Helper function for using highlights from mini.icons
@@ -35,8 +36,14 @@ p.require_and_setup("blink-cmp", {
         nerd_font_variant = "mono",
     },
 
+    signature = {
+        enabled = true,
+        -- trigger = { show_on_keyword = true },
+    },
+
     completion = {
         documentation = { auto_show = false },
+        ghost_text = { enabled = true },
         menu = {
             draw = {
                 align_to = "cursor",
@@ -74,6 +81,7 @@ p.require_and_setup("blink-cmp", {
             "snippets",
             "buffer",
             "ripgrep",
+            "copilot",
         },
 
         providers = {
@@ -97,6 +105,12 @@ p.require_and_setup("blink-cmp", {
                     },
                 },
                 score_offset = 1,
+            },
+            copilot = {
+                name = "copilot",
+                module = "blink-copilot",
+                score_offset = 40,
+                async = true,
             },
         },
     },
