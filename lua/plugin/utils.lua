@@ -1,6 +1,6 @@
 vim.pack.add({
     { src = "https://codeberg.org/pdewey/deez-nvim" },
-})
+}, { confirm = false })
 
 vim.keymap.set("n", "<leader>gb", function()
     require("profiler").require("deez.gitbrowse").open()

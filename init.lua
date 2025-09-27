@@ -10,6 +10,7 @@ vim.g.maplocalleader = " "
 -- TODO: figure out how to get paths from this
 vim.pack.add({
     { src = "https://github.com/rktjmp/hotpot.nvim", version = "v0.14.8" },
+    { src = "https://github.com/BirdeeHub/lze" },
 }, { confirm = false })
 
 require("hotpot")

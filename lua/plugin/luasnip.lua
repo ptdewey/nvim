@@ -1,33 +1,47 @@
 vim.pack.add({
-    { src = "https://github.com/L3MON4D3/LuaSnip" },
+    {
+        src = "https://github.com/L3MON4D3/LuaSnip",
+        data = {
+            event = "InsertEnter",
+            dep_of = "blink.cmp",
+            after = function()
+                require("profiler").require("luasnip")
+
+                local ls = require("luasnip")
+                require("luasnip.loaders.from_lua").lazy_load({
+                    include = nil,
+                    paths = { "~/.config/nvim/lua/snippets" },
+                })
+
+                -- keymaps for navigating editable regions
+                -- jump down
+                vim.keymap.set({ "i", "s" }, "<C-j>", function()
+                    if ls.expand_or_jumpable() then
+                        ls.expand_or_jump()
+                    end
+                end, { silent = true })
+
+                -- jump up
+                vim.keymap.set({ "i", "s" }, "<C-k>", function()
+                    if ls.jumpable(-1) then
+                        ls.jump(-1)
+                    end
+                end, { silent = true })
+
+                -- cycle choices
+                vim.keymap.set({ "i", "s" }, "<C-l>", function()
+                    if ls.choice_active() then
+                        ls.change_choice(1)
+                    end
+                end, { silent = true })
+            end,
+        },
+    },
+}, {
+    load = function(plug)
+        local spec = plug.spec.data or {}
+        spec.name = plug.spec.name
+        require("lze").load(spec)
+    end,
+    confirm = false,
 })
-
-require("profiler").require("luasnip")
-
-local ls = require("luasnip")
-require("luasnip.loaders.from_lua").lazy_load({
-    include = nil,
-    paths = { "~/.config/nvim/lua/snippets" },
-})
-
--- keymaps for navigating editable regions
--- jump down
-vim.keymap.set({ "i", "s" }, "<C-j>", function()
-    if ls.expand_or_jumpable() then
-        ls.expand_or_jump()
-    end
-end, { silent = true })
-
--- jump up
-vim.keymap.set({ "i", "s" }, "<C-k>", function()
-    if ls.jumpable(-1) then
-        ls.jump(-1)
-    end
-end, { silent = true })
-
--- cycle choices
-vim.keymap.set({ "i", "s" }, "<C-l>", function()
-    if ls.choice_active() then
-        ls.change_choice(1)
-    end
-end, { silent = true })

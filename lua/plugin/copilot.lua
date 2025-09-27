@@ -1,6 +1,6 @@
 vim.pack.add({
-    -- "https://github.com/zbirenbaum/copilot.lua",
-    "file:///Users/patrick.dewey/projects/copilot.lua",
+    "https://github.com/zbirenbaum/copilot.lua",
+    -- "file:///Users/patrick.dewey/projects/copilot.lua",
 })
 
 local flag = false

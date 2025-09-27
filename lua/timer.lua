@@ -14,117 +14,6 @@ local function ns_to_ms(nanoseconds)
     return nanoseconds / 1e6
 end
 
----Core timer function to track plugin loading
----@param name string
----@param opts table|function?
----@return table
-function M.time_plugin(name, opts)
-    if not M.enabled then
-        -- If profiling is disabled, just execute without timing
-        local plugin = require(name)
-        if opts and opts.setup then
-            if type(opts.setup) == "function" then
-                opts.setup(plugin)
-            else
-                plugin.setup(opts.setup)
-            end
-        end
-        return plugin
-    end
-
-    opts = opts or {}
-
-    -- Initialize timing data for this plugin
-    local timing_data = {
-        name = name,
-        require_time = 0,
-        setup_time = 0,
-        total_time = 0,
-        setup_config = opts.setup,
-        timestamp = os.time(),
-        phases = {},
-    }
-
-    local total_start = now()
-
-    -- Phase 1: Require the plugin
-    local require_start = now()
-    local success, plugin = pcall(require, name)
-    timing_data.require_time = ns_to_ms(now() - require_start)
-    timing_data.phases.require = timing_data.require_time
-
-    if not success then
-        timing_data.error = plugin -- plugin is actually the error message
-        timing_data.total_time = timing_data.require_time
-        M.timings[name] = timing_data
-        error(string.format("Failed to require plugin '%s': %s", name, plugin))
-    end
-
-    -- Phase 2: Setup the plugin (if setup function/config provided)
-    if opts.setup then
-        local setup_start = now()
-        local setup_success, setup_error
-
-        if type(opts.setup) == "function" then
-            -- Custom setup function provided
-            timing_data.setup_type = "custom_function"
-            setup_success, setup_error = pcall(opts.setup, plugin)
-        elseif type(opts.setup) == "table" or opts.setup == true then
-            -- Use plugin's setup method with config
-            timing_data.setup_type = "plugin_setup"
-            if plugin.setup then
-                local config = type(opts.setup) == "table" and opts.setup or {}
-                setup_success, setup_error = pcall(plugin.setup, config)
-            else
-                setup_success = false
-                setup_error = string.format("Plugin '%s' does not have a setup function", name)
-            end
-        else
-            setup_success = false
-            setup_error = "Invalid setup option provided"
-        end
-
-        timing_data.setup_time = ns_to_ms(now() - setup_start)
-        timing_data.phases.setup = timing_data.setup_time
-
-        if not setup_success then
-            timing_data.setup_error = setup_error
-            -- Continue execution but record the error
-        end
-    end
-
-    -- Phase 3: Post-setup operations (if provided)
-    if opts.after then
-        local after_start = now()
-        local after_success, after_error = pcall(opts.after, plugin)
-        timing_data.after_time = ns_to_ms(now() - after_start)
-        timing_data.phases.after = timing_data.after_time
-
-        if not after_success then timing_data.after_error = after_error end
-    end
-
-    timing_data.total_time = ns_to_ms(now() - total_start)
-    timing_data.phases.total = timing_data.total_time
-
-    -- Store timing data
-    M.timings[name] = timing_data
-
-    -- Optional callback for real-time monitoring
-    if opts.on_complete then pcall(opts.on_complete, timing_data) end
-
-    return plugin
-end
-
--- Simplified interface for common use cases
-function M.require_and_setup(name, config)
-    return M.time_plugin(name, { setup = config or true })
-end
-
--- Load plugin with custom setup function
-function M.require_with_setup_fn(name, setup_fn)
-    return M.time_plugin(name, { setup = setup_fn })
-end
-
 -- Load multiple plugins and track each
 function M.time_plugins(plugins)
     local results = {}
@@ -182,13 +71,19 @@ function M.get_results(opts)
 
     for name, data in pairs(M.timings) do
         -- Skip batch entries if not requested
-        if not opts.include_batches and name:match("^__batch_") then goto continue end
+        if not opts.include_batches and name:match("^__batch_") then
+            goto continue
+        end
 
         -- Filter by minimum time
-        if opts.min_time and data.total_time < opts.min_time then goto continue end
+        if opts.min_time and data.total_time < opts.min_time then
+            goto continue
+        end
 
         -- Filter by plugin name pattern
-        if opts.pattern and not name:match(opts.pattern) then goto continue end
+        if opts.pattern and not name:match(opts.pattern) then
+            goto continue
+        end
 
         table.insert(results, data)
         ::continue::
@@ -226,11 +121,15 @@ function M.report(opts)
         if not data.modname:match("^__batch_") then
             total_plugins = total_plugins + 1
             total_time = total_time + data.total_time
-            if data.lazy_load then lazy_loaded = lazy_loaded + 1 end
+            if data.lazy_load then
+                lazy_loaded = lazy_loaded + 1
+            end
         end
     end
 
-    if total_plugins > 0 then avg_time = total_time / total_plugins end
+    if total_plugins > 0 then
+        avg_time = total_time / total_plugins
+    end
 
     print(
         string.format(
@@ -259,8 +158,12 @@ function M.report(opts)
 
     -- Plugin data
     for i, data in ipairs(results) do
-        if i > limit then break end
-        if data.modname:match("^__batch_") then goto continue end
+        if i > limit then
+            break
+        end
+        if data.modname:match("^__batch_") then
+            goto continue
+        end
 
         local setup_type = data.setup_type or "none"
         local lazy_marker = data.lazy_load and "✓" or ""
@@ -278,8 +181,12 @@ function M.report(opts)
         )
 
         -- Show errors if any
-        if data.error then print(string.format("  ERROR: %s", data.error)) end
-        if data.setup_error then print(string.format("  SETUP ERROR: %s", data.setup_error)) end
+        if data.error then
+            print(string.format("  ERROR: %s", data.error))
+        end
+        if data.setup_error then
+            print(string.format("  SETUP ERROR: %s", data.setup_error))
+        end
 
         ::continue::
     end
@@ -324,15 +231,6 @@ end
 function M.clear()
     M.timings = {}
     print("Plugin timing data cleared")
-end
-
--- Enable/disable profiling
-function M.enable()
-    M.enabled = true
-end
-
-function M.disable()
-    M.enabled = false
 end
 
 -- Setup commands for easy use
