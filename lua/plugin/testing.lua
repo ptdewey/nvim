@@ -1,27 +1,28 @@
-vim.pack.add({
-    { src = "https://github.com/andythigpen/nvim-coverage" },
-    { src = "https://github.com/nvim-lua/plenary.nvim" },
-    { src = "https://github.com/vim-test/vim-test" },
-})
-
 local p = require("profiler")
 
+vim.pack.add({
+    {
+        src = "https://github.com/andythigpen/nvim-coverage",
+        data = {
+            cmd = "Coverage",
+            after = function()
+                p.require_and_setup("coverage", {
+                    auto_reload = true,
+                    commands = true,
+                    lang = {
+                        go = {
+                            coverage_file = "cover.out",
+                        },
+                    },
+                })
+            end,
+        },
+    },
+    { src = "https://github.com/nvim-lua/plenary.nvim" },
+    { src = "https://github.com/vim-test/vim-test" },
+}, require("pack").opts)
+
 -- TODO: lazy load
-local coverage_loaded = false
-vim.api.nvim_create_user_command("Coverage", function()
-    if not coverage_loaded then
-        p.require_and_setup("coverage", {
-            auto_reload = true,
-            commands = true,
-            lang = {
-                go = {
-                    coverage_file = "cover.out",
-                },
-            },
-        })
-    end
-    vim.cmd("Coverage")
-end, {})
 
 -- vim-test config
 vim.g["test#strategy"] = "neovim"

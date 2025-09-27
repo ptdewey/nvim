@@ -27,14 +27,28 @@
 (lambda g [key value]
   `(set (. vim.g ,key) ,value))
 
-(lambda cmd! [name command opts]
+(lambda user-cmd! [name command opts]
   `(vim.api.nvim_create_user_command ,name ,command ,opts))
-
-(fn pack! [specs opts]
-  `(vim.pack.add ,specs ,opts))
 
 (lambda autocmd! [event opts]
   `(vim.api.nvim_create_autocmd ,event ,opts))
+
+(fn load! []
+  `(fn [p#]
+     (let [spec# (or p#.spec.data {})]
+       (set spec#.name p#.spec.name)
+       ((. (require :lze) :load) spec#))))
+
+(fn pack! [specs opts]
+  `(vim.pack.add ,specs (or ,opts {:load ,(load!) :confirm false})))
+
+(fn require! [mod]
+  `((. (require :profiler) :require) ,mod))
+
+(fn setup! [mod opts]
+  ;; TODO: possibly change to not return the function, create separate 'after!' macro
+  `(fn []
+     ((. (require :profiler) :require_and_setup) ,mod ,opts)))
 
 {: map
  : nmap
@@ -45,6 +59,9 @@
  : normal!
  : o
  : g
- : cmd!
+ : user-cmd!
  : pack!
- : autocmd!}
+ : autocmd!
+ : load!
+ : setup!
+ : require!}

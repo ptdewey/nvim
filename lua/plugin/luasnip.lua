@@ -37,11 +37,4 @@ vim.pack.add({
             end,
         },
     },
-}, {
-    load = function(plug)
-        local spec = plug.spec.data or {}
-        spec.name = plug.spec.name
-        require("lze").load(spec)
-    end,
-    confirm = false,
-})
+}, require("pack").opts)

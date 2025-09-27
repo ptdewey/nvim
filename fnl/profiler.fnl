@@ -12,6 +12,8 @@
 (macro vals-pcall [...]
   `[(values (pcall ,...))])
 
+;; TODO: possibly switch the "setup" caller to use metatable (i.e. allow `p.require("mod").setup(opts)`)
+
 ;; Initialize a plugin with 'require("plugin")'
 (fn require-plugin [modname timing-data]
   (let [require-start (now)
@@ -28,7 +30,6 @@
           (error (.. "Failed to require module '" modname "': " plugin))))))
 
 ;; Call setup function on plugin spec
-;; TODO: work out what type 'opts' is (and rename it)
 (fn setup-plugin [plugin config timing-data]
   (if (and (= (type plugin) :table) plugin.setup)
       ;; TODO: case for if config is a function

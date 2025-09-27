@@ -1,16 +1,8 @@
-(import-macros {: nmap : cmd! : pack!} :macros)
-
-(local opts {:namu_symbols {:enable true :options {}}})
-
-(local c (fn []
-           (cmd! :Namu (fn [args]
-                         (let [p (require :profiler)]
-                           (p.require_and_setup :namu opts))
-                         (vim.cmd (.. :Namu args.args)))
-                 {:nargs "?"})))
+(import-macros {: nmap : pack! : setup!} :macros)
 
 (pack! [{:src "https://github.com/bassamsdata/namu.nvim"
-         :data {:cmd :Namu :after c}}])
+         :data {:cmd :Namu
+                :after (setup! :namu {:namu_symbols {:enable true :options {}}})}}])
 
 (nmap :<leader>sd "<cmd>Namu symbols<CR>" {:desc "document symbols"})
 (nmap :<leader>sw "<cmd>Namu workspace<CR>" {:desc "workspace symbols"})

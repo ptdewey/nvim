@@ -136,11 +136,4 @@ vim.pack.add({
         src = "https://github.com/fang2hou/blink-copilot",
         data = { dep_of = "blink.cmp" },
     },
-}, {
-    load = function(plug)
-        local spec = plug.spec.data or {}
-        spec.name = plug.spec.name
-        require("lze").load(spec)
-    end,
-    confirm = true,
-})
+}, require("pack").opts)

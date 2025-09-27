@@ -64,42 +64,6 @@ function M.time_lazy_load(trigger_name, plugins)
     return results, batch_time
 end
 
--- Get timing results with filtering and sorting
-function M.get_results(opts)
-    opts = opts or {}
-    local results = {}
-
-    for name, data in pairs(M.timings) do
-        -- Skip batch entries if not requested
-        if not opts.include_batches and name:match("^__batch_") then
-            goto continue
-        end
-
-        -- Filter by minimum time
-        if opts.min_time and data.total_time < opts.min_time then
-            goto continue
-        end
-
-        -- Filter by plugin name pattern
-        if opts.pattern and not name:match(opts.pattern) then
-            goto continue
-        end
-
-        table.insert(results, data)
-        ::continue::
-    end
-
-    -- Sort results
-    local sort_by = opts.sort_by or "total_time"
-    table.sort(results, function(a, b)
-        local a_val = a[sort_by] or 0
-        local b_val = b[sort_by] or 0
-        return a_val > b_val
-    end)
-
-    return results
-end
-
 -- Pretty print timing report
 function M.report(opts)
     opts = opts or {}
@@ -108,7 +72,7 @@ function M.report(opts)
     local limit = opts.limit or 20
 
     print("\n" .. string.rep("=", 85))
-    print("PLUGIN TIMING REPORT")
+    print("PLUGIN PROFILER REPORT")
     print(string.rep("=", 85))
 
     -- Summary statistics
@@ -235,24 +199,13 @@ end
 
 -- Setup commands for easy use
 function M.setup()
-    vim.api.nvim_create_user_command("PluginTimingReport", function(args)
+    vim.api.nvim_create_user_command("ProfilerReport", function(args)
         local limit = tonumber(args.args) or 20
         M.report({ limit = limit })
     end, { nargs = "?" })
 
     vim.api.nvim_create_user_command("PluginTimingClear", function()
         M.clear()
-    end, {})
-
-    vim.api.nvim_create_user_command("PluginTimingToggle", function()
-        local p = require("profiler")
-        if p.enabled then
-            p.disable()
-            print("Plugin timing disabled")
-        else
-            p.enable()
-            print("Plugin timing enabled")
-        end
     end, {})
 end
 

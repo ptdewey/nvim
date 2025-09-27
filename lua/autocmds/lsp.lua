@@ -24,7 +24,7 @@ vim.api.nvim_create_autocmd("LspAttach", {
     end,
 })
 
--- Builting lsp autocompletion
+-- Builtin lsp autocompletion
 -- vim.api.nvim_create_autocmd("LspAttach", {
 --     callback = function(ev)
 --         local client = vim.lsp.get_client_by_id(ev.data.client_id)
