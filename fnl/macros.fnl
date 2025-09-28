@@ -42,6 +42,7 @@
 (fn pack! [specs opts]
   `(vim.pack.add ,specs (or ,opts {:load ,(load!) :confirm false})))
 
+;; REFACTOR: decide on func vs not func for this and setup (and come up with better function names)
 (fn require! [mod]
   `((. (require :profiler) :require) ,mod))
 
