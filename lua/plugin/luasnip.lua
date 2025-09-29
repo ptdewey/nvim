@@ -5,9 +5,7 @@ vim.pack.add({
             event = "InsertEnter",
             dep_of = "blink.cmp",
             after = function()
-                require("profiler").require("luasnip")
-
-                local ls = require("luasnip")
+                local ls = require("profiler").require("luasnip")
                 require("luasnip.loaders.from_lua").lazy_load({
                     include = nil,
                     paths = { "~/.config/nvim/lua/snippets" },

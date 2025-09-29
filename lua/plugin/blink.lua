@@ -7,13 +7,14 @@ vim.pack.add({
         version = vim.version.range("1.*"),
         data = {
             event = "InsertEnter",
+            dep_of = "obsidian.nvim",
             after = function()
                 local function mini_hl(ctx)
                     local _, hl, _ = require("mini.icons").get("lsp", ctx.kind)
                     return hl
                 end
 
-                p.require("luasnip")
+                -- p.require("luasnip")
                 p.require("blink-ripgrep")
                 p.require_and_setup("blink-cmp", {
                     keymap = {
