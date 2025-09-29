@@ -25,7 +25,7 @@
 
 (mini! :jump :keys [:t :f :T :F])
 
-(mini! :icons :dep_of :mini.tabline)
+(mini! :icons :event :UIEnter)
 
 (mini! :tabline :event [:BufReadPost :BufNewFile])
 

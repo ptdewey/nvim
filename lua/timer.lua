@@ -1,73 +1,7 @@
--- Plugin Timer - Track initialization and setup times for Neovim plugins
 local M = {}
 
--- Storage for timing data
-M.timings = {}
-M.enabled = true
-
--- High-resolution timer utilities
-local function now()
-    return vim.loop.hrtime()
-end
-
-local function ns_to_ms(nanoseconds)
-    return nanoseconds / 1e6
-end
-
--- Load multiple plugins and track each
-function M.time_plugins(plugins)
-    local results = {}
-    local total_start = now()
-
-    for _, plugin_spec in ipairs(plugins) do
-        if type(plugin_spec) == "string" then
-            results[plugin_spec] = M.time_plugin(plugin_spec)
-        elseif type(plugin_spec) == "table" then
-            local name = plugin_spec.name or plugin_spec[1]
-            results[name] = M.time_plugin(name, plugin_spec)
-        end
-    end
-
-    local total_time = ns_to_ms(now() - total_start)
-
-    return results, total_time
-end
-
--- Batch timing for lazy loading scenarios
-function M.time_lazy_load(trigger_name, plugins)
-    local batch_start = now()
-    local results = {}
-
-    for _, plugin_spec in ipairs(plugins) do
-        local name = type(plugin_spec) == "string" and plugin_spec or plugin_spec[1]
-        local plugin = M.time_plugin(name, plugin_spec)
-        results[name] = plugin
-
-        -- Mark this as lazy-loaded
-        if M.timings[name] then
-            M.timings[name].lazy_trigger = trigger_name
-            M.timings[name].lazy_load = true
-        end
-    end
-
-    local batch_time = ns_to_ms(now() - batch_start)
-
-    -- Store batch timing
-    M.timings["__batch_" .. trigger_name] = {
-        name = trigger_name,
-        type = "lazy_batch",
-        total_time = batch_time,
-        plugin_count = #plugins,
-        timestamp = os.time(),
-    }
-
-    return results, batch_time
-end
-
--- Pretty print timing report
 function M.report(opts)
     opts = opts or {}
-    -- local results = M.get_results(opts)
     local results = require("profiler").get_results(opts)
     local limit = opts.limit or 20
 
@@ -75,7 +9,6 @@ function M.report(opts)
     print("PLUGIN PROFILER REPORT")
     print(string.rep("=", 85))
 
-    -- Summary statistics
     local total_plugins = 0
     local total_time = 0
     local avg_time = 0
@@ -106,7 +39,6 @@ function M.report(opts)
     )
     print(string.rep("-", 85))
 
-    -- Column headers
     print(
         string.format(
             "%-25s %10s %10s %10s %12s %8s",
@@ -120,7 +52,6 @@ function M.report(opts)
     )
     print(string.rep("-", 85))
 
-    -- Plugin data
     for i, data in ipairs(results) do
         if i > limit then
             break
@@ -158,40 +89,6 @@ function M.report(opts)
     print(string.rep("=", 85))
 end
 
--- Advanced: Track plugin dependencies
-function M.time_with_dependencies(name, deps, opts)
-    opts = opts or {}
-    local dep_start = now()
-    local loaded_deps = {}
-
-    -- Load dependencies first
-    if deps and #deps > 0 then
-        for _, dep in ipairs(deps) do
-            if type(dep) == "string" then
-                loaded_deps[dep] = M.time_plugin(dep)
-            elseif type(dep) == "table" then
-                local dep_name = dep.name or dep[1]
-                loaded_deps[dep_name] = M.time_plugin(dep_name, dep)
-            end
-        end
-    end
-
-    local dep_time = ns_to_ms(now() - dep_start)
-
-    -- Load main plugin
-    local plugin = M.time_plugin(name, opts)
-
-    -- Update timing data with dependency info
-    if M.timings[name] then
-        M.timings[name].dependency_time = dep_time
-        M.timings[name].dependencies = deps
-        M.timings[name].total_with_deps = M.timings[name].total_time + dep_time
-    end
-
-    return plugin, loaded_deps
-end
-
--- Clear timing data
 function M.clear()
     M.timings = {}
     print("Plugin timing data cleared")
@@ -204,6 +101,7 @@ function M.setup()
         M.report({ limit = limit })
     end, { nargs = "?" })
 
+    -- FIX: needs to be moved to fennel to actually work
     vim.api.nvim_create_user_command("PluginTimingClear", function()
         M.clear()
     end, {})

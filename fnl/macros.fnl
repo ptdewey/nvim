@@ -15,7 +15,7 @@
 (fn tmap [key action opts]
   `(vim.keymap.set :t ,key ,action ,opts))
 
-(lambda del [mode key]
+(lambda del-map! [mode key]
   `(vim.keymap.del ,mode ,key))
 
 (lambda normal! [arg]
@@ -56,7 +56,7 @@
  : vmap
  : imap
  : tmap
- : del
+ : del-map!
  : normal!
  : o
  : g
