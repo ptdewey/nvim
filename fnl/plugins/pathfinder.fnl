@@ -1,11 +1,11 @@
 (import-macros {: pack! : setup! : nmap} :macros)
 
 (pack! [{:src "https://codeberg.org/pdewey/pathfinder-nvim"
-         :data {:keys :<C-n>
+         :data {:keys :<C-p>
                 :on_require :pathfinder
                 :cmd :Pathfinder
                 :after (setup! :pathfinder
-                               {:keys {:toggle {:key :<C-n>}}
+                               {:keys {:toggle {:key :<C-p>}}
                                 :open_in_current_dir true
                                 :style {:show_goto_parent false}})}}])
 

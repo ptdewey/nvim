@@ -46,6 +46,9 @@
 (fn require! [mod]
   `((. (require :profiler) :require) ,mod))
 
+(fn raw-setup! [mod opts]
+  `((. (require :profiler) :require_and_setup) ,mod ,opts))
+
 (fn setup! [mod opts]
   ;; TODO: possibly change to not return the function, create separate 'after!' macro
   `(fn []
@@ -64,5 +67,6 @@
  : pack!
  : autocmd!
  : load!
+ : raw-setup!
  : setup!
  : require!}
