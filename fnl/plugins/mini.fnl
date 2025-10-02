@@ -31,7 +31,10 @@
 
 (mini! :notify :event :LspAttach)
 
-(mini! :surround :keys [:sa :sd :sf :sF :sh :sr :sn])
+(mini! :surround :keys [:S :ds :sf :sF :sh :cs :sn]
+       {:mappings {:add :S :delete :ds :replace :cs}})
+
+(mini! :git :cmd :Git)
 
 (mini! :visits :event :BufReadPost)
 (nmap :<C-e> (fn []

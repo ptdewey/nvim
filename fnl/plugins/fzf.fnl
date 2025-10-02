@@ -20,6 +20,13 @@
                   :grep {:formatter :path.filename_first}
                   :file_ignore_patterns ["%.pdf$"]})
 
+(macro fzf-map [key method opts desc]
+  `(nmap ,key (fn []
+                ((. (require :fzf-lua) ,method) ,opts))
+         {:desc ,desc}))
+
+;; TODO: macro for wrapping commonly used opts (preview and winopts)
+
 (local fzf (require :fzf-lua))
 
 (let [sel (fn [_ items]
