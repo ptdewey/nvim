@@ -99,4 +99,4 @@
 
 (nmap :<leader>hh (fn [] (fzf.highlights)) {:desc "search highlights"})
 
-(nmap :<leader>m (fn [] (fzf.marks)) {:desc "search marks"})
+(nmap :<leader>sm (fn [] (fzf.marks)) {:desc "search marks"})
