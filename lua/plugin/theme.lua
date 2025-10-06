@@ -3,6 +3,8 @@ vim.pack.add({
     { src = "https://github.com/ptdewey/monalisa-nvim" },
     { src = "https://github.com/vague2k/vague.nvim" },
     { src = "https://github.com/nyoom-engineering/oxocarbon.nvim" },
+    { src = "https://github.com/ptdewey/witchesbrew.nvim" },
+    { src = "https://web.solanaceae.net/sol/vitesse-nvim" },
 })
 
 local p = require("profiler")
@@ -24,4 +26,5 @@ local p = require("profiler")
 -- p.colorscheme("monalisa")
 -- p.colorscheme("darkearth")
 -- p.colorscheme("oxocarbon")
+-- p.colorscheme("witchesbrew")
 p.colorscheme("vitesse")

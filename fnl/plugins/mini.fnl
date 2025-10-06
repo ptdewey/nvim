@@ -31,8 +31,8 @@
 
 (mini! :notify :event :LspAttach)
 
-(mini! :surround :keys [:S :ds :sf :sF :sh :cs :sn]
-       {:mappings {:add :S :delete :ds :replace :cs}})
+(mini! :surround :keys [:S :sd :sf :sF :sh :cs :sn]
+       {:mappings {:add :S :delete :sd :replace :cs}})
 
 (mini! :git :cmd :Git)
 
@@ -94,5 +94,9 @@
                   (miniclue.gen_clues.windows)
                   (miniclue.gen_clues.z)]
           :window {:delay 300}}))
+
+(mini! :files :event :UIEnter {:mappings {:go_out_plus "-" :go_in_plus :<CR>}})
+(nmap "-" (fn []
+            ((. (require :mini.files) :open))) {})
 
 ((. (require! :lze) :load) [specs])
