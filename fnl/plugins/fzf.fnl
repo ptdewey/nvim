@@ -20,18 +20,19 @@
                   :grep {:formatter :path.filename_first}
                   :file_ignore_patterns ["%.pdf$"]})
 
+(macro vert [pct?]
+  `{:layout :vertical :vertical (or ,pct? "60%")})
+
 (macro fzf-map [key method opts desc]
   `(nmap ,key (fn []
                 ((. (require :fzf-lua) ,method) ,opts))
          {:desc ,desc}))
 
-;; TODO: macro for wrapping commonly used opts (preview and winopts)
-
 (local fzf (require :fzf-lua))
 
 (let [sel (fn [_ items]
             (let [h (/ (+ (length items) 4) vim.o.lines)
-                  clamped-h (math.max 0.15 (math.min h 0.7))]
+                  clamped-h (math.max 0.3 (math.min h 0.7))]
               {:winopts {:height clamped-h :width 0.4 :row 0.4}}))]
   (fzf.register_ui_select sel))
 
@@ -61,14 +62,12 @@
       (fn []
         (fzf.grep_project {:search "\\b(TODO|PERF|NOTE|FIX|FIXME|DOC|REFACTOR|BUG):"
                            :no_esc true
-                           :winopts {:preview {:vertical "down:35%"
-                                               :layout :vertical}}}))
+                           :winopts {:preview (vert "35%")}}))
       {:desc "search todo" :silent true})
 
 (nmap :<leader>ca
       (fn []
-        (fzf.lsp_code_actions {:winopts {:preview {:vertical "down:60%"
-                                                   :layout :vertical}}}))
+        (fzf.lsp_code_actions {:winopts {:preview (vert)}}))
       {:desc "code action"})
 
 (nmap :<leader>nf (fn [] (fzf.files {:cwd "~/notes"})) {:desc "note files"})
@@ -80,15 +79,13 @@
       (fn []
         (fzf.lsp_references {:ignore_current_line true
                              :includeDeclaration false
-                             :winopts {:default nil
-                                       :preview {:vertical "down:60%"
-                                                 :layout :vertical}}}))
+                             :winopts {:default nil :preview (vert)}}))
       {:desc "goto references"})
 
 (nmap :gd (fn [] (fzf.lsp_definitions) (normal! :zz))
       {:noremap true :desc "goto definition"})
 
-;; TODO: make preview bigger
+;; TODO: make preview bigger (and horizontal)
 (nmap :<leader>gs (fn [] (fzf.git_status)) {:noremap true :desc "git status"})
 
 (nmap :<leader>ci (fn [] (fzf.lsp_incoming_calls))

@@ -2,7 +2,6 @@
 
 (macro now [] `(vim.uv.hrtime))
 
-;; TODO: figure out how to import macros to use "https://github.com/dokutan/typed_fennel"
 (macro ns_to_ms [ns]
   `(/ ,ns 1000000))
 
@@ -11,8 +10,6 @@
 
 (macro vals-pcall [...]
   `[(values (pcall ,...))])
-
-;; TODO: possibly switch the "setup" caller to use metatable (i.e. allow `p.require("mod").setup(opts)`)
 
 ;; Initialize a plugin with 'require("plugin")'
 (fn require-plugin [modname timing-data]

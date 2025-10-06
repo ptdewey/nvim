@@ -2,8 +2,11 @@ vim.pack.add({
     { src = "https://github.com/ptdewey/darkearth-nvim" },
     { src = "https://github.com/ptdewey/monalisa-nvim" },
     { src = "https://github.com/vague2k/vague.nvim" },
-    { src = "https://github.com/nyoom-engineering/oxocarbon.nvim" },
+    -- { src = "https://github.com/nyoom-engineering/oxocarbon.nvim" },
+    { src = "file:///home/patrick/projects/vitesse-nvim" },
 })
+
+vim.pack.add({ "file:///home/patrick/projects/vitesse-nvim" }, { confirm = true })
 
 local p = require("profiler")
 
@@ -12,7 +15,7 @@ local p = require("profiler")
 --     italic = false,
 --     on_highlights = function(highlights, colors)
 --         highlights["IblIndent"] = { fg = "#27272a" }
---         highlights["DiagnosticHint"] = highlights["Comment"]
+--         highlights["DiagnosticHint"] = highlights["fn"]
 --         highlights["DiagnosticVirtualTextHint"] = highlights["DiagnosticHint"]
 --     end,
 -- })
@@ -23,4 +26,5 @@ local p = require("profiler")
 -- p.colorscheme("vague")
 -- p.colorscheme("monalisa")
 -- p.colorscheme("darkearth")
-p.colorscheme("oxocarbon")
+-- p.colorscheme("oxocarbon")
+p.colorscheme("vitesse")

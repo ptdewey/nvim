@@ -8,7 +8,9 @@ vim.pack.add({
     { src = "https://github.com/BirdeeHub/lze" },
 }, { confirm = false })
 
-require("hotpot")
+require("hotpot").setup({
+    enable_hotpot_diagnostics = false,
+})
 
 -- Can only be loaded after hotpot
 require("timer").setup()
