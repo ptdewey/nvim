@@ -2,11 +2,8 @@ vim.pack.add({
     { src = "https://github.com/ptdewey/darkearth-nvim" },
     { src = "https://github.com/ptdewey/monalisa-nvim" },
     { src = "https://github.com/vague2k/vague.nvim" },
-    -- { src = "https://github.com/nyoom-engineering/oxocarbon.nvim" },
-    { src = "file:///home/patrick/projects/vitesse-nvim" },
+    { src = "https://github.com/nyoom-engineering/oxocarbon.nvim" },
 })
-
-vim.pack.add({ "file:///home/patrick/projects/vitesse-nvim" }, { confirm = true })
 
 local p = require("profiler")
 
