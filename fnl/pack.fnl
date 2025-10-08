@@ -12,4 +12,7 @@
                       (vim.pack.del args.fargs))
            {:nargs "+" :complete :packadd})
 
+;; Load builtin undotree plugin
+(vim.cmd.packadd :nvim.undotree)
+
 {:opts {:load (load!) :confirm false}}

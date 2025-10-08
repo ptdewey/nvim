@@ -46,6 +46,10 @@
                :signs {:add "+" :change "~" :delete "-"}
                :priority 49}})
 
+(nmap :<leader>gd
+      (fn []
+        ((. (require :mini.diff) :toggle_overlay))))
+
 (mini! :indentscope :event [:BufReadPost :BufNewFile]
        {:draw {:delay 0
                :animation (let [indentscope (require :mini.indentscope)]

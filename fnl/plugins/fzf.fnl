@@ -21,7 +21,7 @@
                   :file_ignore_patterns ["%.pdf$"]})
 
 (macro vert [pct?]
-  `{:layout :vertical :vertical (or ,pct? "60%")})
+  `{:layout :vertical :vertical (.. "down:" (or ,pct? "60%"))})
 
 (macro fzf-map [key method opts desc]
   `(nmap ,key (fn []
@@ -62,7 +62,7 @@
       (fn []
         (fzf.grep_project {:search "\\b(TODO|PERF|NOTE|FIX|FIXME|DOC|REFACTOR|BUG):"
                            :no_esc true
-                           :winopts {:preview (vert "35%")}}))
+                           :winopts {:preview (vert "50%")}}))
       {:desc "search todo" :silent true})
 
 (nmap :<leader>ca
