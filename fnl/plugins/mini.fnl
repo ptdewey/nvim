@@ -34,7 +34,8 @@
 (mini! :surround :keys [:S :sd :sf :sF :sh :cs :sn]
        {:mappings {:add :S :delete :sd :replace :cs}})
 
-(mini! :git :cmd :Git)
+(mini! :git :cmd :Git :keys [:<leader>ga])
+(nmap :<leader>ga "<cmd>Git add %<CR>" {:desc "git add"})
 
 (mini! :visits :event :BufReadPost)
 (nmap :<C-e> (fn []
@@ -100,6 +101,7 @@
           :window {:delay 300}}))
 
 (mini! :files :event :UIEnter {:mappings {:go_out_plus "-" :go_in_plus :<CR>}})
+
 (nmap "-" (fn []
             ((. (require :mini.files) :open))) {})
 

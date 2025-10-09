@@ -14,7 +14,9 @@
                                 :debug true
                                 :bind_indices :<leader>y})}}])
 
-(set vim.g.sqlite_clib_path
-     :/run/current-system/sw/share/nix-ld/lib/libsqlite3.so)
+(let [os-name (: (. (vim.uv.os_uname) :sysname) :lower)]
+  (if (= os-name :linux)
+      (set vim.g.sqlite_clib_path
+           :/run/current-system/sw/share/nix-ld/lib/libsqlite3.so)))
 
 (nmap :<leader>p :<cmd>YankBank<CR> {:noremap true :desc :yankbank})

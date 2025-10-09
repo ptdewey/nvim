@@ -5,7 +5,9 @@
 ;; - Register pattern would allow fairly easy mass updating of plugins?
 
 (user-cmd! :PackUpdate (fn [args]
-                         (vim.pack.update args.fargs))
+                         (if (> (length args.fargs) 0)
+                             (vim.pack.update args.fargs)
+                             (vim.pack.update)))
            {:nargs "*" :complete :packadd})
 
 (user-cmd! :PackDel (fn [args]
