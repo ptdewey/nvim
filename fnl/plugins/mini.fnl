@@ -78,7 +78,15 @@
 (macro clue! [mode keys]
   `{:mode ,mode :keys ,keys})
 
-(mini! :clue :keys [:<Leader> :g "'" "\"" :<C-w> :z {1 :<C-r> :mode [:i :c]}]
+(mini! :clue :keys [:<Leader>
+                    :g
+                    "'"
+                    "\""
+                    "["
+                    "]"
+                    :<C-w>
+                    :z
+                    {1 :<C-r> :mode [:i :c]}]
        (let [miniclue (require :mini.clue)]
          {:triggers [(clue! :n :<Leader>)
                      (clue! :x :<Leader>)
@@ -86,6 +94,8 @@
                      (clue! :x :g)
                      (clue! :n "'")
                      (clue! :x "'")
+                     (clue! :n "[")
+                     (clue! :n "]")
                      (clue! :n "\"")
                      (clue! :x "\"")
                      (clue! :i :<C-r>)
@@ -94,6 +104,7 @@
                      (clue! :n :z)
                      (clue! :x :z)]
           :clues [(miniclue.gen_clues.g)
+                  (miniclue.gen_clues.square_brackets)
                   (miniclue.gen_clues.marks)
                   (miniclue.gen_clues.registers)
                   (miniclue.gen_clues.windows)

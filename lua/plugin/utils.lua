@@ -10,7 +10,7 @@ vim.api.nvim_create_user_command("GitBrowse", function()
     require("profiler").require("deez.gitbrowse").open()
 end, { desc = "Open current Git repository in browser" })
 
-vim.keymap.set("n", "<leader>tf", function()
+vim.keymap.set("n", "<leader>af", function()
     require("profiler").require("deez.altfile").open()
 end, { desc = "Open alternate file" })
 

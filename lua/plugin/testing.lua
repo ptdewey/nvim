@@ -37,9 +37,9 @@ vim.g["test#custom_transformations"] = {
 }
 vim.g["test#transformation"] = "cover"
 
-vim.keymap.set("n", "<leader>tn", "<cmd>TestNearest<CR>", { desc = "test nearest", silent = true })
-vim.keymap.set("n", "<leader>tr", "<cmd>TestFile<CR>", { desc = "test file", silent = true })
-vim.keymap.set("n", "<leader>ta", "<cmd>TestSuite<CR>", { desc = "test suite", silent = true })
+vim.keymap.set("n", "<leader>rt", "<cmd>TestNearest<CR>", { desc = "test nearest", silent = true })
+vim.keymap.set("n", "<leader>rf", "<cmd>TestFile<CR>", { desc = "test file", silent = true })
+vim.keymap.set("n", "<leader>ra", "<cmd>TestSuite<CR>", { desc = "test suite", silent = true })
 
 -- TODO: figure out this stuff and replacements
 -- return {
