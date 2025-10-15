@@ -2,13 +2,17 @@ vim.pack.add({
     { src = "https://codeberg.org/pdewey/deez-nvim" },
 }, { confirm = false })
 
-vim.keymap.set("n", "<leader>gb", function()
+vim.keymap.set("n", "<leader>gbb", function()
     require("profiler").require("deez.gitbrowse").open()
-end, { desc = "Open current Git repository in browser" })
+end, { desc = "browse current branch" })
+
+vim.keymap.set("n", "<leader>gbd", function()
+    require("profiler").require("deez.gitbrowse").open({ branch = "default" })
+end, { desc = "browse default branch" })
 
 vim.api.nvim_create_user_command("GitBrowse", function()
     require("profiler").require("deez.gitbrowse").open()
-end, { desc = "Open current Git repository in browser" })
+end, { desc = "browse current branch" })
 
 vim.keymap.set("n", "<leader>af", function()
     require("profiler").require("deez.altfile").open()
