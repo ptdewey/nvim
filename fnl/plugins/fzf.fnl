@@ -57,6 +57,7 @@
       {:desc :diagnostics})
 
 (nmap :<leader>b (fn [] (fzf.buffers)) {:desc :buffers})
+(nmap :<leader>o (fn [] (fzf.buffers)) {:desc :buffers})
 
 (nmap :<leader>tt
       (fn []

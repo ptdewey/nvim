@@ -90,4 +90,5 @@
   (nmap "[t" (fn [] (vim.fn.search todo-pattern :b)
                (normal! :zz)) {:desc "prev todo comment"}))
 
+;; TODO: lazy load undotree plugi, load on first call
 (nmap :<leader>ut :<cmd>Undotree<CR> {:desc :undotree})
