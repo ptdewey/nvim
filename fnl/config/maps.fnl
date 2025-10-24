@@ -90,5 +90,12 @@
   (nmap "[t" (fn [] (vim.fn.search todo-pattern :b)
                (normal! :zz)) {:desc "prev todo comment"}))
 
-;; TODO: lazy load undotree plugi, load on first call
+;; yank file path
+(nmap :<leader>yf
+      (fn []
+        (vim.fn.setreg "+" (vim.fn.expand "%"))
+        (vim.notify (.. "Yanked: " (vim.fn.expand "%"))))
+      {:desc "yank path"})
+
+;; TODO: lazy load undotree plugin, load on first call
 (nmap :<leader>ut :<cmd>Undotree<CR> {:desc :undotree})
