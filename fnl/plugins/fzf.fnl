@@ -56,12 +56,13 @@
         (fzf.diagnostics_workspace {:severity_limit vim.diagnostic.severity.INFO}))
       {:desc :diagnostics})
 
-(nmap :<leader>b (fn [] (fzf.buffers)) {:desc :buffers})
+(nmap :<leader>bb (fn [] (fzf.buffers)) {:desc :buffers})
 (nmap :<leader>o (fn [] (fzf.buffers)) {:desc :buffers})
 
-(nmap :<leader>tt
+; (nmap :<leader>tt
+(nmap :<leader>st
       (fn []
-        (fzf.grep_project {:search "\\b(TODO|PERF|NOTE|FIX|FIXME|DOC|REFACTOR|BUG):"
+        (fzf.grep_project {:search "\\b(TODO|PERF|NOTE|FIX|FIXME|DOCS|REFACTOR|BUG|REVIEW):"
                            :no_esc true
                            :winopts {:preview (vert "50%")}}))
       {:desc "search todo" :silent true})

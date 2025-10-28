@@ -27,7 +27,7 @@
 
 (mini! :icons :event :UIEnter)
 
-(mini! :tabline :event [:BufReadPost :BufNewFile])
+; (mini! :tabline :event [:BufReadPost :BufNewFile])
 
 (mini! :notify :event :LspAttach)
 

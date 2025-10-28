@@ -99,3 +99,7 @@
 
 ;; TODO: lazy load undotree plugin, load on first call
 (nmap :<leader>ut :<cmd>Undotree<CR> {:desc :undotree})
+
+(nmap :<leader>bd (fn [] (vim.api.nvim_buf_delete 0 {})) {:desc :bdelete})
+(nmap :<leader>bn vim.cmd.bnext {:desc :bnext})
+(nmap :<leader>bp vim.cmd.bprev {:desc :bprev})

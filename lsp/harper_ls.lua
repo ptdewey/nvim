@@ -8,6 +8,7 @@ return {
                 SentenceCapitalization = false,
                 ExpandDependencies = false,
                 PunctuationClusters = false,
+                Spaces = false,
             },
         },
     },

@@ -1,30 +1,27 @@
 vim.pack.add({
     {
-        -- src = "https://github.com/zbirenbaum/copilot.lua",
-        src = "file:///Users/patrick.dewey/projects/copilot.lua",
+        src = "https://github.com/zbirenbaum/copilot.lua",
+        -- src = "file:///Users/patrick.dewey/projects/copilot.lua",
         data = {
             cmd = "Copilot",
             after = function()
                 require("profiler").require_and_setup("copilot", {
                     panel = { enabled = false },
                     suggestion = {
-                        enabled = false,
-                        -- enabled = true,
+                        enabled = true,
                         -- auto_trigger = true,
-                        -- keymap = {
-                        --     accept = "<M-h>",
-                        --     -- accept_line = "<M-l>",
-                        --     next = "<M-n>",
-                        --     prev = "<M-p>",
-                        --     dismiss = "<C-/>",
-                        -- },
+                        keymap = {
+                            accept = "<C-j>",
+                            accept_line = "<C-l>",
+                            -- next = "<M-n>",
+                            -- prev = "<M-p>",
+                            dismiss = "<C-/>",
+                        },
                     },
                     filetypes = { markdown = true, typst = true, help = true },
                     server_opts_overrides = {
-                        init_options = {
-                            editorInfo = { name = "GNU Emacs", version = "30.1" },
-                        },
-                        -- settings = { telemetry = { telemetryLevel = "off" } },
+                        -- init_options = { editorInfo = { name = "GNU Emacs", version = "30.1" } },
+                        settings = { telemetry = { telemetryLevel = "off" } },
                     },
                 })
             end,
