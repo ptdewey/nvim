@@ -1,8 +1,8 @@
 (import-macros {: nmap : map : vmap : imap : tmap : normal!} :macros)
 
 ;; buffer switching
-(nmap :<tab> ":bnext <CR>zz" {:noremap true})
-(nmap :<S-tab> ":bprev <CR>zz" {:noremap true})
+; (nmap :<tab> ":bnext <CR>zz" {:noremap true})
+; (nmap :<S-tab> ":bprev <CR>zz" {:noremap true})
 
 ;; move up/down visual lines
 (nmap :k "v:count == 0 ? 'gk' : 'k'" {:expr true :silent true})

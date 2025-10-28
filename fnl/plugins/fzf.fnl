@@ -62,7 +62,7 @@
 ; (nmap :<leader>tt
 (nmap :<leader>st
       (fn []
-        (fzf.grep_project {:search "\\b(TODO|PERF|NOTE|FIX|FIXME|DOCS|REFACTOR|BUG|REVIEW):"
+        (fzf.grep_project {:search "\\b(TODO|PERF|NOTE|FIX|FIXME|DOCS|REFACTOR|BUG|REVIEW|TEST):"
                            :no_esc true
                            :winopts {:preview (vert "50%")}}))
       {:desc "search todo" :silent true})
