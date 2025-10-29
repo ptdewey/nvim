@@ -81,7 +81,7 @@
 (nmap :zS vim.show_pos {:desc :inspect})
 
 ;; alternate file
-(nmap :<C-n> :<C-^>)
+(nmap :<C-n> :<C-^>zz)
 
 ;; navigate to next/prev TODO comments
 (let [todo-pattern "\\v\\s*(TODO|FIXME|HACK|NOTE|DOC|DOCS|REFACTOR|CHANGE):\\s*"]

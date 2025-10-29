@@ -258,6 +258,8 @@ ls.add_snippets("go", {
 
     s("typ", fmt("type {} struct {{\n\t{}\n}}{}", { i(1), i(2), i(0) })),
 
+    s("interface", fmt("type {} interface {{\n\t{}\n}}{}", { i(1), i(2), i(0) })),
+
     -- s("app", fmt("{} = append({}, {}){}", { i(1), rep(1), i(2), i(0) })),
 
     -- TODO: autopopulate return? might need additional work to smartly grab variable if one matches the return type, otherwise add one
