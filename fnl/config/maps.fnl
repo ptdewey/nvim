@@ -48,7 +48,7 @@
                     (normal! :zz))))))
 
 ;; open diagnostics
-(nmap :<leader>e vim.diagnostic.open_float {:desc "open floating diagnostic"})
+(nmap :<leader>m vim.diagnostic.open_float {:desc "open floating diagnostic"})
 (nmap :<leader>q vim.diagnostic.setloclist {:desc "open diagnostics list"})
 
 ;; lsp

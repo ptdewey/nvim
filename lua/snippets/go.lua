@@ -2,6 +2,7 @@ local ls = require("luasnip")
 local s = ls.s
 local i = ls.insert_node
 local t = ls.text_node
+local c = ls.choice_node
 local d = ls.dynamic_node
 local sn = ls.sn
 local fmta = require("luasnip.extras.fmt").fmta
@@ -256,11 +257,14 @@ ls.add_snippets("go", {
 
     s("print", fmt('fmt.Println("{}")', { i(1) })),
 
-    s("typ", fmt("type {} struct {{\n\t{}\n}}{}", { i(1), i(2), i(0) })),
-
-    s("interface", fmt("type {} interface {{\n\t{}\n}}{}", { i(1), i(2), i(0) })),
-
-    -- s("app", fmt("{} = append({}, {}){}", { i(1), rep(1), i(2), i(0) })),
+    -- TODO: make this an option node w/interface as the alternate option
+    s(
+        "typ",
+        fmt(
+            "type {} {} {{\n\t{}\n}}{}",
+            { i(1), c(2, { t("struct"), t("interface") }), i(3), i(0) }
+        )
+    ),
 
     -- TODO: autopopulate return? might need additional work to smartly grab variable if one matches the return type, otherwise add one
     -- - repeat an entry for each return type in function signature.

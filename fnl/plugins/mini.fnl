@@ -38,9 +38,10 @@
 (nmap :<leader>ga "<cmd>Git add %<CR>" {:desc "git add"})
 
 (mini! :visits :event :BufReadPost)
-(nmap :<C-e> (fn []
-               (let [visits (require! :mini.visits)]
-                 (visits.select_path))))
+; (nmap :<C-e> (fn []
+(nmap :<leader>v (fn []
+                   (let [visits (require! :mini.visits)]
+                     (visits.select_path))))
 
 (mini! :diff :event :BufReadPost
        {:view {:style :sign
