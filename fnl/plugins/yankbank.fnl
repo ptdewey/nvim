@@ -15,6 +15,7 @@
                                 :bind_indices :<leader>y})}}])
 
 (let [os-name (: (. (vim.uv.os_uname) :sysname) :lower)]
+  ;; TODO: find a way of distinguishing nixos systems from other linux
   (if (= os-name :linux)
       (set vim.g.sqlite_clib_path
            :/run/current-system/sw/share/nix-ld/lib/libsqlite3.so)))

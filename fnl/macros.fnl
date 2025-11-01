@@ -50,8 +50,7 @@
 
 (fn setup! [mod opts]
   ;; TODO: possibly change to not return the function, create separate 'after!' macro
-  `(fn []
-     ((. (require :profiler) :require_and_setup) ,mod ,opts)))
+  `#((. (require :profiler) :require_and_setup) ,mod ,opts))
 
 {: map
  : nmap

@@ -179,9 +179,6 @@
                                       (let [limit (or (tonumber args.args) 20)]
                                         (M.report {: limit})))
                                     {:nargs "?"})
-  (vim.api.nvim_create_user_command :ProfilerClear
-                                    (fn []
-                                      (M.clear))
-                                    {}))
+  (vim.api.nvim_create_user_command :ProfilerClear #(M.clear) {}))
 
 M

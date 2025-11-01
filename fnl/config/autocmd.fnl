@@ -9,11 +9,11 @@
 
 ;; highlight on yank
 (let [yank-hl (vim.api.nvim_create_augroup :YankHighlight {:clear true})]
-  (autocmd! :TextYankPost {:callback (fn []
-                                       (vim.hl.on_yank))
+  (autocmd! :TextYankPost {:callback #(vim.hl.on_yank)
                            :group yank-hl
                            :pattern "*"}))
 
+;; TODO: could this be an ftplugin?
 (autocmd! :TermOpen
           {:callback (fn [] (o :number false) (o :relativenumber false))})
 

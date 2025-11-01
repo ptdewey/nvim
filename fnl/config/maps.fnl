@@ -32,20 +32,18 @@
 ;; commenting
 (each [mode cmd (pairs {:x "normal gc" :n "normal gcc"})]
   (map mode :<leader>/
-       (fn []
-         (let [pos (vim.api.nvim_win_get_cursor 0)]
-           (vim.cmd cmd)
-           (vim.api.nvim_win_set_cursor 0 pos)))
+       #(let [pos (vim.api.nvim_win_get_cursor 0)]
+          (vim.cmd cmd)
+          (vim.api.nvim_win_set_cursor 0 pos))
        {:desc "Toggle Comment" :remap true}))
 
 ;; diagnostic jumps
 (each [key cmd (pairs {"]d" vim.diagnostic.get_next
                        "[d" vim.diagnostic.get_prev})]
-  (nmap key (fn []
-              (let [d (cmd {:severity {:min vim.diagnostic.severity.WARN}})]
-                (if d
-                    (vim.diagnostic.jump {:diagnostic d})
-                    (normal! :zz))))))
+  (nmap key #(let [d (cmd {:severity {:min vim.diagnostic.severity.WARN}})]
+               (if d
+                   (vim.diagnostic.jump {:diagnostic d})
+                   (normal! :zz)))))
 
 ;; open diagnostics
 (nmap :<leader>m vim.diagnostic.open_float {:desc "open floating diagnostic"})
@@ -67,8 +65,8 @@
       {:desc "goto type definition"})
 
 ;; paste/delete w/o yank
-(vmap :<leader>d (fn [] (normal! :_d)) {:desc :_d})
-(vmap :<leader>p (fn [] (normal! :_dP) {:desc :_dP}))
+(vmap :<leader>d #(normal! :_d) {:desc :_d})
+(vmap :<leader>p #(normal! :_dP) {:desc :_dP})
 
 ;; make file executable
 (nmap :<leader>x+ "<cmd>silent !chmod +x %<CR>" {:desc "chmod +x"})
@@ -84,7 +82,7 @@
 (nmap :<C-n> :<C-^>zz)
 
 ;; navigate to next/prev TODO comments
-(let [todo-pattern "\\v\\s*(TODO|FIXME|HACK|NOTE|DOC|DOCS|REFACTOR|CHANGE):\\s*"]
+(let [todo-pattern "\\v\\s*(TODO|FIX|HACK|NOTE|DOCS|REFACTOR|CHANGE|REVIEW|FIX|TEST):\\s*"]
   (nmap "]t" (fn [] (vim.fn.search todo-pattern)
                (normal! :zz)) {:desc "next todo comment"})
   (nmap "[t" (fn [] (vim.fn.search todo-pattern :b)
@@ -100,6 +98,6 @@
 ;; TODO: lazy load undotree plugin, load on first call
 (nmap :<leader>ut :<cmd>Undotree<CR> {:desc :undotree})
 
-(nmap :<leader>bd (fn [] (vim.api.nvim_buf_delete 0 {})) {:desc :bdelete})
+(nmap :<leader>bd #(vim.api.nvim_buf_delete 0 {}) {:desc :bdelete})
 (nmap :<leader>bn vim.cmd.bnext {:desc :bnext})
 (nmap :<leader>bp vim.cmd.bprev {:desc :bprev})

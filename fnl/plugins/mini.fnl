@@ -38,19 +38,15 @@
 (nmap :<leader>ga "<cmd>Git add %<CR>" {:desc "git add"})
 
 (mini! :visits :event :BufReadPost)
-; (nmap :<C-e> (fn []
-(nmap :<leader>v (fn []
-                   (let [visits (require! :mini.visits)]
-                     (visits.select_path))))
+(nmap :<leader>v #(let [visits (require! :mini.visits)]
+                    (visits.select_path)))
 
 (mini! :diff :event :BufReadPost
        {:view {:style :sign
                :signs {:add "+" :change "~" :delete "-"}
                :priority 49}})
 
-(nmap :<leader>gd
-      (fn []
-        ((. (require :mini.diff) :toggle_overlay))))
+(nmap :<leader>gd #((. (require :mini.diff) :toggle_overlay)))
 
 (mini! :indentscope :event [:BufReadPost :BufNewFile]
        {:draw {:delay 0
@@ -114,7 +110,6 @@
 
 (mini! :files :event :UIEnter {:mappings {:go_out_plus "-" :go_in_plus :<CR>}})
 
-(nmap "-" (fn []
-            ((. (require :mini.files) :open))) {})
+(nmap "-" #((. (require :mini.files) :open)) {})
 
 ((. (require! :lze) :load) [specs])

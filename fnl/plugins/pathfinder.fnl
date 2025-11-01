@@ -10,8 +10,7 @@
                                 :style {:show_goto_parent false}})}}])
 
 (nmap :<leader>N
-      (fn []
-        ((. (require :pathfinder) :toggle) {:open_in_current_dir false}))
+      #((. (require :pathfinder) :toggle) {:open_in_current_dir false})
       {:desc :Pathfinder})
 
 (nmap :<leader>sp "<cmd>Pathfinder select<CR>" {:desc "Select Path"})
