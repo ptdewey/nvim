@@ -122,13 +122,50 @@
       (doto (table.sort (fn [a b]
                           (> (or (. a sort_by) 0) (or (. b sort_by) 0))))))))
 
-;; TODO: finish report generation
 (fn M.report [opts]
   (let [opts (or opts {})
         results (M.get_results opts)
-        limit (or opts.limit 50)]
-    ;; TODO:
-    (print :todo)))
+        limit (or opts.limit 20)]
+    (print (.. "\n" (string.rep "=" 85)))
+    (print "PLUGIN PROFILER REPORT")
+    (print (string.rep "=" 85))
+    (var total-plugins 0)
+    (var total-time 0)
+    (var avg-time 0)
+    (var lazy-loaded 0)
+    (each [_ data (ipairs results)]
+      (when (not (data.modname:match :^__batch_))
+        (set total-plugins (+ total-plugins 1))
+        (set total-time (+ total-time data.total_time))
+        (when data.lazy_load
+          (set lazy-loaded (+ lazy-loaded 1)))))
+    (when (> total-plugins 0)
+      (set avg-time (/ total-time total-plugins)))
+    (print (string.format "Total Plugins: %d | Total Time: %.2fms | Average: %.2fms | Lazy Loaded: %d"
+                          total-plugins total-time avg-time lazy-loaded))
+    (print (string.rep "-" 85))
+    (print (string.format "%-25s %10s %10s %10s %12s %8s" :Plugin "Total(ms)"
+                          "Require(ms)" "Setup(ms)" "Setup Type" :Lazy))
+    (print (string.rep "-" 85))
+    (each [i data (ipairs results)]
+      (when (<= i limit)
+        (when (not (data.modname:match :^__batch_))
+          (let [setup-type (or data.setup_type :none)
+                lazy-marker (if data.lazy_load "✓" "")]
+            (print (string.format "%-25s %10.2f %10.2f %10.2f %12s %8s"
+                                  (data.modname:sub 1 25) data.total_time
+                                  (or data.require_time 0)
+                                  (or data.setup_time 0)
+                                  (tostring (setup-type:sub 1 12)) lazy-marker))
+            (when data.error
+              (print (string.format "  ERROR: %s" data.error)))
+            (when data.setup_error
+              (print (string.format "  SETUP ERROR: %s" data.setup_error)))))))
+    (print (string.rep "=" 85))))
+
+(fn M.clear []
+  (set M.timings {})
+  (print "Plugin timing data cleared"))
 
 (fn M.disable []
   (set M.enabled false))
@@ -136,11 +173,15 @@
 (fn M.enable []
   (set M.enabled true))
 
-; (fn M.setup []
-;   (vim.api.nvim_create_user_command :ProfilerReport
-;                                     (fn [args]
-;                                       (M.report {:limit (or (tonumber args.args)
-;                                                             20)}))
-;                                     {:nargs "?"}))
+(fn M.setup []
+  (vim.api.nvim_create_user_command :ProfilerReport
+                                    (fn [args]
+                                      (let [limit (or (tonumber args.args) 20)]
+                                        (M.report {: limit})))
+                                    {:nargs "?"})
+  (vim.api.nvim_create_user_command :ProfilerClear
+                                    (fn []
+                                      (M.clear))
+                                    {}))
 
 M

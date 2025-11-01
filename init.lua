@@ -13,8 +13,7 @@ require("hotpot").setup({
 })
 
 -- Can only be loaded after hotpot
-require("timer").setup()
-require("profiler")
+require("profiler").setup()
 
 -- Load themes first
 require("plugin.theme")

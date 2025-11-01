@@ -40,18 +40,6 @@ vim.api.nvim_create_user_command("Mason", function()
     vim.cmd("Mason")
 end, {})
 
--- vim.api.nvim_create_autocmd("LspAttach", {
---     callback = function()
---         p.require_and_setup("lsp_signature", {
---             doc_lines = 0,
---             hi_parameter = "IncSearch",
---             -- hint_inline = function() return true end,
---             hint_prefix = "",
---             handler_opts = { border = "rounded" },
---         })
---     end,
--- })
-
 -- TODO: delete command during callback (make a BufEnter group, delete group)
 local group = vim.api.nvim_create_augroup("LazyDevSetup", {})
 vim.api.nvim_create_autocmd("FileType", {

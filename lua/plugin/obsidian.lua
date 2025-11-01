@@ -1,5 +1,3 @@
--- TODO: maybe try this: https://github.com/zk-org/zk-nvim and https://github.com/zk-org/zk?tab=readme-ov-file
--- - video: https://www.youtube.com/watch?v=UzhZb7e4l4Y
 vim.pack.add({
     {
         src = "https://github.com/obsidian-nvim/obsidian.nvim",

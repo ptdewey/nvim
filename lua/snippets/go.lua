@@ -257,7 +257,6 @@ ls.add_snippets("go", {
 
     s("print", fmt('fmt.Println("{}")', { i(1) })),
 
-    -- TODO: make this an option node w/interface as the alternate option
     s(
         "typ",
         fmt(
