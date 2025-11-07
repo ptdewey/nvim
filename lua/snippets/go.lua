@@ -253,7 +253,25 @@ end
 
 -- Go snippets
 ls.add_snippets("go", {
-    s("func", fmt("func {}({}) {}{{\n\t{}\n}}", { i(1), i(2), i(3), i(4) })),
+    s(
+        "func",
+        fmt("func {}({}) {}{{\n\t{}\n}}", {
+            c(1, {
+                sn(nil, {
+                    i(1),
+                }),
+                sn(nil, {
+                    t("("),
+                    i(1),
+                    t(") "),
+                    i(2),
+                }),
+            }),
+            i(2),
+            i(3),
+            i(4),
+        })
+    ),
 
     s("print", fmt('fmt.Println("{}")', { i(1) })),
 
