@@ -4,7 +4,8 @@
 ;; - Create custom lze handler to trigger on BufAdd with `#vim.fn.getbufinfo({buflisted = 1}) >= 2`
 (pack! [{:src "https://github.com/ahkohd/buffer-sticks.nvim"
          :data {:on_require :buffer-sticks
-                :after (fn [] (setup! :buffer-sticks {})
+                :after (fn []
+                         (setup! :buffer-sticks {:preview {:enabled false}})
                          (. (require :buffer-sticks) :show))}}])
 
 (nmap :<leader>e #((. (require :buffer-sticks) :jump)) {:desc "jump buffers"})

@@ -3,6 +3,9 @@
 ;; buffer switching
 ; (nmap :<tab> ":bnext <CR>zz" {:noremap true})
 ; (nmap :<S-tab> ":bprev <CR>zz" {:noremap true})
+(nmap :<leader>bn vim.cmd.bnext {:desc :bnext})
+(nmap :<leader>bp vim.cmd.bprev {:desc :bprev})
+(nmap :<leader>bd #(vim.api.nvim_buf_delete 0 {}) {:desc :bdelete})
 
 ;; move up/down visual lines
 (nmap :k "v:count == 0 ? 'gk' : 'k'" {:expr true :silent true})
@@ -97,7 +100,3 @@
 
 ;; TODO: lazy load undotree plugin, load on first call
 (nmap :<leader>ut :<cmd>Undotree<CR> {:desc :undotree})
-
-(nmap :<leader>bd #(vim.api.nvim_buf_delete 0 {}) {:desc :bdelete})
-(nmap :<leader>bn vim.cmd.bnext {:desc :bnext})
-(nmap :<leader>bp vim.cmd.bprev {:desc :bprev})

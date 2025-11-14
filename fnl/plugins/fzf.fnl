@@ -72,7 +72,10 @@
       #(fzf.lsp_references {:ignore_current_line true
                             :includeDeclaration false
                             :winopts {:default nil :preview (vert)}})
-      {:desc "goto references"})
+      {:desc "lsp references"})
+
+(nmap :gri #(fzf.lsp_implementations {:deault nil :priview (vert)})
+      {:desc "lsp implementation"})
 
 (nmap :gd (fn [] (fzf.lsp_definitions) (normal! :zz))
       {:noremap true :desc "goto definition"})
@@ -89,3 +92,5 @@
 (nmap :<leader>hh #(fzf.highlights) {:desc "search highlights"})
 
 (nmap :<leader>sm #(fzf.marks) {:desc "search marks"})
+
+(nmap :<leader>sl #(fzf.grep {:resume true}) {:desc "grep last"})
