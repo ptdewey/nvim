@@ -20,7 +20,7 @@ vim.pack.add({
                     keymap = {
                         preset = "none",
                         ["<C-h>"] = { "select_and_accept" },
-                        ["<C-space>"] = {
+                        ["<C-s>"] = {
                             "show",
                             "show_documentation",
                             "hide_documentation",
