@@ -1,8 +1,10 @@
 (import-macros {: pack! : setup!} :macros)
 
 (pack! [{:src "https://github.com/ptdewey/pendulum-nvim"
-         :version :main
-         :data {:event :UiEnter
+         ; :version :main
+         ; :src "file:///home/patrick/projects/pendulum-nvim"
+         :version :v2
+         :data {:event :VimEnter
                 :after (setup! :pendulum
                                {:log_file (vim.fn.expand :$HOME/.pendulum-log.csv)
                                 :timeout_len 180
@@ -14,7 +16,9 @@
                                 :report_section_excludes {}
                                 :report_excludes {:branch [:unknown_branch]
                                                   :directory []
-                                                  :file []
-                                                  :filetype [:unknown_filetype]
-                                                  :project [:unknown_project]}
-                                :lsp_binary (vim.fn.expand :$HOME/projects/pendulum-nvim/pendulum-server)})}}])
+                                                  :file ["ministarter://1/welcome"]
+                                                  :filetype [:unknown_filetype
+                                                             :ministarter]
+                                                  :project [:unknown_project]}})}}])
+
+; :lsp_binary (vim.fn.expand :$HOME/projects/pendulum-nvim/pendulum-server)})}}])

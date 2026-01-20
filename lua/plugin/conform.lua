@@ -17,6 +17,7 @@ vim.api.nvim_create_autocmd("BufWritePre", {
                 svelte = { "svelte" },
                 go = { "goimports", "golangci-lint" },
                 -- go = { "gofmt", "goimports" },
+                nix = { "nixfmt" },
                 rust = { "rustfmt" },
                 python = { "ruff" },
                 typst = { "tinymist" },

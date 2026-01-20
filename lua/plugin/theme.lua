@@ -4,6 +4,7 @@ vim.pack.add({
     { src = "https://github.com/vague2k/vague.nvim" },
     { src = "https://github.com/nyoom-engineering/oxocarbon.nvim" },
     { src = "https://github.com/ptdewey/witchesbrew.nvim" },
+    { src = "https://github.com/ptdewey/vitesse-nvim" },
     { src = "https://github.com/savq/melange-nvim" },
     { src = "https://github.com/rose-pine/neovim", name = "rose-pine" },
     { src = "https://github.com/everviolet/nvim" },

@@ -24,7 +24,11 @@ local servers = {
     "fennel_ls",
     "jsonls",
     "gleam",
+    "html",
+    "cssls",
+    "erlangls",
 }
+-- TODO: move lsp registration list somewhere else (possibly a text file that is read from/appended to?)
 
 -- Avoid loading mason
 -- TODO: load mason if directory does not exist

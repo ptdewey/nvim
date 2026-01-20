@@ -110,6 +110,7 @@
 
 (mini! :files :event :UIEnter {:mappings {:go_out_plus "-" :go_in_plus :<CR>}})
 
-(nmap "-" #((. (require :mini.files) :open)) {})
+(nmap "-" (fn []
+            ((. (require :mini.files) :open))) {})
 
 ((. (require! :lze) :load) [specs])

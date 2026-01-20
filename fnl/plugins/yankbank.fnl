@@ -3,6 +3,7 @@
 (pack! [{:src "https://github.com/ptdewey/sqlite.lua"
          :data {:dep_of :yankbank-nvim}}
         {:src "https://github.com/ptdewey/yankbank-nvim"
+         :version :main
          :data {:event :VimEnter
                 :after (setup! :yankbank
                                {:sep "------"

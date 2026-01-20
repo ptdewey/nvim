@@ -132,35 +132,32 @@
     (var total-plugins 0)
     (var total-time 0)
     (var avg-time 0)
-    (var lazy-loaded 0)
     (each [_ data (ipairs results)]
       (when (not (data.modname:match :^__batch_))
         (set total-plugins (+ total-plugins 1))
-        (set total-time (+ total-time data.total_time))
-        (when data.lazy_load
-          (set lazy-loaded (+ lazy-loaded 1)))))
+        (set total-time (+ total-time data.total_time))))
     (when (> total-plugins 0)
       (set avg-time (/ total-time total-plugins)))
-    (print (string.format "Total Plugins: %d | Total Time: %.2fms | Average: %.2fms | Lazy Loaded: %d"
-                          total-plugins total-time avg-time lazy-loaded))
+    (print (string.format "Total Plugins: %d | Total Time: %.2fms | Average: %.2fms"
+                          total-plugins total-time avg-time))
     (print (string.rep "-" 85))
-    (print (string.format "%-25s %10s %10s %10s %12s %8s" :Plugin "Total(ms)"
-                          "Require(ms)" "Setup(ms)" "Setup Type" :Lazy))
+    (print (string.format "%-25s %10s %10s %10s %12s " :Plugin "Total(ms)"
+                          "Require(ms)" "Setup(ms)" "Setup Type"))
     (print (string.rep "-" 85))
     (each [i data (ipairs results)]
       (when (<= i limit)
         (when (not (data.modname:match :^__batch_))
-          (let [setup-type (or data.setup_type :none)
-                lazy-marker (if data.lazy_load "✓" "")]
-            (print (string.format "%-25s %10.2f %10.2f %10.2f %12s %8s"
+          (let [setup-type (or data.setup_type :none)]
+            (print (string.format "%-25s %10.2f %10.2f %10.2f %12s"
                                   (data.modname:sub 1 25) data.total_time
                                   (or data.require_time 0)
                                   (or data.setup_time 0)
-                                  (tostring (setup-type:sub 1 12)) lazy-marker))
+                                  (tostring (setup-type:sub 1 12))))
             (when data.error
-              (print (string.format "  ERROR: %s" data.error)))
-            (when data.setup_error
-              (print (string.format "  SETUP ERROR: %s" data.setup_error)))))))
+              (print (string.format "  ERROR: %s" data.error)
+                     (when data.setup_error
+                       (print (string.format "  SETUP ERROR: %s"
+                                             data.setup_error)))))))))
     (print (string.rep "=" 85))))
 
 (fn M.clear []
