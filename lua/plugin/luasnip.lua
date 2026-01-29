@@ -6,6 +6,14 @@ vim.pack.add({
             dep_of = "blink.cmp",
             after = function()
                 local ls = require("profiler").require("luasnip")
+
+                -- Enable autosnippets for auto-import functionality
+                ls.setup({
+                    enable_autosnippets = true,
+                    -- Update snippets as you type for better dynamic behavior
+                    update_events = { "TextChanged", "TextChangedI" },
+                })
+
                 require("luasnip.loaders.from_lua").lazy_load({
                     include = nil,
                     paths = { "~/.config/nvim/lua/snippets" },

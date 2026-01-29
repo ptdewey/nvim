@@ -5,9 +5,13 @@ local t = ls.text_node
 local c = ls.choice_node
 local d = ls.dynamic_node
 local sn = ls.sn
+local f = ls.function_node
 local fmta = require("luasnip.extras.fmt").fmta
 local rep = require("luasnip.extras").rep
 local fmt = require("luasnip.extras.fmt").fmt
+
+-- Auto-import module
+local go_auto_import = require("go_auto_import")
 
 local transforms = {
     bool = function(_, _)
@@ -294,3 +298,230 @@ ls.add_snippets("go", {
 
     s("lerr", fmt("log.Println(err){}", { i(0) })),
 })
+
+-- =============================================================================
+-- Auto-import Autosnippets
+-- =============================================================================
+-- These snippets trigger automatically when you type "alias." and will:
+-- 1. Auto-import the package if not already imported
+-- 2. Keep the "alias." text so you can continue typing the function/method
+--
+-- The import path is resolved by:
+-- 1. First checking the codebase for existing imports with that alias
+-- 2. Falling back to standard library packages
+-- When conflicts exist, the most frequently used import in the codebase wins.
+--
+-- IMPORTANT: Only triggers in valid contexts:
+-- - Inside function/method bodies
+-- - Variable declarations (var x = pkg.Func())
+-- - Short variable declarations (x := pkg.Func())
+-- - Function parameters
+-- - Struct field types
+-- - Type declarations
+-- Does NOT trigger:
+-- - After another dot (e.g., log.Print won't trigger on Print)
+-- - In import statements
+-- - In comments
+-- - In string literals
+-- =============================================================================
+
+-- Valid parent node types where auto-import should trigger
+local valid_auto_import_contexts = {
+    -- Inside function bodies
+    block = true,
+    statement_list = true,
+    expression_statement = true,
+    return_statement = true,
+    if_statement = true,
+    for_statement = true,
+    switch_statement = true,
+    select_statement = true,
+    defer_statement = true,
+    go_statement = true,
+    assignment_statement = true,
+    short_var_declaration = true,
+
+    -- Variable/const declarations
+    var_declaration = true,
+    const_declaration = true,
+    var_spec = true,
+    const_spec = true,
+
+    -- Function parameters and return types
+    parameter_declaration = true,
+    parameter_list = true,
+    variadic_parameter_declaration = true,
+
+    -- Struct fields
+    field_declaration = true,
+    field_declaration_list = true,
+
+    -- Type declarations
+    type_declaration = true,
+    type_spec = true,
+
+    -- Expressions (for nested calls like foo(pkg.Bar()))
+    call_expression = true,
+    argument_list = true,
+    composite_literal = true,
+    keyed_element = true,
+    literal_element = true,
+    literal_value = true,
+    unary_expression = true,
+    binary_expression = true,
+    index_expression = true,
+    slice_expression = true,
+    type_assertion = true,
+    type_conversion_expression = true,
+
+    -- Interface method declarations
+    method_elem = true,
+    method_spec_list = true,
+}
+
+-- Contexts where we should NOT trigger (even if parent is valid)
+local invalid_auto_import_contexts = {
+    import_declaration = true,
+    import_spec = true,
+    import_spec_list = true,
+    comment = true,
+    interpreted_string_literal = true,
+    raw_string_literal = true,
+    rune_literal = true,
+    -- Already a selector expression (pkg.Something) - don't trigger again
+    selector_expression = true,
+}
+
+-- Check if we're in a valid context for auto-import using tree-sitter
+local function is_valid_auto_import_context()
+    local bufnr = vim.api.nvim_get_current_buf()
+
+    -- Check filetype
+    if vim.bo[bufnr].filetype ~= "go" then
+        return false
+    end
+
+    local cursor = vim.api.nvim_win_get_cursor(0)
+    local row, col = cursor[1] - 1, cursor[2]
+
+    -- Adjust column to be before the dot we just typed
+    if col > 0 then
+        col = col - 1
+    end
+
+    local parser = vim.treesitter.get_parser(bufnr, "go")
+    if not parser then
+        return false
+    end
+
+    local tree = parser:parse()[1]
+    if not tree then
+        return false
+    end
+
+    local root = tree:root()
+    local node = root:named_descendant_for_range(row, col, row, col)
+
+    if not node then
+        return false
+    end
+
+    -- Walk up the tree to check context
+    local current = node
+    local found_valid = false
+
+    while current do
+        local node_type = current:type()
+
+        -- Check for invalid contexts first (these take priority)
+        if invalid_auto_import_contexts[node_type] then
+            return false
+        end
+
+        -- Check for valid contexts
+        if valid_auto_import_contexts[node_type] then
+            found_valid = true
+        end
+
+        current = current:parent()
+    end
+
+    return found_valid
+end
+
+-- Check if the character before the alias is a dot (to avoid log.Print triggering)
+local function has_preceding_dot(line_to_cursor, matched_trigger)
+    -- Find where the match starts
+    local match_start = #line_to_cursor - #matched_trigger
+
+    -- Check if there's a dot before the match
+    if match_start > 0 then
+        local char_before = line_to_cursor:sub(match_start, match_start)
+        if char_before == "." then
+            return true
+        end
+    end
+
+    return false
+end
+
+-- Combined condition check for auto-import snippets
+local function should_auto_import(line_to_cursor, matched_trigger, captures)
+    -- Must have a valid capture
+    if not captures or not captures[1] then
+        return false
+    end
+
+    local alias = captures[1]
+
+    -- Don't trigger if there's a dot before (e.g., log.Print)
+    if has_preceding_dot(line_to_cursor, matched_trigger) then
+        return false
+    end
+
+    -- Must be a known package alias
+    local import_path = go_auto_import.get_import_path(alias)
+    if not import_path then
+        return false
+    end
+
+    -- Must be in a valid context (tree-sitter check)
+    if not is_valid_auto_import_context() then
+        return false
+    end
+
+    return true
+end
+
+-- =============================================================================
+-- Dynamic auto-import snippet using pattern trigger
+-- =============================================================================
+-- Matches any identifier followed by a dot, then checks:
+-- 1. Not preceded by another dot
+-- 2. Is a known package alias
+-- 3. Is in a valid code context (not in imports, comments, strings, etc.)
+-- =============================================================================
+
+ls.add_snippets("go", {
+    s({
+        trig = "([%a_][%w_]*)%.",
+        trigEngine = "pattern",
+        snippetType = "autosnippet",
+        wordTrig = true,
+        desc = "Dynamic auto-import for any package",
+        condition = should_auto_import,
+    }, {
+        f(function(_, snip)
+            local alias = snip.captures[1]
+            local import_path = go_auto_import.get_import_path(alias)
+            if import_path then
+                local bufnr = vim.api.nvim_get_current_buf()
+                vim.schedule(function()
+                    go_auto_import.add_import(bufnr, import_path, alias)
+                end)
+            end
+            return alias .. "."
+        end),
+        i(0),
+    }),
+}, { type = "autosnippets" })

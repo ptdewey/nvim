@@ -45,6 +45,10 @@
       "rev": "20c1290c07a42ffa7b59b53108b6dc118727d828",
       "src": "https://codeberg.org/pdewey/deez-nvim"
     },
+    "evergarden": {
+      "rev": "b49ee5bef999955e688ea883a1f7b14cd41de8b4",
+      "src": "https://codeberg.org/evergarden/nvim"
+    },
     "fzf-lua": {
       "rev": "b949bc096642821d82e658d688e700c2576b159e",
       "src": "https://github.com/ibhagwan/fzf-lua"
@@ -52,6 +56,10 @@
     "glance.nvim": {
       "rev": "bf86d8b79dce808e65fdb6e9269d0b4ed6d2eefc",
       "src": "https://github.com/DNLHC/glance.nvim"
+    },
+    "godoc.nvim": {
+      "rev": "6b0a713ccba211776c1e17a7a62470ea13d8e242",
+      "src": "https://github.com/fredrikaverpil/godoc.nvim"
     },
     "grug-far.nvim": {
       "rev": "794f03c97afc7f4b03fb6ec5111be507df1850cf",
@@ -61,6 +69,10 @@
       "rev": "8985e386a4fa1d069108f7230ec4ab699011dd2a",
       "src": "https://github.com/rktjmp/hotpot.nvim",
       "version": "'v0.14.8'"
+    },
+    "indent-blankline.nvim": {
+      "rev": "005b56001b2cb30bfa61b7986bc50657816ba4ba",
+      "src": "https://github.com/lukas-reineke/indent-blankline.nvim"
     },
     "jj.nvim": {
       "rev": "d13a5c9aec08318323f19fcdc1a1d2c469e00739",
@@ -132,6 +144,10 @@
       "src": "https://github.com/nvim-treesitter/nvim-treesitter",
       "version": "'main'"
     },
+    "nvim-treesitter-textobjects": {
+      "rev": "5ca4aaa6efdcc59be46b95a3e876300cfead05ef",
+      "src": "https://github.com/nvim-treesitter/nvim-treesitter-textobjects"
+    },
     "obsidian.nvim": {
       "rev": "acd73830fe2e8a2e0c234073ca2cb6387d59f37b",
       "src": "https://github.com/obsidian-nvim/obsidian.nvim"
@@ -180,6 +196,10 @@
     "vitesse-nvim": {
       "rev": "fb1c9037095819c4bdaee375108ef9cf3d199cb2",
       "src": "https://github.com/ptdewey/vitesse-nvim"
+    },
+    "vscode-diff.nvim": {
+      "rev": "f21847c61725070a8cedcb8adefe4cdb14f4c037",
+      "src": "https://github.com/esmuellert/vscode-diff.nvim"
     },
     "witchesbrew.nvim": {
       "rev": "fc377870f463ff590b22623efae403770caa4bdc",
