@@ -25,6 +25,7 @@ vim.api.nvim_create_autocmd("BufWritePre", {
                 json = { "prettierd" },
                 fennel = { "fnlfmt" },
                 markdown = { "prettierd" },
+                templ = { "templ" },
                 -- ["_"] = { "trim_whitespace" },
                 ["_"] = {},
             },

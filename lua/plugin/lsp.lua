@@ -27,6 +27,8 @@ local servers = {
     "html",
     "cssls",
     "erlangls",
+    "tailwindcss",
+    "templ",
 }
 -- TODO: move lsp registration list somewhere else (possibly a text file that is read from/appended to?)
 
