@@ -85,7 +85,7 @@
 (nmap :<C-n> :<C-^>zz)
 
 ;; navigate to next/prev TODO comments
-(let [todo-pattern "\\v\\s*(TODO|FIX|HACK|NOTE|DOCS|REFACTOR|CHANGE|REVIEW|FIX|TEST):\\s*"]
+(let [todo-pattern "\\v\\s*(TODO|FIX|HACK|NOTE|DOCS|REFACTOR|CHANGE|REVIEW|FIX|TEST|DEBUG):\\s*"]
   (nmap "]t" (fn [] (vim.fn.search todo-pattern)
                (normal! :zz)) {:desc "next todo comment"})
   (nmap "[t" (fn [] (vim.fn.search todo-pattern :b)

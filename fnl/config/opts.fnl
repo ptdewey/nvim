@@ -27,7 +27,6 @@
 ;; aesthetics
 (o :termguicolors true)
 (o :signcolumn :yes)
-(o :background :dark)
 (o :winborder :rounded)
 
 ;; undo/swap
