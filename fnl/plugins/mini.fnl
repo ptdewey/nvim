@@ -27,8 +27,6 @@
 
 (mini! :icons :event :UIEnter)
 
-; (mini! :tabline :event [:BufReadPost :BufNewFile])
-
 (mini! :notify :event :LspAttach)
 
 (mini! :surround :keys [:S :sd :sf :sF :sh :cs :sn]
@@ -108,9 +106,8 @@
                   (miniclue.gen_clues.z)]
           :window {:delay 300}}))
 
-(mini! :files :event :UIEnter {:mappings {:go_out_plus "-" :go_in_plus :<CR>}})
-
-(nmap "-" (fn []
-            ((. (require :mini.files) :open))) {})
+; (mini! :files :event :UIEnter {:mappings {:go_out_plus "-" :go_in_plus :<CR>}})
+; (nmap "-" (fn []
+;             ((. (require :mini.files) :open))) {})
 
 ((. (require! :lze) :load) [specs])

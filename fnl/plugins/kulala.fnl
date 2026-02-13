@@ -4,4 +4,5 @@
          :data {:ft [:http :rest]
                 :after (fn []
                          (setup! :kulala {})
-                         (nmap :<leader>rs #((. (require :kulala) :run))))}}])
+                         (nmap :<leader>rs #((. (require :kulala) :run))
+                               {:desc "run request"}))}}])

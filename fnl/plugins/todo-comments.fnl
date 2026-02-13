@@ -3,7 +3,8 @@
 (local keywords {:DOC {:alt [:DOCS]}
                  :REFACTOR {:color :warning}
                  :CHANGE {:color :warning}
-                 :REVIEW {:color :hint}})
+                 :REVIEW {:color :hint}
+                 :DEBUG {:color :warning}})
 
 (pack! [{:src "https://github.com/folke/todo-comments.nvim"
          :data {:event [:BufReadPost :BufNewFile]
