@@ -25,7 +25,7 @@ local p = require("profiler")
 -- TODO: remove bolding from oxocarbon stuff
 -- change into lsp highlight color to match comments
 
--- p.colorscheme("darkearth")
+p.colorscheme("darkearth")
 -- p.colorscheme("vague")
 -- p.colorscheme("monalisa")
 -- p.colorscheme("oxocarbon")
@@ -34,12 +34,12 @@ local p = require("profiler")
 -- p.colorscheme("rose-pine")
 -- p.colorscheme("rose-pine-dawn")
 
-p.require_and_setup("evergarden", {
-    overrides = {
-        ["@type.definition"] = { fg = "#F5D098" },
-    },
-})
-p.colorscheme("evergarden")
+-- p.require_and_setup("evergarden", {
+--     overrides = {
+--         ["@type.definition"] = { fg = "#F5D098" },
+--     },
+-- })
+-- p.colorscheme("evergarden")
 
 vim.api.nvim_create_user_command("Colorscheme", function(args)
     p.colorscheme(args.args)

@@ -1,8 +1,8 @@
 (import-macros {: pack! : setup!} :macros)
 
-(pack! [{:src "https://github.com/ptdewey/pendulum-nvim"
+(pack! [{;:src "https://github.com/ptdewey/pendulum-nvim"
          ; :version :main
-         ; :src "file:///home/patrick/projects/pendulum-nvim"
+         :src "file:///home/patrick/projects/pendulum-nvim"
          :version :v2
          :data {:event :VimEnter
                 :after (setup! :pendulum

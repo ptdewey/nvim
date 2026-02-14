@@ -12,6 +12,8 @@ vim.api.nvim_create_autocmd("FileType", {
         local ignored_fts = {
             "mininotify",
             "ministarter",
+            "Pathfinder",
+            "blink-cmp-menu",
         }
 
         if vim.tbl_contains(ignored_fts, event.match) then

@@ -48,9 +48,15 @@
 (fn raw-setup! [mod opts]
   `((. (require :profiler) :require_and_setup) ,mod ,opts))
 
-(fn setup! [mod opts]
-  ;; TODO: possibly change to not return the function, create separate 'after!' macro
-  `#((. (require :profiler) :require_and_setup) ,mod ,opts))
+(fn setup! [mod opts ...]
+  (let [body [...]]
+    (if (> (length body) 0)
+      (let [result `(fn []
+                      ((. (require :profiler) :require_and_setup) ,mod ,opts))]
+        (each [_ form (ipairs body)]
+          (table.insert result form))
+        result)
+      `#((. (require :profiler) :require_and_setup) ,mod ,opts))))
 
 {: map
  : nmap

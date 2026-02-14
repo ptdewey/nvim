@@ -3,7 +3,7 @@
 ## Installation
 
 ```sh
-bash <(curl -fsSL https://codeberg.org/pdewey/nvim/raw/branch/main/setup.sh)
+bash <(curl -fsSL https://github.com/ptdewey/nvim/raw/branch/main/setup.sh)
 ```
 
 ## Showcase
