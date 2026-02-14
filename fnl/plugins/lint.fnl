@@ -5,10 +5,10 @@
            :bash [:shellcheck]
            :lua [:selene]})
 
-(pack! [{:src "https://github.com/mfussenegger/nvim-lint"
-         :data {:event :BufWritePre
-                :after #(let [lint (require! :lint)]
-                          (set lint.linters_by_ft ft)
-                          (autocmd! [:BufWritePost]
-                                    {:callback (fn []
-                                                 (lint.try_lint))}))}}])
+(pack! "https://github.com/mfussenegger/nvim-lint"
+  :event :BufWritePre
+  :after #(let [lint (require! :lint)]
+            (set lint.linters_by_ft ft)
+            (autocmd! [:BufWritePost]
+                      {:callback (fn []
+                                   (lint.try_lint))})))

@@ -1,24 +1,24 @@
-(import-macros {: pack! :raw-setup! setup! : nmap : normal!} :macros)
+(import-macros {: pack! : raw-setup! : nmap : normal!} :macros)
 
-(pack! [{:src "https://github.com/ibhagwan/fzf-lua"}])
+(pack! "https://github.com/ibhagwan/fzf-lua")
 
-(setup! :fzf-lua {:winopts {:height 0.85
-                            :width 0.85
-                            :preview {:default :builtin
-                                      :vertical "down:40%"
-                                      :layout :vertical}}
-                  :fzf_opts {:--no-info ""
-                             :--info :hidden
-                             :--header " "
-                             :--layout :reverse-list}
-                  :files {:git_icons false
-                          :file_icons true
-                          :formatter :path.filename_first
-                          :winopts {:height 0.6
-                                    :width 0.5
-                                    :preview {:hidden true}}}
-                  :grep {:formatter :path.filename_first}
-                  :file_ignore_patterns ["%.pdf$"]})
+(raw-setup! :fzf-lua {:winopts {:height 0.85
+                                :width 0.85
+                                :preview {:default :builtin
+                                          :vertical "down:40%"
+                                          :layout :vertical}}
+                      :fzf_opts {:--no-info ""
+                                 :--info :hidden
+                                 :--header " "
+                                 :--layout :reverse-list}
+                      :files {:git_icons false
+                              :file_icons true
+                              :formatter :path.filename_first
+                              :winopts {:height 0.6
+                                        :width 0.5
+                                        :preview {:hidden true}}}
+                      :grep {:formatter :path.filename_first}
+                      :file_ignore_patterns ["%.pdf$"]})
 
 (macro vert [pct?]
   `{:layout :vertical :vertical (.. "down:" (or ,pct? "60%"))})
@@ -53,7 +53,6 @@
 (nmap :<leader>bb #(fzf.buffers) {:desc :buffers})
 (nmap :<leader>o #(fzf.buffers) {:desc :buffers})
 
-; (nmap :<leader>tt
 (nmap :<leader>st
       #(fzf.grep_project {:search "\\b(TODO|PERF|NOTE|FIX|FIXME|DOCS|REFACTOR|BUG|REVIEW|TEST):"
                           :no_esc true

@@ -1,5 +1,6 @@
 (import-macros {: pack! : setup!} :macros)
 
-(pack! [{:src "https://github.com/gpanders/nvim-parinfer"
-         :version :lua-plugin
-         :data {:ft :fennel :after (setup! :parinfer)}}])
+(pack! "https://github.com/gpanders/nvim-parinfer"
+  :version :lua-plugin
+  :ft :fennel
+  :after (setup! :parinfer))

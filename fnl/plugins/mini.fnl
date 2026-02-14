@@ -1,6 +1,6 @@
 (import-macros {: pack! : require! : setup! : nmap} :macros)
 
-(pack! ["https://github.com/nvim-mini/mini.nvim"])
+(pack! "https://github.com/nvim-mini/mini.nvim")
 
 (macro mini-spec! [mod ...]
   (let [args [...]

@@ -39,8 +39,30 @@
        (set spec#.name p#.spec.name)
        ((. (require :lze) :load) spec#))))
 
-(fn pack! [specs opts]
-  `(vim.pack.add ,specs (or ,opts {:load ,(load!) :confirm false})))
+(fn spec! [src ...]
+  "Build a vim.pack spec from a URL and keyword pairs"
+  (let [args [...]
+        spec-keys {:name true :version true}
+        spec {: src}
+        data {}]
+    (for [i 1 (length args) 2]
+      (let [k (. args i)
+            v (. args (+ i 1))]
+        (if (. spec-keys k)
+            (tset spec k v)
+            (tset data k v))))
+    (when (next data)
+      (set spec.data data))
+    spec))
+
+(fn pack! [first ...]
+  (let [args [...]]
+    (if (sequence? first)
+        ;; Sequence syntax: (pack! [(spec! ...) (spec! ...)] opts?)
+        `(vim.pack.add ,first (or ,(. args 1) {:load ,(load!) :confirm false}))
+        ;; Flat syntax: (pack! "url" :version :v2 :cmd :Foo :after ...)
+        `(vim.pack.add [,(spec! first (unpack args))]
+                       {:load ,(load!) :confirm false}))))
 
 (fn require! [mod]
   `((. (require :profiler) :require) ,mod))
@@ -51,12 +73,12 @@
 (fn setup! [mod opts ...]
   (let [body [...]]
     (if (> (length body) 0)
-      (let [result `(fn []
-                      ((. (require :profiler) :require_and_setup) ,mod ,opts))]
-        (each [_ form (ipairs body)]
-          (table.insert result form))
-        result)
-      `#((. (require :profiler) :require_and_setup) ,mod ,opts))))
+        (let [result `(fn []
+                        ((. (require :profiler) :require_and_setup) ,mod ,opts))]
+          (each [_ form (ipairs body)]
+            (table.insert result form))
+          result)
+        `#((. (require :profiler) :require_and_setup) ,mod ,opts))))
 
 {: map
  : nmap
@@ -68,6 +90,7 @@
  : o
  : g
  : user-cmd!
+ : spec!
  : pack!
  : autocmd!
  : load!

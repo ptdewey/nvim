@@ -2,7 +2,6 @@ vim.pack.add({
     { src = "https://github.com/neovim/nvim-lspconfig" },
     { src = "https://github.com/williamboman/mason.nvim" },
     { src = "https://github.com/ptdewey/lazydev.nvim" },
-    -- { src = "https://github.com/ray-x/lsp_signature.nvim" },
 })
 
 local p = require("profiler")

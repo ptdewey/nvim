@@ -1,4 +1,5 @@
 (import-macros {: pack! : setup!} :macros)
 
-(pack! [{:src "https://github.com/windwp/nvim-autopairs"
-         :data {:event :InsertEnter :after (setup! :nvim-autopairs)}}])
+(pack! "https://github.com/windwp/nvim-autopairs"
+  :event :InsertEnter
+  :after (setup! :nvim-autopairs))
