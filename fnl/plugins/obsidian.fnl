@@ -9,8 +9,8 @@
             :picker {:name :fzf-lua}
             :ui {:enable false}
             :templates {:folder :templates}}]
-  (pack! "https://github.com/obsidian-nvim/obsidian.nvim" :cmd :Obsidian :ft
-         :markdown :after (setup! :obsidian opts)))
+  (pack! "https://github.com/obsidian-nvim/obsidian.nvim"
+         {:cmd :Obsidian :ft :markdown :after (setup! :obsidian opts)}))
 
 (nmap :<leader>nd "<cmd>Obsidian dailies<CR>" {:desc "obsidian dailies"})
 (nmap :<leader>no :<cmd>Obsidian<CR> {:desc :obsidian})

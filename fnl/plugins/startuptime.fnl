@@ -1,4 +1,3 @@
 (import-macros {: pack!} :macros)
 
-(pack! "https://github.com/dstein64/vim-startuptime"
-  :cmd :StartupTime)
+(pack! "https://github.com/dstein64/vim-startuptime" {:cmd :StartupTime})

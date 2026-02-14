@@ -13,7 +13,7 @@
       "src": "https://github.com/fang2hou/blink-copilot"
     },
     "blink-ripgrep.nvim": {
-      "rev": "9a9c2044bc31a42d55bf2286d491e08954be0788",
+      "rev": "a089cfe705492829d337767c71ce3f712e870e81",
       "src": "https://github.com/mikavilpas/blink-ripgrep.nvim"
     },
     "blink.cmp": {
@@ -43,10 +43,10 @@
     },
     "evergarden": {
       "rev": "1949d2b7ed441f18e0e58cd23ac4dfdd91b332e9",
-      "src": "https://codeberg.org/evergarden/nvim"
+      "src": "https://github.com/everviolet/nvim"
     },
     "fzf-lua": {
-      "rev": "739330f48ca64b4283f5228e9dc9c0c8f9a37110",
+      "rev": "5921997472574fca3880b62949eb8679dc6f5afc",
       "src": "https://github.com/ibhagwan/fzf-lua"
     },
     "glance.nvim": {
@@ -60,11 +60,7 @@
     "hotpot.nvim": {
       "rev": "8985e386a4fa1d069108f7230ec4ab699011dd2a",
       "src": "https://github.com/rktjmp/hotpot.nvim",
-      "version": "'v0.14.8'"
-    },
-    "indent-blankline.nvim": {
-      "rev": "005b56001b2cb30bfa61b7986bc50657816ba4ba",
-      "src": "https://github.com/lukas-reineke/indent-blankline.nvim"
+      "version": "'v0.15.0'"
     },
     "jj.nvim": {
       "rev": "3d78c28f7e26d5c87f53e66e05a1393e6ca9fec2",
@@ -75,8 +71,8 @@
       "src": "https://github.com/mistweaverco/kulala.nvim"
     },
     "lazydev.nvim": {
-      "rev": "d935cf0f9236b24b8efe3044d1230711681df20c",
-      "src": "https://github.com/ptdewey/lazydev.nvim"
+      "rev": "5231c62aa83c2f8dc8e7ba957aa77098cda1257d",
+      "src": "https://github.com/folke/lazydev.nvim"
     },
     "lualine.nvim": {
       "rev": "0daba89189d6773336fa99dceb49f7d9f6a157f8",
@@ -95,7 +91,7 @@
       "src": "https://github.com/savq/melange-nvim"
     },
     "mini.nvim": {
-      "rev": "8ccd03b844a990cd740638715eb3a474001e51d7",
+      "rev": "4ca988557786c9a4e41d5e5b6e31b4c9d7379f53",
       "src": "https://github.com/nvim-mini/mini.nvim"
     },
     "monalisa-nvim": {
@@ -105,10 +101,6 @@
     "namu.nvim": {
       "rev": "fb13c050f3f4f812ca954caf60da48afdd274e1d",
       "src": "https://github.com/bassamsdata/namu.nvim"
-    },
-    "nvim": {
-      "rev": "1949d2b7ed441f18e0e58cd23ac4dfdd91b332e9",
-      "src": "https://github.com/everviolet/nvim"
     },
     "nvim-autopairs": {
       "rev": "59bce2eef357189c3305e25bc6dd2d138c1683f5",
@@ -132,12 +124,12 @@
       "version": "'lua-plugin'"
     },
     "nvim-treesitter": {
-      "rev": "9f2dad22ef8bb14fd1e0a3aa8859cdc88170668b",
+      "rev": "4d9466677a5ceadef104eaa0fe08d60d91c4e9a7",
       "src": "https://github.com/nvim-treesitter/nvim-treesitter",
       "version": "'main'"
     },
     "obsidian.nvim": {
-      "rev": "2bec7da95722e17fba22bf0c6255428fb8dfd3dc",
+      "rev": "e73c0d65b3c4777271ad01567580d03f98aaf23d",
       "src": "https://github.com/obsidian-nvim/obsidian.nvim"
     },
     "oxocarbon.nvim": {
@@ -150,7 +142,7 @@
     },
     "pendulum-nvim": {
       "rev": "a2af32910db552fe7f88b9b5b63a2e95f5be456c",
-      "src": "file:///home/patrick/projects/pendulum-nvim",
+      "src": "file:////home/patrick/projects/pendulum-nvim",
       "version": "'v2'"
     },
     "rose-pine": {

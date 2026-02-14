@@ -10,10 +10,14 @@ require("profiler").require_and_setup("nvim-treesitter", {
 vim.api.nvim_create_autocmd("FileType", {
     callback = function(event)
         local ignored_fts = {
+            "lua",
+            "vimdoc",
             "mininotify",
             "ministarter",
             "Pathfinder",
             "blink-cmp-menu",
+            "mason",
+            "mason_backdrop",
         }
 
         if vim.tbl_contains(ignored_fts, event.match) then

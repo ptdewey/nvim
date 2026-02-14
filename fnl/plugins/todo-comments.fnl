@@ -5,6 +5,6 @@
                 :CHANGE {:color :warning}
                 :REVIEW {:color :hint}
                 :DEBUG {:color :warning}}]
-  (pack! "https://github.com/folke/todo-comments.nvim" :event
-         [:BufReadPost :BufNewFile] :after
-         (setup! :todo-comments {:signs false : keywords})))
+  (pack! "https://github.com/folke/todo-comments.nvim"
+         {:event [:BufReadPost :BufNewFile]
+          :after (setup! :todo-comments {:signs false : keywords})}))

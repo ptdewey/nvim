@@ -39,15 +39,13 @@
        (set spec#.name p#.spec.name)
        ((. (require :lze) :load) spec#))))
 
-(fn spec! [src ...]
-  "Build a vim.pack spec from a URL and keyword pairs"
-  (let [args [...]
-        spec-keys {:name true :version true}
+(fn spec! [src opts]
+  "Build a vim.pack spec from a URL and an options table"
+  (let [spec-keys {:name true :version true}
         spec {: src}
         data {}]
-    (for [i 1 (length args) 2]
-      (let [k (. args i)
-            v (. args (+ i 1))]
+    (when opts
+      (each [k v (pairs opts)]
         (if (. spec-keys k)
             (tset spec k v)
             (tset data k v))))
@@ -55,14 +53,13 @@
       (set spec.data data))
     spec))
 
-(fn pack! [first ...]
-  (let [args [...]]
-    (if (sequence? first)
-        ;; Sequence syntax: (pack! [(spec! ...) (spec! ...)] opts?)
-        `(vim.pack.add ,first (or ,(. args 1) {:load ,(load!) :confirm false}))
-        ;; Flat syntax: (pack! "url" :version :v2 :cmd :Foo :after ...)
-        `(vim.pack.add [,(spec! first (unpack args))]
-                       {:load ,(load!) :confirm false}))))
+(fn pack! [first opts]
+  (if (sequence? first)
+      ;; Sequence syntax: (pack! [(spec! ...) (spec! ...)] opts?)
+      `(vim.pack.add ,first (or ,opts {:load ,(load!) :confirm false}))
+      ;; Table syntax: (pack! "url" {:cmd :Foo :after ...})
+      `(vim.pack.add [,(spec! first opts)]
+                     {:load ,(load!) :confirm false})))
 
 (fn require! [mod]
   `((. (require :profiler) :require) ,mod))

@@ -1,9 +1,9 @@
 (import-macros {: pack! : setup! : nmap} :macros)
 
 (pack! "https://github.com/NicolasGB/jj.nvim"
-  ; :src (vim.fn.expand "file:///$HOME/projects/jj.nvim")
-  :cmd [:J :Jdiff]
-  :after (setup! :jj {}))
+       {; :src (vim.fn.expand "file:///$HOME/projects/jj.nvim")
+        :cmd [:J :Jdiff]
+        :after (setup! :jj)})
 
 ;; TODO: add fzf support
 ;:picker {:fzf_lua {}

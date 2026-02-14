@@ -7,7 +7,6 @@
                                :typescriptreact [:prettierd]
                                :html [:prettierd]
                                :css [:prettierd]
-                               :svelte [:svelte]
                                :go [:goimports :golangci-lint]
                                :nix [:nixfmt]
                                :rust [:rustfmt]
@@ -22,8 +21,9 @@
             :format_on_save (fn [bufnr]
                               (when (not (. vim.b bufnr :disable_autoformat))
                                 {:lsp_format :fallback :timeout_ms 500}))}]
-  (pack! "https://github.com/stevearc/conform.nvim" :event :BufWritePre :after
-         (setup! :conform opts ((. (require :conform) :format)))))
+  (pack! "https://github.com/stevearc/conform.nvim"
+         {:event :BufWritePre
+          :after (setup! :conform opts ((. (require :conform) :format)))}))
 
 (user-cmd! :ConformDisable #(set vim.b.disable_autoformat true)
            {:desc "Disable autoformat-on-save"})

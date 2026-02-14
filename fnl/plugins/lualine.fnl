@@ -9,5 +9,5 @@
                        :lualine_c [{1 :filename :path 5 :padding 1}]
                        :lualine_x [:diagnostics :diff]
                        :lualine_y [:branch]}}]
-  (pack! "https://github.com/ptdewey/lualine.nvim" :after
-         (setup! :lualine opts)))
+  (pack! "https://github.com/ptdewey/lualine.nvim"
+         {:after (setup! :lualine opts)}))

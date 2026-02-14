@@ -4,5 +4,5 @@
             :static {:char "▏"}
             :scope {:enabled false}}]
   (pack! "https://github.com/saghen/blink.indent"
-    :event [:BufReadPost :BufNewFile :BufEnter]
-    :after (setup! :blink.indent opts)))
+         {:event [:BufReadPost :BufNewFile :BufEnter]
+          :after (setup! :blink.indent opts)}))

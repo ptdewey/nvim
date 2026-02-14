@@ -4,7 +4,7 @@ vim.g.maplocalleader = " "
 
 -- Import required plugins (fennel interpreter and lazy loader)
 vim.pack.add({
-    { src = "https://github.com/rktjmp/hotpot.nvim", version = "v0.14.8" },
+    { src = "https://github.com/rktjmp/hotpot.nvim", version = "v0.15.0" },
     { src = "https://github.com/BirdeeHub/lze" },
 }, { confirm = false })
 

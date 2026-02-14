@@ -9,11 +9,11 @@
             :debug true
             :bind_indices :<leader>y}]
   (pack! [(spec! "https://github.com/ptdewey/sqlite.lua"
-            :dep_of :yankbank-nvim)
+                 {:dep_of :yankbank-nvim})
           (spec! "https://github.com/ptdewey/yankbank-nvim"
-            :version :main
-            :event :VimEnter
-            :after (setup! :yankbank opts))]))
+                 {:version :main
+                  :event :VimEnter
+                  :after (setup! :yankbank opts)})]))
 
 (let [os-name (: (. (vim.uv.os_uname) :sysname) :lower)]
   ;; TODO: find a way of distinguishing nixos systems from other linux
