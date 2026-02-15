@@ -1,7 +1,5 @@
 local skip_lsps = {
-    -- ["ts_ls"] = true,
     ["svelte"] = true,
-    ["eslint"] = true,
 }
 
 -- inlay hints

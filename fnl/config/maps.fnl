@@ -98,5 +98,4 @@
         (vim.notify (.. "Yanked: " (vim.fn.expand "%"))))
       {:desc "yank path"})
 
-;; TODO: lazy load undotree plugin, load on first call
 (nmap :<leader>ut :<cmd>Undotree<CR> {:desc :undotree})

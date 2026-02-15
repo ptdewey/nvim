@@ -10,4 +10,4 @@
                        :lualine_x [:diagnostics :diff]
                        :lualine_y [:branch]}}]
   (pack! "https://github.com/ptdewey/lualine.nvim"
-         {:after (setup! :lualine opts)}))
+         {:event :UIEnter :after (setup! :lualine opts)}))

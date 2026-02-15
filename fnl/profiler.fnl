@@ -16,7 +16,6 @@
   (let [require-start (now)
         [success plugin] (vals-pcall require modname)]
     (set timing-data.require_time (tdiff require-start))
-    (set timing-data.phases.require timing-data.require_time)
     (if success
         plugin
         (do
@@ -26,37 +25,14 @@
           (tset M.timings modname timing-data)
           (error (.. "Failed to require module '" modname "': " plugin))))))
 
-;; Call setup function on plugin spec
 (fn setup-plugin [plugin config timing-data]
-  (if (and (= (type plugin) :table) plugin.setup)
-      ;; TODO: case for if config is a function
-      (let [setup-start (now)
-            setup-config (or config {})
-            [success error] (vals-pcall plugin.setup setup-config)]
-        (doto timing-data
-          (tset :setup_time (tdiff setup-start))
-          (tset :setup_type :plugin_setup))
-        (when (not success)
-          (set timing-data.setup_error error))
-        (set timing-data.phases.setup timing-data.setup_time))
-      (do
-        (doto timing-data
-          (tset :setup_time 0)
-          (tset :setup_type :no_setup))
-        (set timing-data.phases.setup 0))))
-
-;; DOCS:
-;; TODO:
-(fn after-plugin [plugin opts after-time]
-  (when opts.after
-    (let [after-start (now)
-          [after-success after-error] (vals-pcall opts.after plugin)]
-      (set after-time.after_time (tdiff after-start))
-      (set after-time.phases.after after-time.after_time)
-      (if (not after-success)
-          (set after-time.after_error after-error)))))
-
-;; DOCS:
+  (when (and (= (type plugin) :table) plugin.setup)
+    (let [setup-start (now)
+          setup-config (or config {})
+          [success error] (vals-pcall plugin.setup setup-config)]
+      (set timing-data.setup_time (tdiff setup-start))
+      (when (not success)
+        (set timing-data.setup_error error)))))
 
 (fn phased-load [modname opts]
   (if (not M.enabled)
@@ -75,107 +51,237 @@
                          :require_time 0
                          :setup_time 0
                          :total_time 0
-                         :setup_config opts.setup
-                         :timestamp (os.time)
-                         :phases {}}
+                         :phase (if (= vim.v.vim_did_enter 1) :runtime
+                                    :startup)
+                         :trigger (or _G.__current_trigger :init)
+                         :source :profiled}
             ;; Phase 1: require the plugin
             plugin (require-plugin modname timing_data)]
         ;; Phase 2: Call plugin setup
         (setup-plugin plugin opts timing_data)
-        ;; Phase 3: Post-setup operations
-        (after-plugin plugin opts timing_data)
         ;; Final time calculations
         (set timing_data.total_time (tdiff total_start))
-        (set timing_data.total timing_data.total_time)
         (tset M.timings modname timing_data)
-        ;; Run on-complete callback if provided
-        (if opts.on_complete
-            (pcall opts.on_complete timing_data))
         plugin)))
 
 (fn M.colorscheme [colorscheme-name]
   (if M.enabled
       (let [start-time (now)
-            timing-data {:modname colorscheme-name
-                         :setup_type :colorscheme
-                         :timestamp start-time}]
+            timing-data {:modname colorscheme-name}]
         (vim.cmd (.. "colorscheme " colorscheme-name))
         (set timing-data.total_time (tdiff start-time))
         (tset M.timings (.. "colorscheme:" colorscheme-name) timing-data)
         timing-data.total_time)
       (vim.cmd (.. "colorscheme " colorscheme-name))))
 
-;; DOCS:
 (fn M.require [modname]
   (phased-load modname))
 
 (fn M.require_and_setup [modname opts]
   (phased-load modname opts))
 
-;; DOCS:
+;; Wrap spec after/load callbacks to set trigger context for profiling
+(fn M.wrap_triggers [spec]
+  (let [trigger (or spec.event spec.cmd spec.keys spec.ft spec.on_require)
+        trigger-str (when trigger
+                      (if (= (type trigger) :table)
+                          (table.concat trigger ",")
+                          (tostring trigger)))]
+    (when trigger-str
+      (each [_ key (ipairs [:after :load])]
+        (let [orig (. spec key)]
+          (when orig
+            (tset spec key (fn [...]
+                             (set _G.__current_trigger trigger-str)
+                             (let [result (orig ...)]
+                               (set _G.__current_trigger nil)
+                               result)))))))))
+
+;; Merge global require timings into profiler data
+;; Modules already tracked by phased-load take precedence
+(fn merge-require-timings []
+  (when _G.__require_timings
+    (each [modname data (pairs _G.__require_timings)]
+      (when (not (. M.timings modname))
+        (tset M.timings modname data)))))
+
 (fn M.get_results [opts]
+  (merge-require-timings)
   (let [opts (or opts {})
-        sort_by (or opts.sort_by :total_time)]
+        sort_by (or opts.sort_by :total_time)
+        include-all (if (= opts.all nil) false opts.all)
+        phase-filter opts.phase]
     (doto (icollect [_ data (pairs M.timings)]
-            (when (or (not opts.min_time) (>= data.total_time opts.min_time))
+            (when (and (or (not opts.min_time)
+                           (>= data.total_time opts.min_time))
+                       (or (not phase-filter) (= data.phase phase-filter))
+                       (or include-all (not (= data.source :require))
+                           (>= (or data.total_time 0) 0.5)))
               data))
       (doto (table.sort (fn [a b]
                           (> (or (. a sort_by) 0) (or (. b sort_by) 0))))))))
 
-(fn M.report [opts]
+;; Highlight groups linked to standard groups (respects colorscheme)
+(fn setup-highlights []
+  (each [name opts (pairs {:ProfilerTitle {:link :Title}
+                           :ProfilerSep {:link :NonText}
+                           :ProfilerLabel {:link :Comment}
+                           :ProfilerValue {:link :Number}
+                           :ProfilerColHeader {:link :Bold}
+                           :ProfilerModule {:link :Normal}
+                           :ProfilerFast {:link :DiagnosticOk}
+                           :ProfilerMedium {:link :DiagnosticInfo}
+                           :ProfilerSlow {:link :DiagnosticWarn}
+                           :ProfilerVerySlow {:link :DiagnosticError}
+                           :ProfilerEvent {:link :Constant}
+                           :ProfilerError {:link :DiagnosticError}})]
+    (vim.api.nvim_set_hl 0 name (vim.tbl_extend :force opts {:default true}))))
+
+(fn time-hl [ms]
+  (if (>= ms 10) :ProfilerVerySlow
+      (>= ms 3) :ProfilerSlow
+      (>= ms 0.5) :ProfilerMedium
+      :ProfilerFast))
+
+;; Column layout for data rows
+;; Format: "    %-32s  %10s    %10s    %10s    %-22s"
+(local col {:mod 4
+            :mod-end 36
+            :total 38
+            :total-end 48
+            :req 52
+            :req-end 62
+            :setup 66
+            :setup-end 76
+            :event 80
+            :event-end 102})
+
+(fn build-report [opts]
   (let [opts (or opts {})
         results (M.get_results opts)
-        limit (or opts.limit 20)]
-    (print (.. "\n" (string.rep "=" 85)))
-    (print "PLUGIN PROFILER REPORT")
-    (print (string.rep "=" 85))
+        phase-label (if opts.phase (.. " (" opts.phase ")") "")
+        lines []
+        hls []]
+    ;; parallel array: each entry is list of [hl col_start col_end]
+    ;; Helper: add line with highlight specs list
+
+    (fn add [line hl-list]
+      (table.insert lines line)
+      (table.insert hls (or hl-list [])))
+
+    ;; Compute summary stats
     (var total-plugins 0)
+    (var startup-time 0)
     (var total-time 0)
-    (var avg-time 0)
     (each [_ data (ipairs results)]
       (when (not (data.modname:match :^__batch_))
         (set total-plugins (+ total-plugins 1))
-        (set total-time (+ total-time data.total_time))))
-    (when (> total-plugins 0)
-      (set avg-time (/ total-time total-plugins)))
-    (print (string.format "Total Plugins: %d | Total Time: %.2fms | Average: %.2fms"
-                          total-plugins total-time avg-time))
-    (print (string.rep "-" 85))
-    (print (string.format "%-25s %10s %10s %10s %12s " :Plugin "Total(ms)"
-                          "Require(ms)" "Setup(ms)" "Setup Type"))
-    (print (string.rep "-" 85))
-    (each [i data (ipairs results)]
-      (when (<= i limit)
-        (when (not (data.modname:match :^__batch_))
-          (let [setup-type (or data.setup_type :none)]
-            (print (string.format "%-25s %10.2f %10.2f %10.2f %12s"
-                                  (data.modname:sub 1 25) data.total_time
-                                  (or data.require_time 0)
-                                  (or data.setup_time 0)
-                                  (tostring (setup-type:sub 1 12))))
-            (when data.error
-              (print (string.format "  ERROR: %s" data.error)
-                     (when data.setup_error
-                       (print (string.format "  SETUP ERROR: %s"
-                                             data.setup_error)))))))))
-    (print (string.rep "=" 85))))
+        (set total-time (+ total-time data.total_time))
+        (when (= data.phase :startup)
+          (set startup-time (+ startup-time data.total_time)))))
+    ;; Title
+    (add "")
+    (add (.. "    Profiler" phase-label) [[:ProfilerTitle 0 -1]])
+    (add "")
+    ;; Summary - build with tracked positions
+    (let [summary-hls [[:ProfilerLabel 0 -1]]
+          parts [{:text "    Startup: "}
+                 {:text (string.format "%.2fms" startup-time)
+                  :hl :ProfilerValue}
+                 {:text "  │  Total: "}
+                 {:text (string.format "%.2fms" total-time) :hl :ProfilerValue}
+                 {:text "  │  Plugins: "}
+                 {:text (tostring total-plugins) :hl :ProfilerValue}]]
+      (var pos 0)
+      (var summary "")
+      (each [_ part (ipairs parts)]
+        (set summary (.. summary part.text))
+        (when part.hl
+          (table.insert summary-hls [part.hl pos (+ pos (length part.text))]))
+        (set pos (+ pos (length part.text))))
+      (add summary summary-hls))
+    ;; Separator + column headers
+    (add (.. "    " (string.rep "─" 98)) [[:ProfilerSep 0 -1]])
+    (add (string.format "    %-32s  %10s    %10s    %10s    %-22s" :Module
+                        :Total :Require :Setup :Event)
+         [[:ProfilerColHeader 0 -1]])
+    (add (.. "    " (string.rep "─" 98)) [[:ProfilerSep 0 -1]])
+    ;; Data rows
+    (each [_ data (ipairs results)]
+      (when (not (data.modname:match :^__batch_))
+        (let [trigger (or data.trigger
+                          (if (= data.phase :startup) :init :runtime))
+              total (or data.total_time 0)
+              req (or data.require_time 0)
+              setup (or data.setup_time 0)
+              line (string.format "    %-32s  %10.2f    %10.2f    %10.2f    %-22s"
+                                  (data.modname:sub 1 32) total req setup
+                                  (tostring (trigger:sub 1 22)))]
+          (add line
+               [[:ProfilerModule col.mod col.mod-end]
+                [(time-hl total) col.total col.total-end]
+                [(time-hl req) col.req col.req-end]
+                [(time-hl setup) col.setup col.setup-end]
+                [:ProfilerEvent col.event col.event-end]])
+          (when data.error
+            (add (.. "    ERROR: " data.error) [[:ProfilerError 0 -1]])
+            (when data.setup_error
+              (add (.. "    SETUP ERROR: " data.setup_error)
+                   [[:ProfilerError 0 -1]]))))))
+    (add "")
+    {: lines : hls}))
 
-(fn M.clear []
-  (set M.timings {})
-  (print "Plugin timing data cleared"))
+(fn open-float [report]
+  (setup-highlights)
+  (let [{: lines : hls} report
+        ns (vim.api.nvim_create_namespace :profiler_report)
+        buf (vim.api.nvim_create_buf false true)]
+    (let [pad 4
+          width (math.min (+ col.event-end 8) (- vim.o.columns (* pad 2)))
+          height (math.min (+ (length lines) 1) (- vim.o.lines (* pad 2) 2))
+          row pad
+          col-pos (math.floor (/ (- vim.o.columns width) 2))
+          win (vim.api.nvim_open_win buf true
+                                     {:relative :editor
+                                      : width
+                                      : height
+                                      : row
+                                      :col col-pos
+                                      :style :minimal
+                                      :border :rounded
+                                      :title " Profiler "
+                                      :title_pos :center})]
+      ;; Set content
+      (vim.api.nvim_buf_set_lines buf 0 -1 false lines)
+      ;; Apply highlights via extmarks
+      (each [i hl-list (ipairs hls)]
+        (let [line-idx (- i 1)]
+          (each [_ hl-spec (ipairs hl-list)]
+            (let [[hl-group c-start c-end] hl-spec]
+              (vim.api.nvim_buf_set_extmark buf ns line-idx c-start
+                                            {:end_col (if (= c-end -1)
+                                                          (length (. lines i))
+                                                          c-end)
+                                             :hl_group hl-group})))))
+      ;; Buffer options
+      (tset (. vim.bo buf) :modifiable false)
+      (tset (. vim.bo buf) :bufhidden :wipe)
+      ;; Close keymaps
+      (let [close #(vim.api.nvim_win_close win true)]
+        (vim.keymap.set :n :q close {:buffer buf})
+        (vim.keymap.set :n :<Esc> close {:buffer buf})))))
 
-(fn M.disable []
-  (set M.enabled false))
-
-(fn M.enable []
-  (set M.enabled true))
+(fn M.report [opts]
+  (open-float (build-report opts)))
 
 (fn M.setup []
   (vim.api.nvim_create_user_command :ProfilerReport
                                     (fn [args]
-                                      (let [limit (or (tonumber args.args) 20)]
-                                        (M.report {: limit})))
-                                    {:nargs "?"})
-  (vim.api.nvim_create_user_command :ProfilerClear #(M.clear) {}))
+                                      (let [arg (or args.args "")
+                                            show-all (arg:match :all)
+                                            phase (or (arg:match :startup)
+                                                      (arg:match :runtime))]
+                                        (M.report {: phase :all show-all})))
+                                    {:nargs "?"}))
 
 M

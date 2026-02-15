@@ -1,21 +1,19 @@
 vim.pack.add({
     { src = "https://github.com/ptdewey/darkearth-nvim" },
-    { src = "https://github.com/ptdewey/monalisa-nvim" },
-    { src = "https://github.com/vague2k/vague.nvim" },
-    { src = "https://github.com/nyoom-engineering/oxocarbon.nvim" },
-    { src = "https://github.com/ptdewey/witchesbrew.nvim" },
-    { src = "https://github.com/savq/melange-nvim" },
-    { src = "https://github.com/rose-pine/neovim", name = "rose-pine" },
+    -- { src = "https://github.com/ptdewey/monalisa-nvim" },
+    -- { src = "https://github.com/nyoom-engineering/oxocarbon.nvim" },
+    -- { src = "https://github.com/vague2k/vague.nvim" },
+    -- { src = "https://github.com/ptdewey/witchesbrew.nvim" },
+    -- { src = "https://github.com/savq/melange-nvim" },
+    -- { src = "https://github.com/rose-pine/neovim", name = "rose-pine" },
     { src = "https://github.com/everviolet/nvim", name = "evergarden" },
 }, { confirm = false })
 
 local p = require("profiler")
 
--- TODO: remove bolding from oxocarbon stuff
--- change into lsp highlight color to match comments
+-- p.colorscheme("darkearth")
+p.colorscheme("lightearth")
 
-p.colorscheme("darkearth")
--- p.colorscheme("vague")
 -- p.colorscheme("monalisa")
 -- p.colorscheme("oxocarbon")
 -- p.colorscheme("melange")
@@ -29,7 +27,3 @@ p.colorscheme("darkearth")
 --     },
 -- })
 -- p.colorscheme("evergarden")
-
-vim.api.nvim_create_user_command("Colorscheme", function(args)
-    p.colorscheme(args.args)
-end, { nargs = 1, complete = "color" })

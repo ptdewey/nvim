@@ -37,6 +37,7 @@
   `(fn [p#]
      (let [spec# (or p#.spec.data {})]
        (set spec#.name p#.spec.name)
+       ((. (require :profiler) :wrap_triggers) spec#)
        ((. (require :lze) :load) spec#))))
 
 (fn spec! [src opts]

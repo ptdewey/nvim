@@ -18,6 +18,4 @@ vim.keymap.set("n", "<leader>af", function()
     require("profiler").require("deez.altfile").open()
 end, { desc = "Open alternate file" })
 
-vim.api.nvim_create_user_command("RenameFile", function(opts)
-    require("profiler").require("deez.rename").rename_file(opts.args)
-end, { nargs = "?" })
+-- require("profiler").require_and_setup("deez.indent-scope", {})

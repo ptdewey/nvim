@@ -1,6 +1,7 @@
 (import-macros {: pack! : spec! : setup! : nmap : g} :macros)
 
-(pack! [(spec! "https://github.com/vim-test/vim-test")
+(pack! [(spec! "https://github.com/vim-test/vim-test"
+               {:cmd [:TestNearest :TestFile :TestSuite]})
         (spec! "https://github.com/ptdewey/nvim-coverage"
                {:cmd :Coverage
                 :after (setup! :coverage

@@ -15,7 +15,7 @@ return {
         },
     },
     build = {
-        -- { verbose = false, atomic = true },
+        { verbose = false, atomic = true },
         { "fnl/*macro*.fnl", false },
         { "fnl/macro*/**.fnl", false },
         { "fnl/config/*.fnl", false },
