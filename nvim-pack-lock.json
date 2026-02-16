@@ -13,7 +13,7 @@
       "src": "https://github.com/fang2hou/blink-copilot"
     },
     "blink-ripgrep.nvim": {
-      "rev": "3ecd9aecc82fd94e8b9a0c80bb204e30ede3c943",
+      "rev": "66194123a9b915c61789497d9041bd541e9a5a4b",
       "src": "https://github.com/mikavilpas/blink-ripgrep.nvim"
     },
     "blink.cmp": {
@@ -52,6 +52,10 @@
     "glance.nvim": {
       "rev": "bf86d8b79dce808e65fdb6e9269d0b4ed6d2eefc",
       "src": "https://github.com/DNLHC/glance.nvim"
+    },
+    "gokit-nvim": {
+      "rev": "17b4c8fc4b8927049c15b8d9627394d3074e8286",
+      "src": "https://github.com/ptdewey/gokit-nvim"
     },
     "grug-far.nvim": {
       "rev": "275dbedc96e61a6b8d1dfb28ba51586ddd233dcf",
@@ -142,7 +146,7 @@
       "src": "https://github.com/folke/todo-comments.nvim"
     },
     "vim-startuptime": {
-      "rev": "b6f0d93f6b8cf6eee0b4c94450198ba2d6a05ff6",
+      "rev": "c12649b2458e34ec6dde8f1bdfe830661a613a6b",
       "src": "https://github.com/dstein64/vim-startuptime"
     },
     "vim-test": {

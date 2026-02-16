@@ -3,7 +3,7 @@ vim.pack.add({
         src = "https://github.com/L3MON4D3/LuaSnip",
         data = {
             event = "InsertEnter",
-            dep_of = "blink.cmp",
+            dep_of = { "blink.cmp", "gokit" },
             after = function()
                 local ls = require("profiler").require("luasnip")
 

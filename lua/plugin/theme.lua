@@ -11,8 +11,8 @@ vim.pack.add({
 
 local p = require("profiler")
 
-p.colorscheme("darkearth")
--- p.colorscheme("lightearth")
+-- p.colorscheme("darkearth")
+p.colorscheme("lightearth")
 
 -- p.colorscheme("monalisa")
 -- p.colorscheme("oxocarbon")
