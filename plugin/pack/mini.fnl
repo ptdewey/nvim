@@ -19,7 +19,7 @@
 (macro mini! [mod ...]
   `(table.insert specs (mini-spec! ,mod ,...)))
 
-(var specs [])
+(local specs [])
 
 (mini! :ai :event [:BufReadPost :BufNewFile])
 
@@ -53,6 +53,7 @@
         :symbol "▏"
         :options {:tray_as_border true}})
 
+;; TODO: this isnt working, figure out why (since moving to 'plugin/')
 (mini! :starter :event :VimEnter
        (let [starter (require :mini.starter)]
          {:items [(starter.sections.recent_files 5 true)

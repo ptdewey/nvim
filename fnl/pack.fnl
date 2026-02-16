@@ -28,12 +28,10 @@
            {:nargs "+" :complete :packadd})
 
 ;; Lazy load builtin undotree plugin
-(user-cmd! :Undotree
-           (fn []
-             (vim.api.nvim_del_user_command :Undotree)
-             (vim.cmd.packadd :nvim.undotree)
-             (vim.cmd :Undotree))
-           {})
+(user-cmd! :Undotree (fn []
+                       (vim.api.nvim_del_user_command :Undotree)
+                       (vim.cmd.packadd :nvim.undotree)
+                       (vim.cmd :Undotree)) {})
 
 ;; Lazy load difftool plugin
 (user-cmd! :DiffTool

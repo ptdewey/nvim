@@ -17,12 +17,10 @@ return {
     build = {
         { verbose = false, atomic = true },
         { "fnl/*macro*.fnl", false },
-        { "fnl/macro*/**.fnl", false },
-        { "fnl/config/*.fnl", false },
-        -- { "fnl/*.fnl", true },
-        { "fnl/**/*.fnl", false },
-        { "fnl/plugin/*.fnl", false },
-        { "lsp/*.fnl", false },
+        -- { "plugin/**/*.fnl", false },
+        -- { "fnl/macro*/**.fnl", false },
+        -- { "fnl/**/*.fnl", false },
+        -- { "lsp/*.fnl", false }, -- fnl files in `lsp/` are not cached by hotpot
     },
     -- remove stale lua/ files
     clean = false,

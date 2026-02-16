@@ -42,7 +42,8 @@ vim.g.maplocalleader = " "
 
 -- Import required plugins (fennel interpreter and lazy loader)
 vim.pack.add({
-    { src = "https://github.com/rktjmp/hotpot.nvim", version = "v0.15.0" },
+    -- { src = "https://github.com/rktjmp/hotpot.nvim", version = "v0.15.0" },
+    { src = "https://github.com/ptdewey/hotpot.nvim" }, -- Note: using my fork for `lsp/` support
     { src = "https://github.com/BirdeeHub/lze" },
 }, { confirm = false })
 
@@ -54,14 +55,14 @@ require("hotpot").setup({
 require("profiler").setup()
 
 -- Load themes first
-require("plugin.theme")
+-- require("plugin.theme")
 
 -- load required files
-require("config.maps")
-require("config.opts")
-require("autocmds")
+-- require("config.maps")
+-- require("config.opts")
+-- require("autocmds")
 
 -- Load all files in plugin directories
-require("pack")
-require("plugin")
-require("plugins")
+-- require("pack")
+-- require("plugin")
+-- require("plugins")

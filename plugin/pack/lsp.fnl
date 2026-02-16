@@ -16,6 +16,8 @@
                                            :words ["vim%.uv"]}
                                           :lazy.nvim]})})])
 
+;; TODO: also search `lsp/` for configs, append here.
+;; This list primarily exists to pull lspconfig configs
 (let [servers [:lua_ls
                :gopls
                :ts_ls

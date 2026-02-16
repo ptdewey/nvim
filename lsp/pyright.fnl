@@ -1,0 +1,1 @@
+{:settings {:pyright {:disableOrganizeImports true}}}
