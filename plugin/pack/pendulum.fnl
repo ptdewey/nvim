@@ -14,6 +14,6 @@
                               :filetype [:unknown_filetype :ministarter]
                               :project [:unknown_project]}}]
   (pack! (vim.fn.expand "file:///$HOME/projects/pendulum-nvim")
-         {:version :v2 :event :VimEnter :after (setup! :pendulum opts)}))
+         {:version :v2 :after (setup! :pendulum opts)}))
 
 ; :lsp_binary (vim.fn.expand :$HOME/projects/pendulum-nvim/pendulum-server)})}}])

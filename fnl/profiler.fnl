@@ -1,4 +1,4 @@
-(local M {:timings {} :enabled true})
+(local M {:timings {} :enabled true :events {}})
 
 (macro now [] `(vim.uv.hrtime))
 
@@ -185,12 +185,17 @@
     (add "")
     ;; Summary - build with tracked positions
     (let [summary-hls [[:ProfilerLabel 0 -1]]
+          vim-enter (or M.events.VimEnter 0)
+          ui-enter (or M.events.UIEnter 0)
           parts [{:text "    Startup: "}
+                 {:text (string.format "%.2fms" ui-enter) :hl :ProfilerValue}
+                 {:text " (VimEnter: "}
+                 {:text (string.format "%.2fms" vim-enter) :hl :ProfilerValue}
+                 {:text ")"}
+                 {:text "  │  Plugins: "}
                  {:text (string.format "%.2fms" startup-time)
                   :hl :ProfilerValue}
-                 {:text "  │  Total: "}
-                 {:text (string.format "%.2fms" total-time) :hl :ProfilerValue}
-                 {:text "  │  Plugins: "}
+                 {:text "  │  Count: "}
                  {:text (tostring total-plugins) :hl :ProfilerValue}]]
       (var pos 0)
       (var summary "")
@@ -275,6 +280,18 @@
   (open-float (build-report opts)))
 
 (fn M.setup []
+  (let [boot (or _G.__boot_time 0)
+        group (vim.api.nvim_create_augroup :profiler_events {:clear true})]
+    (vim.api.nvim_create_autocmd :VimEnter
+                                 {: group
+                                  :once true
+                                  :callback #(set M.events.VimEnter
+                                                  (ns_to_ms (- (now) boot)))})
+    (vim.api.nvim_create_autocmd :UIEnter
+                                 {: group
+                                  :once true
+                                  :callback #(set M.events.UIEnter
+                                                  (ns_to_ms (- (now) boot)))}))
   (vim.api.nvim_create_user_command :ProfilerReport
                                     (fn [args]
                                       (let [arg (or args.args "")

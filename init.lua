@@ -40,18 +40,17 @@ end
 vim.g.mapleader = " "
 vim.g.maplocalleader = " "
 
--- Import required plugins (fennel interpreter and lazy loader)
+-- Add compiled fennel output to rtp (must be before any fennel-compiled requires)
+vim.opt.rtp:prepend(vim.fn.stdpath("cache") .. "/sprig")
+
+-- Import required plugins
 vim.pack.add({
-    -- { src = "https://github.com/rktjmp/hotpot.nvim", version = "v0.15.0" },
-    { src = "https://github.com/ptdewey/hotpot.nvim" }, -- Note: using my fork for `lsp/` support
     { src = "https://github.com/BirdeeHub/lze" },
 }, { confirm = false })
 
-require("hotpot").setup({
-    enable_hotpot_diagnostics = false,
-})
+-- Build fennel files
+require("sprig").setup()
 
--- Can only be loaded after hotpot
 require("profiler").setup()
 
 -- Load themes first

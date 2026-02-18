@@ -65,6 +65,10 @@
       "rev": "a7ce8e96e1ad3b268087b64df387bf8cbc89871c",
       "src": "https://github.com/ptdewey/hotpot.nvim"
     },
+    "jj-diffconflicts": {
+      "rev": "6d9eedadf1fab87bccb0a4a7ceda829da8023efb",
+      "src": "https://github.com/rafikdraoui/jj-diffconflicts"
+    },
     "jj.nvim": {
       "rev": "3d78c28f7e26d5c87f53e66e05a1393e6ca9fec2",
       "src": "https://github.com/NicolasGB/jj.nvim"
@@ -97,6 +101,10 @@
       "rev": "fb13c050f3f4f812ca954caf60da48afdd274e1d",
       "src": "https://github.com/bassamsdata/namu.nvim"
     },
+    "nfnl": {
+      "rev": "fecf731e02bc51d88372c4f992fe1ef0c19c02ae",
+      "src": "https://github.com/Olical/nfnl"
+    },
     "nvim-autopairs": {
       "rev": "59bce2eef357189c3305e25bc6dd2d138c1683f5",
       "src": "https://github.com/windwp/nvim-autopairs"
@@ -126,6 +134,10 @@
     "obsidian.nvim": {
       "rev": "a9d3fad42fbfce40342cfff0bb0f3fe5b8ef3158",
       "src": "https://github.com/obsidian-nvim/obsidian.nvim"
+    },
+    "oxocarbon.nvim": {
+      "rev": "9f85f6090322f39b11ae04a343d4eb9d12a86897",
+      "src": "https://github.com/nyoom-engineering/oxocarbon.nvim"
     },
     "pathfinder-nvim": {
       "rev": "d3dd8964793a5f6f00089d2e1b93b31295d3f046",

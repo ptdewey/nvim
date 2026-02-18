@@ -59,8 +59,7 @@
       ;; Sequence syntax: (pack! [(spec! ...) (spec! ...)] opts?)
       `(vim.pack.add ,first (or ,opts {:load ,(load!) :confirm false}))
       ;; Table syntax: (pack! "url" {:cmd :Foo :after ...})
-      `(vim.pack.add [,(spec! first opts)]
-                     {:load ,(load!) :confirm false})))
+      `(vim.pack.add [,(spec! first opts)] {:load ,(load!) :confirm false})))
 
 (fn require! [mod]
   `((. (require :profiler) :require) ,mod))
