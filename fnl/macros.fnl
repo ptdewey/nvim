@@ -22,7 +22,7 @@
   `(vim.cmd (.. :normal! ,arg)))
 
 (lambda o [key value]
-  `(set (. vim.opt ,key) ,value))
+  `(set (. vim.o ,key) ,value))
 
 (lambda g [key value]
   `(set (. vim.g ,key) ,value))
