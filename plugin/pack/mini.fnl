@@ -25,7 +25,7 @@
 
 (mini! :jump :keys [:t :f :T :F])
 
-(mini! :icons :event :UIEnter)
+(mini! :icons :on_require :mini.icons)
 
 (mini! :notify :event :LspAttach)
 

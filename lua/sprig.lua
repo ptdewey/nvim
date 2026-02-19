@@ -64,7 +64,7 @@ end
 
 --- Map a .fnl path to its .lua output path.
 --- If the project config has a `paths` table, use pattern matching against it.
---- Otherwise fall back to the default cache-based mapping.
+--- Otherwise, fall back to the default cache-based mapping.
 local function fnl_to_lua_path(fnl_path, cfg, root)
     if cfg and cfg.paths then
         local rel = fnl_path:sub(#root + 2)
@@ -77,9 +77,7 @@ local function fnl_to_lua_path(fnl_path, cfg, root)
     end
 
     -- Default: output to cache dir, remap fnl/ -> lua/
-    local rel = fnl_path:sub(#root + 2)
-    rel = rel:gsub("^fnl/", "lua/")
-    rel = rel:gsub("%.fnl$", ".lua")
+    local rel = fnl_path:sub(#root + 2):gsub("^fnl/", "lua/"):gsub("%.fnl$", ".lua")
     return cache_dir .. "/" .. rel
 end
 
@@ -143,7 +141,7 @@ function M.compile(fnl_path)
         filename = fnl_path,
         compilerEnv = compiler_opts.compilerEnv or _G,
         allowGlobals = compiler_opts.allowGlobals ~= false,
-        correlate = compiler_opts.correlate ~= false,
+        correlate = compiler_opts.correlate or false,
     }
 
     -- Temporarily prepend project-local macro paths for non-nvim-config projects

@@ -52,16 +52,3 @@ vim.pack.add({
 require("sprig").setup()
 
 require("profiler").setup()
-
--- Load themes first
--- require("plugin.theme")
-
--- load required files
--- require("config.maps")
--- require("config.opts")
--- require("autocmds")
-
--- Load all files in plugin directories
--- require("pack")
--- require("plugin")
--- require("plugins")

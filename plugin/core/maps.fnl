@@ -49,10 +49,13 @@
                    (normal! :zz)))))
 
 ;; open diagnostics
+;; TODO: applying this only when an LSP attaches would also save some time
 (nmap :<leader>m vim.diagnostic.open_float {:desc "open floating diagnostic"})
 (nmap :<leader>q vim.diagnostic.setloclist {:desc "open diagnostics list"})
 
 ;; lsp
+;; TODO: maybe only set these keymaps once an LSP attaches? (vim.lsp is a heavier part of the config)
+;; - pendulum being a language server may make this pointless though
 (nmap :<leader>rn vim.lsp.buf.rename {:desc :rename})
 (nmap :<leader>k vim.lsp.buf.signature_help {:desc "signature help"})
 (imap :<C-k> vim.lsp.buf.signature_help)

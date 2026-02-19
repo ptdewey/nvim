@@ -123,8 +123,7 @@
 
 ;; Highlight groups linked to standard groups (respects colorscheme)
 (fn setup-highlights []
-  (each [name opts (pairs {:ProfilerTitle {:link :Title}
-                           :ProfilerSep {:link :NonText}
+  (each [name opts (pairs {:ProfilerSep {:link :NonText}
                            :ProfilerLabel {:link :Comment}
                            :ProfilerValue {:link :Number}
                            :ProfilerColHeader {:link :Bold}
@@ -179,9 +178,6 @@
         (set total-time (+ total-time data.total_time))
         (when (= data.phase :startup)
           (set startup-time (+ startup-time data.total_time)))))
-    ;; Title
-    (add "")
-    (add (.. "    Profiler" phase-label) [[:ProfilerTitle 0 -1]])
     (add "")
     ;; Summary - build with tracked positions
     (let [summary-hls [[:ProfilerLabel 0 -1]]
