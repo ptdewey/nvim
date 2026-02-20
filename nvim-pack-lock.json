@@ -25,6 +25,10 @@
       "rev": "9c80820ca77218a8d28e70075d6f44a1609911fe",
       "src": "https://github.com/saghen/blink.indent"
     },
+    "codediff.nvim": {
+      "rev": "9ba04ddf48827f7f765e0d1eeb3a22650323c2a6",
+      "src": "https://github.com/esmuellert/codediff.nvim"
+    },
     "conform.nvim": {
       "rev": "c2526f1cde528a66e086ab1668e996d162c75f4f",
       "src": "https://github.com/stevearc/conform.nvim"
@@ -41,10 +45,6 @@
       "rev": "0b5a68294af8be371610aee54de29ff131e67f0d",
       "src": "https://codeberg.org/pdewey/deez-nvim"
     },
-    "evergarden": {
-      "rev": "1949d2b7ed441f18e0e58cd23ac4dfdd91b332e9",
-      "src": "https://github.com/everviolet/nvim"
-    },
     "fzf-lua": {
       "rev": "5921997472574fca3880b62949eb8679dc6f5afc",
       "src": "https://github.com/ibhagwan/fzf-lua"
@@ -60,10 +60,6 @@
     "grug-far.nvim": {
       "rev": "275dbedc96e61a6b8d1dfb28ba51586ddd233dcf",
       "src": "https://github.com/MagicDuck/grug-far.nvim"
-    },
-    "hotpot.nvim": {
-      "rev": "a7ce8e96e1ad3b268087b64df387bf8cbc89871c",
-      "src": "https://github.com/ptdewey/hotpot.nvim"
     },
     "jj-diffconflicts": {
       "rev": "6d9eedadf1fab87bccb0a4a7ceda829da8023efb",
@@ -101,13 +97,13 @@
       "rev": "fb13c050f3f4f812ca954caf60da48afdd274e1d",
       "src": "https://github.com/bassamsdata/namu.nvim"
     },
-    "nfnl": {
-      "rev": "fecf731e02bc51d88372c4f992fe1ef0c19c02ae",
-      "src": "https://github.com/Olical/nfnl"
-    },
     "nt": {
       "rev": "937b1a694f664fe8f7e8883e69b0d51bc38f8f52",
       "src": "file:////home/patrick/projects/nt"
+    },
+    "nui.nvim": {
+      "rev": "de740991c12411b663994b2860f1a4fd0937c130",
+      "src": "https://github.com/MunifTanjim/nui.nvim"
     },
     "nvim-autopairs": {
       "rev": "59bce2eef357189c3305e25bc6dd2d138c1683f5",
@@ -116,6 +112,10 @@
     "nvim-coverage": {
       "rev": "328e076c26f7a7b3875a0151fd2895881aa60554",
       "src": "https://github.com/ptdewey/nvim-coverage"
+    },
+    "nvim-dap": {
+      "rev": "db321947bb289a2d4d76a32e76e4d2bd6103d7df",
+      "src": "https://codeberg.org/mfussenegger/nvim-dap"
     },
     "nvim-lint": {
       "rev": "a3d17105a79fc12055c2a0d732665d9c2b1c2dc3",
@@ -167,14 +167,6 @@
     "vim-test": {
       "rev": "f881edb21e7a092f5793687d058c257dddb961d3",
       "src": "https://github.com/vim-test/vim-test"
-    },
-    "vitesse-nvim": {
-      "rev": "fb1c9037095819c4bdaee375108ef9cf3d199cb2",
-      "src": "https://github.com/ptdewey/vitesse-nvim"
-    },
-    "volt": {
-      "rev": "620de1321f275ec9d80028c68d1b88b409c0c8b1",
-      "src": "https://github.com/nvzone/volt"
     },
     "yankbank-nvim": {
       "rev": "1392d12536b5a2bc2deaf2668068f33a8795d5a4",

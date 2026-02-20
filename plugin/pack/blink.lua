@@ -46,6 +46,7 @@ vim.pack.add({
                         ghost_text = { enabled = true },
                         menu = {
                             draw = {
+                                -- treesitter = { "lsp" },
                                 align_to = "cursor",
                                 columns = {
                                     { "label" },
@@ -76,7 +77,6 @@ vim.pack.add({
 
                     sources = {
                         default = {
-                            "lazydev",
                             "lsp",
                             "path",
                             "snippets",
@@ -85,10 +85,14 @@ vim.pack.add({
                             "copilot",
                         },
 
+                        per_filetype = {
+                            lua = { inherit_defaults = true, "lazydev" },
+                        },
+
                         providers = {
                             lsp = { score_offset = 45 },
                             snippets = { score_offset = 55 },
-                            path = { score_offset = 10 },
+                            path = { score_offset = 15 },
                             buffer = { score_offset = 15 },
                             lazydev = {
                                 name = "LazyDev",
@@ -100,9 +104,7 @@ vim.pack.add({
                                 name = "rg",
                                 opts = {
                                     backend = {
-                                        ripgrep = {
-                                            max_filesize = "400K",
-                                        },
+                                        ripgrep = { max_filesize = "400K" },
                                     },
                                 },
                                 score_offset = 1,
