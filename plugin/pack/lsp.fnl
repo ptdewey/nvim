@@ -37,3 +37,21 @@
                :templ]]
   (each [_ server (ipairs servers)]
     (vim.lsp.enable server)))
+
+(let [ag (vim.api.nvim_create_augroup :InlayHints {:clear true})
+      cb (fn [args]
+           (let [client (vim.lsp.get_client_by_id args.data.client_id)]
+             (when (and client
+                        (or (client:supports_method :textDocument/inlayHint)
+                            client.server_capabilities.inlayHintProvider))
+               (vim.lsp.inlay_hint.enable true {:bufnr args.buf}))))]
+  (vim.cmd.highlight "default link LspInlayHint Comment")
+  (autocmd! :LspAttach {:group ag :callback cb}))
+
+;; Built in LSP auto-completion
+; (let [cb (fn [args]
+;            (let [client (vim.lsp.get_client_by_id args.data.client_id)]
+;              (when (client:supports_method :textDocument/completion)
+;                (vim.lsp.completion.enable true client.id args.buf
+;                                           {:autotrigger true}))))]
+;   (autocmd! :LspAttach {:callback cb}))

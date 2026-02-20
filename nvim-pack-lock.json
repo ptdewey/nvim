@@ -25,10 +25,6 @@
       "rev": "9c80820ca77218a8d28e70075d6f44a1609911fe",
       "src": "https://github.com/saghen/blink.indent"
     },
-    "codediff.nvim": {
-      "rev": "9ba04ddf48827f7f765e0d1eeb3a22650323c2a6",
-      "src": "https://github.com/esmuellert/codediff.nvim"
-    },
     "conform.nvim": {
       "rev": "c2526f1cde528a66e086ab1668e996d162c75f4f",
       "src": "https://github.com/stevearc/conform.nvim"
@@ -44,6 +40,10 @@
     "deez-nvim": {
       "rev": "0b5a68294af8be371610aee54de29ff131e67f0d",
       "src": "https://codeberg.org/pdewey/deez-nvim"
+    },
+    "evergarden": {
+      "rev": "1949d2b7ed441f18e0e58cd23ac4dfdd91b332e9",
+      "src": "https://github.com/everviolet/nvim"
     },
     "fzf-lua": {
       "rev": "5921997472574fca3880b62949eb8679dc6f5afc",
@@ -89,6 +89,10 @@
       "rev": "44d1e90e1f66e077268191e3ee9d2ac97cc18e65",
       "src": "https://github.com/williamboman/mason.nvim"
     },
+    "melange-nvim": {
+      "rev": "ce42f6b629beeaa00591ba73a77d3eeac4cf28ce",
+      "src": "https://github.com/savq/melange-nvim"
+    },
     "mini.nvim": {
       "rev": "4ca988557786c9a4e41d5e5b6e31b4c9d7379f53",
       "src": "https://github.com/nvim-mini/mini.nvim"
@@ -100,10 +104,6 @@
     "nt": {
       "rev": "937b1a694f664fe8f7e8883e69b0d51bc38f8f52",
       "src": "file:////home/patrick/projects/nt"
-    },
-    "nui.nvim": {
-      "rev": "de740991c12411b663994b2860f1a4fd0937c130",
-      "src": "https://github.com/MunifTanjim/nui.nvim"
     },
     "nvim-autopairs": {
       "rev": "59bce2eef357189c3305e25bc6dd2d138c1683f5",
