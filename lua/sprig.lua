@@ -15,7 +15,7 @@
 local M = {}
 
 -- Derive nvim config dir from this file's location (lua/sprig.lua -> config root)
-local nvim_config_dir = vim.fn.fnamemodify(debug.getinfo(1, "S").source:sub(2), ":p:h:h")
+local nvim_config_dir = vim.fn.stdpath("config")
 local cache_dir = vim.fn.stdpath("cache") .. "/sprig"
 
 --- Find .sprig.lua config by walking up from the given file path.
