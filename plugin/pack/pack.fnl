@@ -1,4 +1,4 @@
-(import-macros {: load! : user-cmd!} :macros)
+(import-macros {: user-cmd!} :macros)
 
 ;; Disable default plugins
 (let [disabled-plugins [:zipPlugin
@@ -40,5 +40,3 @@
              (vim.cmd.packadd :nvim.difftool)
              (vim.cmd (.. "DiffTool " args.args)))
            {:nargs "*" :complete :file})
-
-{:opts {:load (load!) :confirm false}}
