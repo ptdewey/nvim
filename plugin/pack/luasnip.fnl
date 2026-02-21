@@ -11,7 +11,8 @@
                  (ls.setup {:enable_autosnippets true
                             :update_events [:TextChanged :TextChangedI]})
                  ((. (require :luasnip.loaders.from_lua) :lazy_load) {:include nil
-                                                                      :paths ["~/.config/nvim/lua/snippets"]})
+                                                                      :paths [(.. (vim.fn.stdpath :cache)
+                                                                                  :/sprig/lua/snippets)]})
                  (smap :<C-j>
                        (fn []
                          (when (ls.expand_or_jumpable) (ls.expand_or_jump)))
