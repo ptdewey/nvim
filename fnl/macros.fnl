@@ -1,4 +1,10 @@
 ;; fennel-ls: macro-file
+(fn when-not [cond ...]
+  `(when (not ,cond) ,...))
+
+(fn when-ok [[binding mod] ...]
+  `(let [(ok# ,binding) (pcall require ,mod)]
+     (when ok# ,...)))
 
 (fn map [mode key action opts]
   `(vim.keymap.set ,mode ,key ,action ,opts))
@@ -77,7 +83,9 @@
           result)
         `#((. (require :profiler) :require_and_setup) ,mod ,opts))))
 
-{: map
+{: when-not
+ : when-ok
+ : map
  : nmap
  : vmap
  : imap
