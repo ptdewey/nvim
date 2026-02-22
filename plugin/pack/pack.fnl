@@ -1,4 +1,4 @@
-(import-macros {: user-cmd!} :macros)
+(import-macros {: user-cmd! : autocmd!} :macros)
 
 ;; Disable default plugins
 (let [disabled-plugins [:zipPlugin
@@ -26,6 +26,17 @@
 (user-cmd! :PackDel (fn [args]
                       (vim.pack.del args.fargs))
            {:nargs "+" :complete :packadd})
+
+;; Clean up compiled sprig files when a plugin is deleted
+(autocmd! :PackChanged
+          {:callback (fn [ev]
+                       (when (= ev.data.kind :delete)
+                         (let [cache-dir (.. (vim.fn.stdpath :cache) :/sprig)
+                               name ev.data.spec.name
+                               compiled (.. cache-dir :/plugin/pack/ name :.lua)]
+                           (when (= (vim.fn.filereadable compiled) 1)
+                             (os.remove compiled)
+                             (vim.notify (.. "sprig: removed compiled file for " name))))))})
 
 ;; Lazy load builtin undotree plugin
 (user-cmd! :Undotree (fn []

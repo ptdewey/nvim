@@ -177,6 +177,23 @@ function M.compile(fnl_path)
     out:close()
 end
 
+--- Remove orphaned .lua files from the cache whose .fnl sources no longer exist.
+function M.clean()
+    local lua_files = vim.fn.globpath(cache_dir, "**/*.lua", false, true)
+    local removed = 0
+    for _, lua_path in ipairs(lua_files) do
+        local rel = lua_path:sub(#cache_dir + 2):gsub("^lua/", "fnl/"):gsub("%.lua$", ".fnl")
+        local fnl_path = nvim_config_dir .. "/" .. rel
+        if vim.fn.filereadable(fnl_path) == 0 then
+            os.remove(lua_path)
+            removed = removed + 1
+        end
+    end
+    if removed > 0 then
+        vim.notify("sprig: removed " .. removed .. " orphaned files")
+    end
+end
+
 --- Compile all .fnl files under a given root (defaults to nvim config dir).
 function M.compile_all(root)
     root = root or nvim_config_dir
@@ -186,6 +203,7 @@ function M.compile_all(root)
         M.compile(fnl_path)
         count = count + 1
     end
+    M.clean()
     vim.notify("sprig: compiled " .. count .. " files")
 end
 
@@ -212,6 +230,11 @@ function M.setup()
     vim.api.nvim_create_user_command("SprigCompileAll", function()
         M.compile_all()
     end, { desc = "Compile all .fnl files to .lua" })
+
+    vim.api.nvim_create_user_command("SprigClean", function()
+        vim.fn.delete(cache_dir, "rf")
+        vim.notify("sprig: cleared " .. cache_dir)
+    end, { desc = "Remove all compiled .lua files from the sprig cache" })
 end
 
 return M
