@@ -14,6 +14,8 @@
                               :ministarter
                               :Pathfinder
                               :blink-cmp-menu
+                              :kulala_http
+                              :jjdescription
                               :mason
                               :mason_backdrop]]
              (when (vim.tbl_contains ignored-fts event.match)
