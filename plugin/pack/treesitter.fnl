@@ -37,16 +37,19 @@
   (autocmd! :FileType {:callback cb}))
 
 (let [cb #(let [p (require :nvim-treesitter.parsers)
-                rev :fc36cdfc2577c5c64fcb1b1e00c910d572713586
-                url "https://github.com/cathaysia/tree-sitter-asciidoc"]
+                adocRev :fc36cdfc2577c5c64fcb1b1e00c910d572713586
+                adocUrl "https://github.com/cathaysia/tree-sitter-asciidoc"]
             (parser! p :asciidoc
-                     {: url
-                      :revision rev
+                     {:url adocUrl
+                      :revision adocRev
                       :location :tree-sitter-asciidoc
                       :queries :tree-sitter-asciidoc/queries})
             (parser! p :asciidoc_inline
-                     {: url
-                      :revision rev
+                     {:url adocUrl
+                      :revision adocRev
                       :location :tree-sitter-asciidoc_inline
-                      :queries :tree-sitter-asciidoc_inline/queries}))]
+                      :queries :tree-sitter-asciidoc_inline/queries})
+            (parser! p :d2 {:url "https://github.com/ravsii/tree-sitter-d2"
+                            :revision :ffb66ce4c801a1e37ed145ebd5eca1ea8865e00f
+                            :queries :queries}))]
   (autocmd! :User {:pattern :TSUpdate :callback cb}))

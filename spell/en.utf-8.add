@@ -364,3 +364,9 @@ boolean
 unmarshaling
 timestamps
 durations
+SDK
+runtime
+OneAgent
+OpenTelemetry
+daemonset
+OTEL

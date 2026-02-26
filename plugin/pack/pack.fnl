@@ -23,8 +23,9 @@
                              (vim.pack.update)))
            {:nargs "*" :complete :packadd})
 
-(user-cmd! :PackDel (fn [args]
-                      (vim.pack.del args.fargs))
+(user-cmd! :PackDel
+           (fn [args]
+             (vim.pack.del args.fargs {:force true}))
            {:nargs "+" :complete :packadd})
 
 ;; Clean up compiled sprig files when a plugin is deleted
@@ -36,7 +37,8 @@
                                compiled (.. cache-dir :/plugin/pack/ name :.lua)]
                            (when (= (vim.fn.filereadable compiled) 1)
                              (os.remove compiled)
-                             (vim.notify (.. "sprig: removed compiled file for " name))))))})
+                             (vim.notify (.. "sprig: removed compiled file for "
+                                             name))))))})
 
 ;; Lazy load builtin undotree plugin
 (user-cmd! :Undotree (fn []

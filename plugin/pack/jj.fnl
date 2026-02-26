@@ -2,7 +2,8 @@
 
 (pack! [(spec! "https://github.com/NicolasGB/jj.nvim"
                {:cmd [:J :Jdiff] :after (setup! :jj)})
-        (spec! "https://github.com/rafikdraoui/jj-diffconflicts"
+        (spec! ;;"https://github.com/rafikdraoui/jj-diffconflicts"
+               "https://github.com/ptdewey/jj-diffconflicts"
                {:cmd :JJDiffConflicts})])
 
 (nmap :<leader>jd :<cmd>Jdiff<CR> {:desc "jj diff"})
