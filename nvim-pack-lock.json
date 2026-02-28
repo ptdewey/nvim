@@ -152,6 +152,10 @@
       "src": "file:////home/patrick/projects/pendulum-nvim",
       "version": "'v2'"
     },
+    "slides-nvim": {
+      "rev": "91bfe4d7db8982ac9fd4f672edf19b7463d99064",
+      "src": "file:///home/patrick/projects/scratchpad/slides-nvim"
+    },
     "sqlite.lua": {
       "rev": "50092d60feb242602d7578398c6eb53b4a8ffe7b",
       "src": "https://github.com/ptdewey/sqlite.lua"

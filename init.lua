@@ -40,6 +40,9 @@ end
 vim.g.mapleader = " "
 vim.g.maplocalleader = " "
 
+-- cache and load lua files from bytecode (much faster load times)
+vim.loader.enable()
+
 -- Add compiled fennel output to rtp (must be before any fennel-compiled requires)
 vim.opt.rtp:prepend(vim.fn.stdpath("cache") .. "/sprig")
 
