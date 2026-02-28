@@ -5,34 +5,27 @@
 
 (pack! [(spec! "https://github.com/neovim/nvim-lspconfig")
         (spec! "https://github.com/williamboman/mason.nvim"
-               {:cmd :Mason :after (setup! :mason)})
-        (spec! "https://github.com/folke/lazydev.nvim"
-               {:ft :lua
-                :on_require :lazydev
-                :after (setup! :lazydev
-                               {:library [{:path "${3rd}/luv/library"
-                                           :words ["vim%.uv"]}
-                                          :lazy.nvim]})})])
+               {:cmd :Mason :after (setup! :mason)})])
 
 ;; TODO: also search `lsp/` for configs, append here.
 ;; This list primarily exists to pull lspconfig configs
-(let [servers [:lua_ls
-               :gopls
-               :ts_ls
-               :ruff
-               :pyright
-               :tinymist
+(let [servers [:gopls
+               ;; :lua_ls
+               :emmylua_ls
+               :templ
                :harper_ls
-               :rust_analyzer
                :just
                :nil_ls
                :fennel_ls
                :jsonls
                :html
                :cssls
-               :gleam
                :tailwindcss
-               :templ]]
+               :ts_ls
+               :rust_analyzer
+               :pyright
+               :gleam
+               :tinymist]]
   (each [_ server (ipairs servers)]
     (vim.lsp.enable server)))
 

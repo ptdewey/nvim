@@ -1,4 +1,4 @@
-{:filetypes [:go :gomod :gowork :gosum]
+{:filetypes [:go :gomod :gosum]
  :cmd [:gopls]
  :settings {:gopls {:hints {:rangeVariableTypes true
                             :parameterNames true

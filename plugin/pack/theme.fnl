@@ -14,3 +14,4 @@
                                {:overrides {"@type.definition" {:fg "#F5D098"}}})})])
 
 (vim.cmd.colorscheme :darkearth)
+; (vim.cmd.colorscheme :lightearth)

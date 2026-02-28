@@ -46,12 +46,12 @@ vim.loader.enable()
 -- Add compiled fennel output to rtp (must be before any fennel-compiled requires)
 vim.opt.rtp:prepend(vim.fn.stdpath("cache") .. "/sprig")
 
+-- Build fennel files
+require("sprig").setup()
+
 -- Import required plugins
 vim.pack.add({
     { src = "https://github.com/BirdeeHub/lze" },
 }, { confirm = false })
-
--- Build fennel files
-require("sprig").setup()
 
 require("profiler").setup()

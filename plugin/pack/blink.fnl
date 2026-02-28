@@ -27,9 +27,6 @@
                  :snippets {:score_offset 55}
                  :path {:score_offset 15}
                  :buffer {:score_offset 15}
-                 :lazydev {:name :LazyDev
-                           :module :lazydev.integrations.blink
-                           :score_offset 46}
                  :ripgrep {:module :blink-ripgrep
                            :name :rg
                            :opts {:backend {:ripgrep {:max_filesize :400K}}}
@@ -39,8 +36,6 @@
                            :score_offset 40
                            :async true}}
       sources {:default [:lsp :path :snippets :buffer :ripgrep :copilot]
-               :per_filetype {:lua (doto [:lazydev]
-                                     (tset :inherit_defaults true))}
                : providers}
       opts {: keymap
             :appearance {:nerd_font_variant :mono}
