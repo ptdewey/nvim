@@ -1,4 +1,4 @@
-(import-macros {: autocmd! : o} :macros)
+(import-macros {: autocmd! : user-cmd! : o} :macros)
 
 ;; fix netrw keyboard navigation on split keyboard (that uses numpad '-')
 (autocmd! :FileType
@@ -19,11 +19,14 @@
                                  (o :relativenumber false)
                                  (o :spell false))})
 
-;; LSP Inlay Hints
-; (vim.api.nvim_create_augroup :InlayHints {:clear true})
-; (vim.cmd.highlight "default link LspInlayHint Comment")
-; (autocmd! :LspAttach {:group :InlayHints
-;                       :callback (fn [args]
-;                                   (let [client (vim.lsp.get_client_by_id args.data.client_id)]
-;                                     ;; TODO: figure out how to translate conditional to fennel
-;                                     ))})
+(let [tw (vim.api.nvim_create_augroup :TrimTrailingWhitespace {:clear true})]
+  (let [enable (fn []
+                 (autocmd! :BufWritePre
+                           {:group tw
+                            :pattern "*"
+                            :callback #(vim.cmd "silent! %s/\\s\\+$//e")})
+                 (print "Trim trailing whitespace enabled"))
+        disable (fn [] (vim.api.nvim_clear_autocmds {:group tw})
+                  (print "Trim trailing whitespace disabled"))]
+    (user-cmd! :EnableTrimWhitespace enable {})
+    (user-cmd! :DisableTrimWhitespace disable {})))
