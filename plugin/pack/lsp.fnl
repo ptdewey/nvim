@@ -6,8 +6,6 @@
 (pack! [(spec! "https://github.com/neovim/nvim-lspconfig")
         (spec! "https://github.com/williamboman/mason.nvim"
                {:cmd :Mason :after (setup! :mason)})
-        (spec! "https://github.com/DNLHC/glance.nvim"
-               {:cmd :Glance :after (setup! :glance)})
         (spec! "https://github.com/folke/lazydev.nvim"
                {:ft :lua
                 :on_require :lazydev
