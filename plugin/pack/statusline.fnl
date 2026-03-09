@@ -98,7 +98,7 @@
 (macro diag-part [parts severity hl icon-key]
   `(let [n# (get-diagnostic-count ,severity)]
      (when (> n# 0)
-       (table.insert ,parts (.. "%#" ,hl "#" n# (. diagnostic-icons ,icon-key))))))
+       (table.insert ,parts (.. "%#" ,hl "#" (. diagnostic-icons ,icon-key) n#)))))
 
 (fn diagnostics-component []
   (let [buf 0
