@@ -1,6 +1,8 @@
-(import-macros {: pack! : nmap : user-cmd!} :macros)
+(import-macros {: pack! : spec! : nmap : user-cmd!} :macros)
 
-(pack! "https://codeberg.org/pdewey/deez-nvim" {:on_require :deez})
+(pack! [(spec! "https://codeberg.org/pdewey/deez-nvim" {:on_require :deez})
+        (spec! (vim.fn.expand "https://github.com/ptdewey/slides-nvim")
+               {:cmd :SlidesStart})])
 
 (nmap :<leader>af #((. (require :deez.altfile) :open)) {:desc "alternate file"})
 

@@ -5,39 +5,43 @@
 
 (pack! "https://github.com/nvim-treesitter/nvim-treesitter" {:version :main})
 
+;; nvim-treesitter can't be lazy loaded
 (raw-setup! :nvim-treesitter {:install_dir (.. (vim.fn.stdpath :data) :/site)})
 
+(local ensure-installed [:go
+                         :bash
+                         :markdown
+                         :markdown_inline
+                         :fennel
+                         :query
+                         :json
+                         :yaml
+                         :sql
+                         :html
+                         :toml
+                         :http])
+
 (let [cb (fn [event]
-           (let [ignored-fts [:lua
-                              :vimdoc
-                              :mininotify
-                              :ministarter
-                              :fzf
-                              :fzf-lua
-                              :Pathfinder
-                              :blink-cmp-menu
-                              :blink-cmp-documentation
-                              :kulala_http
-                              :jjdescription
-                              :mason
-                              :mason_backdrop]]
-             (when (vim.tbl_contains ignored-fts event.match)
-               (lua :return)))
-           (when-ok [nvim-treesitter :nvim-treesitter]
-                    (let [ft (. vim.bo event.buf :ft)
-                          lang (vim.treesitter.language.get_lang ft)]
-                      (: (nvim-treesitter.install [lang]) :await
-                         (fn [err]
-                           (when err
-                             (vim.notify (.. "Treesitter install error for ft: "
-                                             ft " err: " err))
-                             (lua :return))
-                           (pcall vim.treesitter.start event.buf)
-                           (set vim.bo.indentexpr
-                                "v:lua.require'nvim-treesitter'.indentexpr()")
-                           (set vim.wo.foldexpr
-                                "v:lua.vim.treesitter.foldexpr()"))))))]
+           (let [ft (. vim.bo event.buf :ft)
+                 lang (vim.treesitter.language.get_lang ft)]
+             (when (pcall vim.treesitter.language.add lang)
+               (pcall vim.treesitter.start event.buf)
+               (set vim.bo.indentexpr
+                    "v:lua.require'nvim-treesitter'.indentexpr()")
+               (set vim.wo.foldexpr "v:lua.vim.treesitter.foldexpr()"))))]
   (autocmd! :FileType {:callback cb}))
+
+(autocmd! :PackChanged
+          {:callback (fn [ev]
+                       (let [{: name} ev.data.spec
+                             kind ev.data.kind]
+                         (when (and (= name :nvim-treesitter)
+                                    (or (= kind :install) (= kind :update)))
+                           (when (not ev.data.active)
+                             (vim.cmd "packadd nvim-treesitter"))
+                           (when-ok [nvim-treesitter :nvim-treesitter]
+                                    (: (nvim-treesitter.install ensure-installed)
+                                       :await)))))})
 
 (let [cb #(let [p (require :nvim-treesitter.parsers)
                 adocRev :fc36cdfc2577c5c64fcb1b1e00c910d572713586

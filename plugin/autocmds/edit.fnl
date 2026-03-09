@@ -1,10 +1,5 @@
 (import-macros {: autocmd! : user-cmd!} :macros)
 
-(let [hg (vim.api.nvim_create_augroup :YankHighlight {:clear true})]
-  (autocmd! :TextYankPost {:callback vim.highlight.on_yank
-                           :group hg
-                           :pattern "*"}))
-
 (let [tw (vim.api.nvim_create_augroup :TrimTrailingWhitespace {:clear true})]
   (let [enable (fn []
                  (autocmd! :BufWritePre

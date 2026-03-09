@@ -55,12 +55,6 @@
 
 (mini! :starter (let [starter (require :mini.starter)]
                   {:items [(starter.sections.recent_files 5 true)
-                           {:name "Find Files"
-                            :action "lua require('fzf-lua').files({winopts={height=0.6,width=0.5,preview={hidden=true}}})"
-                            :section "Quick Actions"}
-                           {:name :Directories
-                            :action "Pathfinder select"
-                            :section "Quick Actions"}
                            (starter.sections.builtin_actions)]
                    :footer ""
                    :silent false}))

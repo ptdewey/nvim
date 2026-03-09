@@ -53,6 +53,10 @@
 (g :netrw_bufsettings "noma nomod nu nobl nowrap ro")
 (g :netrw_list_hide "\\(^\\|\\s\\s\\)\\zs\\.\\S\\+")
 
+;; Enable experimental v2 CMD/message UI
+(let [ui2 (require :vim._core.ui2)]
+  (ui2.enable {:enable true :msg {:target :cmd}}))
+
 ;; lsp diagnostics config
 ;; TODO: move this to a new file with lsp autocmds (and lsp plugins? -- when vim.pack switch happens)
 (vim.diagnostic.config {;; :virtual_lines true

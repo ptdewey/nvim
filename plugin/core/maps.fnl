@@ -40,6 +40,10 @@
           (vim.api.nvim_win_set_cursor 0 pos))
        {:desc "Toggle Comment" :remap true}))
 
+;; Netrw
+(nmap :<C-p> #(if (= vim.bo.filetype :netrw) (vim.cmd :bd) (vim.cmd :Explore)))
+;; TODO: netrw open s3? (this may not be possible)
+
 ;; diagnostic jumps
 (each [key cmd (pairs {"]d" vim.diagnostic.get_next
                        "[d" vim.diagnostic.get_prev})]
