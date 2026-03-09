@@ -10,14 +10,18 @@
 (macro hl [group opts]
   `(vim.api.nvim_set_hl 0 ,group ,opts))
 
-(vim.cmd.highlight "default link StlVisual Visual")
+(hl :StlNormal {:link :ModeMsg :default true})
+(hl :StlInsert {:link :special :default true})
+(hl :StlVisual {:link :Visual :default true})
+(hl :StlReplace {:link :Number :default true})
+(hl :StlCommand {:link :Keyword :default true})
 
-(->> {:callback (fn []
-                  (hl :StlNormal (inv :ModeMsg))
-                  (hl :StlInsert (inv :Special))
-                  (hl :StlReplace (inv :Number))
-                  (hl :StlCommand (inv :Comment)))}
-     (vim.api.nvim_create_autocmd :ColorScheme))
+; (->> {:callback (fn [])}
+;      ;; (hl :StlNormal (link :StlNormal :ModeMsg))
+;      ;; (hl :StlInsert (inv :Special))
+;      ;; (hl :StlReplace (inv :Number))
+;      ;; (hl :StlCommand (inv :Comment)))}
+;      (vim.api.nvim_create_autocmd :ColorScheme))
 
 (fn get-hl-bg [group]
   (. (vim.api.nvim_get_hl 0 {:name group :link false}) :bg))
@@ -26,7 +30,7 @@
   (let [m (: (. (vim.api.nvim_get_mode) :mode) :sub 1 1)
         mode-map {:n [:NORMAL :StlNormal]
                   :i [:INSERT :StlInsert]
-                  :v [:VISUAL :StlVisual]
+                  :wv [:VISUAL :StlVisual]
                   :V [:V-LINE :StlVisual]
                   "\022" [:V-BLOCK :StlVisual]
                   :R [:REPLACE :StlReplace]
@@ -91,14 +95,10 @@
            {:error " " :warn "󰀪 " :info "󰋽 " :hint " "}
            {:error "E:" :warn "W:" :info "I:" :hint "H:"}))
 
-(macro diff-part [parts s field hl prefix]
-  `(when (and ,s (> (or (. ,s ,field) 0) 0))
-     (table.insert ,parts (.. "%#" ,hl "#" ,prefix (. ,s ,field)))))
-
 (macro diag-part [parts severity hl icon-key]
   `(let [n# (get-diagnostic-count ,severity)]
      (when (> n# 0)
-       (table.insert ,parts (.. "%#" ,hl "#" (. diagnostic-icons ,icon-key) n#)))))
+       (table.insert ,parts (.. "%#" ,hl "#" n# (. diagnostic-icons ,icon-key))))))
 
 (fn diagnostics-component []
   (let [buf 0
@@ -108,6 +108,10 @@
     (diag-part parts :INFO :DiagnosticInfo :info)
     (diag-part parts :HINT :DiagnosticHint :hint)
     (if (> (length parts) 0) (.. "%#StlDiag#" (table.concat parts " ") " ") "")))
+
+(macro diff-part [parts s field hl prefix]
+  `(when (and ,s (> (or (. ,s ,field) 0) 0))
+     (table.insert ,parts (.. "%#" ,hl "#" ,prefix (. ,s ,field)))))
 
 (fn diff-component []
   (if (= _G.MiniDiff nil)
