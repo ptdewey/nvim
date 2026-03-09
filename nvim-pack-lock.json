@@ -9,7 +9,7 @@
       "src": "https://github.com/FabijanZulj/blame.nvim"
     },
     "blink-ripgrep.nvim": {
-      "rev": "e3f226579e2a40eb0181d5155cf48737640958fc",
+      "rev": "312ee9a8c6fb70955ef8615265e410cc756fb417",
       "src": "https://github.com/mikavilpas/blink-ripgrep.nvim"
     },
     "blink.cmp": {
@@ -46,15 +46,15 @@
       "src": "https://github.com/ptdewey/jj-diffconflicts"
     },
     "jj.nvim": {
-      "rev": "71f640be456f33b103e657bcbb0c41057977dc57",
+      "rev": "f30eefeaf3ce19a045ff12deb065ddb60cf611e5",
       "src": "https://github.com/NicolasGB/jj.nvim"
     },
     "kulala.nvim": {
-      "rev": "b92e6e962fc84a0e6b82d4c8e25c1f460f08289f",
+      "rev": "87601ddef556f21888c59e0a2713873ad73f9c29",
       "src": "https://github.com/mistweaverco/kulala.nvim"
     },
     "lze": {
-      "rev": "1779386ec281b6c7fe7a5d3d501656ec345e9e37",
+      "rev": "37daa89a10a60bd153fa80e9041d6137f077d6fb",
       "src": "https://github.com/BirdeeHub/lze"
     },
     "mason.nvim": {
@@ -82,7 +82,7 @@
       "src": "https://github.com/mfussenegger/nvim-lint"
     },
     "nvim-lspconfig": {
-      "rev": "a4ed4e761c400849e8c9f8bda33e5083f890268c",
+      "rev": "6f76a3eeadc2ee235d74cd7d5319e95a261084af",
       "src": "https://github.com/neovim/nvim-lspconfig"
     },
     "nvim-parinfer": {
