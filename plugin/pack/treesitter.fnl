@@ -58,11 +58,5 @@
                       :queries :tree-sitter-asciidoc_inline/queries})
             (parser! p :d2 {:url "https://github.com/ravsii/tree-sitter-d2"
                             :revision :ffb66ce4c801a1e37ed145ebd5eca1ea8865e00f
-                            :queries :queries})
-            (parser! p :norg
-                     {:url "https://github.com/ptdewey/tree-sitter-norg"
-                      :revision :e2c403175f94f2c7658ba03fdebb2c064621708f})
-            (parser! p :norg_meta
-                     {:url "https://github.com/nvim-neorg/tree-sitter-norg-meta"
-                      :revision :6f0510cc516a3af3396a682fbd6655486c2c9d2d}))]
+                            :queries :queries}))]
   (autocmd! :User {:pattern :TSUpdate :callback cb}))
