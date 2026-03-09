@@ -8,12 +8,12 @@
             :time_zone :America/New_York
             :time_format :12h
             :report_section_excludes {}
-            :lsp_binary (vim.fn.expand :$HOME/projects/pendulum-nvim/pendulum-server)
+            ; :lsp_binary (vim.fn.expand :$HOME/.local/share/nvim/site/pack/core/opt/pendulum-nvim/bin/pendulum-lsp)
             :report_excludes {:branch [:unknown_branch]
                               :directory []
                               :file ["ministarter://1/welcome"]
                               :filetype [:unknown_filetype :ministarter]
                               :project [:unknown_project]}}]
-  (pack! (vim.fn.expand :$HOME/projects/pendulum-nvim)
-         ; "https://github.com/ptdewey/pendulum-nvim"
+  (pack! ;(vim.fn.expand :$HOME/projects/pendulum-nvim)
+         "https://github.com/ptdewey/pendulum-nvim"
          {:version :v2 :event :VimEnter :after (setup! :pendulum opts)}))

@@ -72,7 +72,7 @@
           (set M._fennel fennel)
           fennel))))
 
-(fn M.compile [fnl-path]
+(fn M.compile [fnl-path ?notify]
   (let [fnl-path (normalize-path fnl-path)
         (cfg root) (find-config fnl-path)]
     (when (and root (not (is-ignored fnl-path cfg root))
@@ -111,7 +111,9 @@
                                           vim.log.levels.ERROR)
                               (do
                                 (out:write result)
-                                (out:close))))))))))))))
+                                (out:close)
+                                (when ?notify
+                                  (vim.notify (.. "sprig: compiled " fnl-path))))))))))))))))
 
 (fn M.clean []
   (let [lua-files (vim.fn.globpath cache-dir :**/*.lua false true)]
@@ -160,5 +162,14 @@
                                         (vim.notify (.. "sprig: cleared "
                                                         cache-dir)))
                                       {:desc "Remove all compiled .lua files from the sprig cache"})))
+
+(vim.keymap.set :n :<leader>sc
+                (fn []
+                  (let [path (vim.api.nvim_buf_get_name 0)]
+                    (if (= path "")
+                        (vim.notify "sprig: current buffer has no file name"
+                                    vim.log.levels.WARN)
+                        (M.compile path true))))
+                {:desc "sprig compile"})
 
 M

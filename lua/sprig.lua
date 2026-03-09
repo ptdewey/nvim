@@ -105,7 +105,7 @@ local function get_fennel()
     return fennel
   end
 end
-M.compile = function(fnl_path)
+M.compile = function(fnl_path, _3fnotify)
   local fnl_path0 = normalize_path(fnl_path)
   local cfg, root = find_config(fnl_path0)
   if (root and not is_ignored(fnl_path0, cfg, root) and not is_macro_file(fnl_path0, cfg, root)) then
@@ -143,7 +143,12 @@ M.compile = function(fnl_path)
           return vim.notify(("sprig: cannot write " .. lua_path), vim.log.levels.ERROR)
         else
           out:write(result)
-          return out:close()
+          out:close()
+          if _3fnotify then
+            return vim.notify(("sprig: compiled " .. fnl_path0))
+          else
+            return nil
+          end
         end
       end
     end
@@ -191,18 +196,27 @@ M.setup = function()
     end
   end
   local group = vim.api.nvim_create_augroup("sprig", {clear = true})
-  local function _23_(ev)
+  local function _24_(ev)
     return M.compile(vim.api.nvim_buf_get_name(ev.buf))
   end
-  vim.api.nvim_create_autocmd("BufWritePost", {pattern = "*.fnl", group = group, callback = _23_})
-  local function _24_()
+  vim.api.nvim_create_autocmd("BufWritePost", {pattern = "*.fnl", group = group, callback = _24_})
+  local function _25_()
     return M.compile_all()
   end
-  vim.api.nvim_create_user_command("SprigCompileAll", _24_, {desc = "Compile all .fnl files to .lua"})
-  local function _25_()
+  vim.api.nvim_create_user_command("SprigCompileAll", _25_, {desc = "Compile all .fnl files to .lua"})
+  local function _26_()
     vim.fn.delete(cache_dir, "rf")
     return vim.notify(("sprig: cleared " .. cache_dir))
   end
-  return vim.api.nvim_create_user_command("SprigClean", _25_, {desc = "Remove all compiled .lua files from the sprig cache"})
+  return vim.api.nvim_create_user_command("SprigClean", _26_, {desc = "Remove all compiled .lua files from the sprig cache"})
 end
+local function _27_()
+  local path = vim.api.nvim_buf_get_name(0)
+  if (path == "") then
+    return vim.notify("sprig: current buffer has no file name", vim.log.levels.WARN)
+  else
+    return M.compile(path, true)
+  end
+end
+vim.keymap.set("n", "<leader>sc", _27_, {desc = "sprig compile"})
 return M

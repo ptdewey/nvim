@@ -11,7 +11,7 @@
                                :templ [:templ]
                                :nix [:nixfmt]
                                :rust [:rustfmt]
-                               :python [:ruff]
+                               :python [:ruff_format]
                                :typst [:tinymist]
                                :yaml [:prettierd]
                                :json [:prettierd]

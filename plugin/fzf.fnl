@@ -13,7 +13,7 @@
                                  :--layout :reverse-list}
                       :files {:git_icons false
                               :file_icons true
-                              :formatter :path.filename_first
+                              ;:formatter :path.filename_first
                               :winopts {:height 0.6
                                         :width 0.5
                                         :preview {:hidden true}}}

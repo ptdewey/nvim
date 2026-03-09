@@ -10,8 +10,7 @@
 ;; TODO: also search `lsp/` for configs, append here.
 ;; This list primarily exists to pull lspconfig configs
 (let [servers [:gopls
-               ; :lua_ls
-               ; :emmylua_ls
+               :lua_ls
                :templ
                :harper_ls
                :just
@@ -20,18 +19,19 @@
                :jsonls
                :html
                :cssls
-               :tailwindcss
                :ts_ls
                :rust_analyzer
                :ts_query_ls
                :pyright
+               :ruff
                :gleam
                :elixirls
                :dexter
                ; :expert
                :svelte
                :tinymist
-               :astro]]
+               :postgres_lsp
+               :starlark_rust]]
   (each [_ server (ipairs servers)]
     (vim.lsp.enable server)))
 

@@ -1,7 +1,7 @@
 {
   "plugins": {
     "blink-ripgrep.nvim": {
-      "rev": "14cddeb244d00b7ca620183c77d418b1c90df510",
+      "rev": "eb0c574723ae10e0d5297dea12b0447a76121cb1",
       "src": "https://github.com/mikavilpas/blink-ripgrep.nvim"
     },
     "blink.cmp": {
@@ -18,8 +18,8 @@
       "src": "https://github.com/stevearc/conform.nvim"
     },
     "darkearth-nvim": {
-      "rev": "7cd378605d046e6a7e6259f257d358b4d9c2a1be",
-      "src": "/home/patrick/projects/darkearth-nvim"
+      "rev": "d894924296162bfb50c6ab753c30c479c100f0e6",
+      "src": "https://github.com/ptdewey/darkearth-nvim"
     },
     "fzf-lua": {
       "rev": "05e44d38de0a79c11fba5f7bf8138791b1dbdd1e",
@@ -50,7 +50,7 @@
       "src": "https://github.com/williamboman/mason.nvim"
     },
     "mini.nvim": {
-      "rev": "fb2bbae327f3c306f3c825031345b89dd176ce60",
+      "rev": "a311ed247d527db9592bb434356badc705363746",
       "src": "https://github.com/nvim-mini/mini.nvim"
     },
     "namu.nvim": {
@@ -61,16 +61,12 @@
       "rev": "430522f95fe4fb7c511ec64f8c1a90cc6a66c05c",
       "src": "https://github.com/windwp/nvim-autopairs"
     },
-    "nvim-coverage": {
-      "rev": "328e076c26f7a7b3875a0151fd2895881aa60554",
-      "src": "https://github.com/ptdewey/nvim-coverage"
-    },
     "nvim-lint": {
       "rev": "3d55c8f67c6ae5c15e1042571e107c7a3d5c5f4e",
       "src": "https://github.com/mfussenegger/nvim-lint"
     },
     "nvim-lspconfig": {
-      "rev": "684cb45c2faa24ce463b4fe9aaf011bfe1e0fb26",
+      "rev": "16286347bdba1333c7d124d9de9fe6630731b2b2",
       "src": "https://github.com/neovim/nvim-lspconfig"
     },
     "nvim-parinfer": {
@@ -79,17 +75,17 @@
       "version": "'lua-plugin'"
     },
     "nvim-treesitter": {
-      "rev": "857651fce37eba032ebe28f3a206283cdc65c45a",
+      "rev": "19071296d3d643b48615ee574a20e8a03ac40872",
       "src": "https://github.com/nvim-treesitter/nvim-treesitter",
       "version": "'main'"
     },
     "obsidian.nvim": {
-      "rev": "07f94ef04a417555ee56a5895ddeb740f2de0033",
+      "rev": "e49af4dac4c654c6749c36856af38300780932f7",
       "src": "https://github.com/obsidian-nvim/obsidian.nvim"
     },
     "pendulum-nvim": {
       "rev": "d89deea5dbf5907bddc2494382320096388c7742",
-      "src": "/home/patrick/projects/pendulum-nvim",
+      "src": "https://github.com/ptdewey/pendulum-nvim",
       "version": "'v2'"
     },
     "pi-nvim": {
@@ -103,14 +99,6 @@
     "todo-comments.nvim": {
       "rev": "31e3c38ce9b29781e4422fc0322eb0a21f4e8668",
       "src": "https://github.com/folke/todo-comments.nvim"
-    },
-    "vim-startuptime": {
-      "rev": "5f33e50f1e2e2a80370c9094e4c303ea54cd2aea",
-      "src": "https://github.com/dstein64/vim-startuptime"
-    },
-    "vim-test": {
-      "rev": "2676d84c6901e484df00b5d728bd6a345d47ee12",
-      "src": "https://github.com/vim-test/vim-test"
     },
     "yankbank-nvim": {
       "rev": "a0706a44103c189f090a6ae1f029117d02b647a6",
