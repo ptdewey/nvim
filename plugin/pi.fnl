@@ -5,5 +5,5 @@
        {:after (setup! :pi-nvim {})
         :cmd [:Pi :PiOpen :PiSendFile :PiSendBuffer :PiPing :PiSessions]})
 
-(nmap :<leader>ap :Pi)
-(vmap :<leader>ap :Pi)
+(nmap :<leader>ap :<cmd>Pi<CR> {:desc "prompt pi"})
+(vmap :<leader>ap :<cmd>Pi<CR> {:desc "prompt pi"})

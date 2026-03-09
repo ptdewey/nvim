@@ -2,10 +2,10 @@
 
 (macro make-opts []
   {:legacy_commands false
-   :workspaces [{:name :notes :path "~/notes"}]
+   :workspaces [{:name :notes :path "~/notes"}
+                {:name :working-notes :path "~/workspace/working-notes"}]
    :notes_subdir :notes
    :daily_notes {:folder :notes/daily :default_tags [:fleeting]}
-   :completion {:nvim_cmp false :blink true :min_chars 2}
    :new_notes_location :notes_subdir
    :picker {:name :fzf-lua}
    :ui {:enable false}
