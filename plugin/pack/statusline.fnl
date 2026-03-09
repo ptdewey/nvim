@@ -1,13 +1,30 @@
-(fn icon-for [category name fallback]
-  (if (= _G.MiniIcons nil)
-      fallback
-      (let [(icon _) (_G.MiniIcons.get category name)]
-        (or icon fallback))))
+;; Set to false if nerd font is missing/broken
+;; Icon reference: https://www.nerdfonts.com/cheat-sheet
+(local icons-enabled true)
 
-(fn mode-component []
+(macro inv [group]
+  ;; inverse of syntax groups (swap fg <-> bg)
+  `(let [hl# (vim.api.nvim_get_hl 0 {:name ,group :link false})]
+     {:fg hl#.bg :bg hl#.fg}))
+
+(macro hl [group opts]
+  `(vim.api.nvim_set_hl 0 ,group ,opts))
+
+(vim.cmd.highlight "default link StlVisual Visual")
+
+(->> {:callback (fn []
+                  (hl :StlNormal (inv :ModeMsg))
+                  (hl :StlInsert (inv :Special))
+                  (hl :StlReplace (inv :Number))
+                  (hl :StlCommand (inv :Comment)))}
+     (vim.api.nvim_create_autocmd :ColorScheme))
+
+(fn get-hl-bg [group]
+  (. (vim.api.nvim_get_hl 0 {:name group :link false}) :bg))
+
+(fn current-mode-info []
   (let [m (: (. (vim.api.nvim_get_mode) :mode) :sub 1 1)
-        ;; TODO: figure out the best groups to use here
-        mode-map {:n [:NORMAL :ModeMsg]
+        mode-map {:n [:NORMAL :StlNormal]
                   :i [:INSERT :StlInsert]
                   :v [:VISUAL :StlVisual]
                   :V [:V-LINE :StlVisual]
@@ -17,35 +34,70 @@
                   :t [:TERMINAL :StlInsert]
                   :s [:SELECT :StlVisual]
                   :S [:S-LINE :StlVisual]}]
-    (let [info (or (. mode-map m) [:NORMAL :StlNormal])]
-      (string.format "%%#%s# %s " (. info 2) (. info 1)))))
+    (or (. mode-map m) [:NORMAL :StlNormal])))
+
+(fn mode-component []
+  (let [info (current-mode-info)
+        hl-name (. info 2)]
+    (vim.api.nvim_set_hl 0 :StlModeSep
+                         {:fg (get-hl-bg hl-name) :bg (get-hl-bg :StatusLine)})
+    (string.format "%%#%s# %s %%#StlModeSep#" hl-name (. info 1))))
+
+(fn has-duplicate-name? [name full-path]
+  (var found false)
+  (each [_ buf (ipairs (vim.fn.getbufinfo {:buflisted 1}))]
+    (when (and (not found) (not= buf.name full-path)
+               (= (vim.fn.fnamemodify buf.name ":t") name))
+      (set found true)))
+  found)
 
 (fn filename-component []
-  "%#StlFile# %f %m%r")
+  (let [name (vim.fn.expand "%:t")]
+    (if (= name "")
+        "%#StlFile# [No Name] %m%r"
+        (let [full-path (vim.fn.expand "%:p")
+              display (if (has-duplicate-name? name full-path)
+                          (.. (vim.fn.expand "%:p:h:t") "/" name)
+                          name)]
+          (.. "%#StlFile# " display " %m%r")))))
 
 (fn sep []
+  ;; Filler component
   "%#StlFill#%=")
 
 (fn location []
-  "%#StlPos# %l:%c ")
+  (let [hl-name (. (current-mode-info) 2)]
+    (vim.api.nvim_set_hl 0 :StlPosSep
+                         {:fg (get-hl-bg hl-name) :bg (get-hl-bg :StatusLine)})
+    (.. "%#StlPosSep#%#" hl-name "# %l:%c ")))
 
 (macro get-diagnostic-count [severity]
   `(length (vim.diagnostic.get buf
                                {:severity (. vim.diagnostic.severity ,severity)})))
 
-;; TODO: turn some of this stuff into macros (i.e. insert, concat bits)
+(local diagnostic-icons
+       (if icons-enabled
+           ;; TODO: maybe define style sets, fill/outline, set those with condition?
+           {:error " " :warn "󰀪 " :info "󰋽 " :hint " "}
+           {:error "E:" :warn "W:" :info "I:" :hint "H:"}))
+
+(macro diff-part [parts s field hl prefix]
+  `(when (and ,s (> (or (. ,s ,field) 0) 0))
+     (table.insert ,parts (.. "%#" ,hl "#" ,prefix (. ,s ,field)))))
+
+(macro diag-part [parts severity hl icon-key]
+  `(let [n# (get-diagnostic-count ,severity)]
+     (when (> n# 0)
+       (table.insert ,parts (.. "%#" ,hl "#" (. diagnostic-icons ,icon-key) n#)))))
+
 (fn diagnostics-component []
   (let [buf 0
-        parts {}
-        errs (get-diagnostic-count :ERROR)
-        warns (get-diagnostic-count :WARN)
-        infos (get-diagnostic-count :INFO)
-        hints (get-diagnostic-count :HINT)]
-    (when (> errs 0) (table.insert parts (.. "%#DiagnosticError#E:" errs)))
-    (when (> warns 0) (table.insert parts (.. "%#DiagnosticWarn#W:" warns)))
-    (when (> infos 0) (table.insert parts (.. "%#DiagnosticInfo#I:" infos)))
-    (when (> hints 0) (table.insert parts (.. "%#DiagnosticHint#H:" hints)))
-    (if (> (length parts) 0) (.. "%#StlDiag# " (table.concat parts " ") " ") "")))
+        parts {}]
+    (diag-part parts :ERROR :DiagnosticError :error)
+    (diag-part parts :WARN :DiagnosticWarn :warn)
+    (diag-part parts :INFO :DiagnosticInfo :info)
+    (diag-part parts :HINT :DiagnosticHint :hint)
+    (if (> (length parts) 0) (.. "%#StlDiag#" (table.concat parts " ") " ") "")))
 
 (fn diff-component []
   (if (= _G.MiniDiff nil)
@@ -55,12 +107,9 @@
             ""
             (let [s buf-data.summary
                   parts []]
-              (when (and s (> (or s.add 0) 0))
-                (table.insert parts (.. "%#Added#+" s.add)))
-              (when (and s (> (or s.change 0) 0))
-                (table.insert parts (.. "%#Changed#~" s.change)))
-              (when (and s (> (or s.delete 0) 0))
-                (table.insert parts (.. "%#Removed#-" s.delete)))
+              (diff-part parts s :add :Added "+")
+              (diff-part parts s :change :Changed "~")
+              (diff-part parts s :delete :Removed "-")
               (if (> (length parts) 0)
                   (.. "%#StlDiff# " (table.concat parts " ") " ")
                   ""))))))
@@ -75,11 +124,11 @@
                :--no-graph
                :--ignore-working-copy
                :-T
-               "change_id.short(8)"] {:text true}
-              (fn [result]
-                (if (= result.code 0)
-                    (set jj-info (vim.trim result.stdout))
-                    (set jj-info "")))))
+               "if(bookmarks, bookmarks.join(\", \"), change_id.short(8))"]
+              {:text true} (fn [result]
+                            (if (= result.code 0)
+                                (set jj-info (vim.trim result.stdout))
+                                (set jj-info "")))))
 
 (vim.api.nvim_create_autocmd [:BufEnter :BufWritePost :FocusGained]
                              {:callback update-jj-info})

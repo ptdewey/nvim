@@ -14,8 +14,10 @@
                            :pattern "*"}))
 
 ;; TODO: could this be an ftplugin?
-(autocmd! :TermOpen
-          {:callback (fn [] (o :number false) (o :relativenumber false))})
+(autocmd! :TermOpen {:callback (fn []
+                                 (o :number false)
+                                 (o :relativenumber false)
+                                 (o :spell false))})
 
 ;; LSP Inlay Hints
 ; (vim.api.nvim_create_augroup :InlayHints {:clear true})

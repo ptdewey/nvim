@@ -12,8 +12,11 @@
                               :vimdoc
                               :mininotify
                               :ministarter
+                              :fzf
+                              :fzf-lua
                               :Pathfinder
                               :blink-cmp-menu
+                              :blink-cmp-documentation
                               :kulala_http
                               :jjdescription
                               :mason
