@@ -26,10 +26,6 @@
   (#set! conceal "▶"))
 
 ; Conceal and set a nice icon for bullets
-(list_item
-  (list_marker_minus) @comment
-  (#set! conceal "•"))
-
-(list_item
-  (list_marker_star) @comment
-  (#set! conceal "•"))
+; NOTE: done via matchadd in ftplugin/markdown.fnl because
+; list_marker_minus node width varies with nesting depth (2-4 chars),
+; so #offset! with fixed values can't reliably isolate just the dash
