@@ -43,23 +43,33 @@
                          {:fg (get-hl-bg hl-name) :bg (get-hl-bg :StatusLine)})
     (string.format "%%#%s# %s %%#StlModeSep#" hl-name (. info 1))))
 
-(fn has-duplicate-name? [name full-path]
-  (var found false)
-  (each [_ buf (ipairs (vim.fn.getbufinfo {:buflisted 1}))]
-    (when (and (not found) (not= buf.name full-path)
-               (= (vim.fn.fnamemodify buf.name ":t") name))
-      (set found true)))
-  found)
+(local buf-display-cache {})
+
+(fn refresh-display-cache []
+  (let [bufs (vim.fn.getbufinfo {:buflisted 1})]
+    (each [k _ (pairs buf-display-cache)] (tset buf-display-cache k nil))
+    (each [_ buf (ipairs bufs)]
+      (let [name (vim.fn.fnamemodify buf.name ":t")]
+        (when (not= name "")
+          (var dup? false)
+          (each [_ other (ipairs bufs)]
+            (when (and (not dup?) (not= other.name buf.name)
+                       (= (vim.fn.fnamemodify other.name ":t") name))
+              (set dup? true)))
+          (tset buf-display-cache buf.bufnr
+                (if dup?
+                    (.. (vim.fn.fnamemodify buf.name ":h:t") "/" name)
+                    name)))))))
+
+(refresh-display-cache)
+(vim.api.nvim_create_autocmd [:BufAdd :BufDelete :BufFilePost]
+                             {:callback refresh-display-cache})
 
 (fn filename-component []
-  (let [name (vim.fn.expand "%:t")]
-    (if (= name "")
-        "%#StlFile# [No Name] %m%r"
-        (let [full-path (vim.fn.expand "%:p")
-              display (if (has-duplicate-name? name full-path)
-                          (.. (vim.fn.expand "%:p:h:t") "/" name)
-                          name)]
-          (.. "%#StlFile# " display " %m%r")))))
+  (let [display (. buf-display-cache (vim.api.nvim_get_current_buf))]
+    (if display
+        (.. "%#StlFile# " display " %m%r")
+        "%#StlFile# [No Name] %m%r")))
 
 (fn sep []
   ;; Filler component
