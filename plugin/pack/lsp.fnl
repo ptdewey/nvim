@@ -23,6 +23,7 @@
                :tailwindcss
                :ts_ls
                :rust_analyzer
+               :ts_query_ls
                :pyright
                :gleam
                :tinymist]]

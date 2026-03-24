@@ -33,10 +33,6 @@
       "rev": "0552b44fceedf0c4cba2cd4953d3976633b2509a",
       "src": "https://github.com/zbirenbaum/copilot.lua"
     },
-    "cover.nvim": {
-      "rev": "e1e2ff2c207adb9c648eaa1c80112ce86ca0881e",
-      "src": "file:///home/patrick/projects/scratchpad/cover.nvim"
-    },
     "darkearth-nvim": {
       "rev": "56934f80faa971329d2dc64d16e581eb9ee42c94",
       "src": "https://github.com/ptdewey/darkearth-nvim"
