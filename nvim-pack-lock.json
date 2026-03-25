@@ -34,7 +34,7 @@
       "src": "https://github.com/zbirenbaum/copilot.lua"
     },
     "darkearth-nvim": {
-      "rev": "56934f80faa971329d2dc64d16e581eb9ee42c94",
+      "rev": "f2ba02036bacc558ab971ad069d128e8666cd62b",
       "src": "https://github.com/ptdewey/darkearth-nvim"
     },
     "deez-nvim": {
@@ -56,6 +56,10 @@
     "grug-far.nvim": {
       "rev": "dc4684e163971bb1f5bfb93fbd4bb3e892bf9b15",
       "src": "https://github.com/MagicDuck/grug-far.nvim"
+    },
+    "inlay-slides-nvim": {
+      "rev": "8127b7a9791ffa38bb94a56bc73edd65ee83b77a",
+      "src": "file:///home/patrick/projects/atslides/inlay-slides-nvim"
     },
     "jj-diffconflicts": {
       "rev": "a58bf117e31870598096605c65ec8b7be938e369",
@@ -144,6 +148,10 @@
       "src": "https://github.com/ptdewey/pendulum-nvim",
       "version": "'v2'"
     },
+    "pi-nvim": {
+      "rev": "d725aafd4c53f6256b5edcff4f28e88de1ae0d2e",
+      "src": "https://github.com/ptdewey/pi-nvim.git"
+    },
     "plenary.nvim": {
       "rev": "b9fd5226c2f76c951fc8ed5923d85e4de065e509",
       "src": "https://github.com/nvim-lua/plenary.nvim"
@@ -169,7 +177,7 @@
       "src": "https://github.com/vim-test/vim-test"
     },
     "yankbank-nvim": {
-      "rev": "1392d12536b5a2bc2deaf2668068f33a8795d5a4",
+      "rev": "a0706a44103c189f090a6ae1f029117d02b647a6",
       "src": "https://github.com/ptdewey/yankbank-nvim",
       "version": "'main'"
     }

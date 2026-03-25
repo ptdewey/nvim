@@ -58,5 +58,10 @@
                       :queries :tree-sitter-asciidoc_inline/queries})
             (parser! p :d2 {:url "https://github.com/ravsii/tree-sitter-d2"
                             :revision :ffb66ce4c801a1e37ed145ebd5eca1ea8865e00f
-                            :queries :queries}))]
+                            :queries :queries})
+            (parser! p :snapshot
+                     {:url "https://github.com/ptdewey/shutter"
+                      :revision :3262e8451414b62a03e81bd2677dd299488db6f2
+                      :location :editor/tree-sitter-snapshot
+                      :queries :tree-sitter-snapshot/queries}))]
   (autocmd! :User {:pattern :TSUpdate :callback cb}))
