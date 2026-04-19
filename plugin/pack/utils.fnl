@@ -2,6 +2,7 @@
 
 (pack! [(spec! "https://codeberg.org/pdewey/deez-nvim" {:on_require :deez})
         (spec! (vim.fn.expand "https://github.com/ptdewey/slides-nvim")
+               ; (spec! (vim.fn.expand "file://$HOME/projects/atslides/inlay-slides-nvim")
                {:cmd :SlidesStart})])
 
 (nmap :<leader>af #((. (require :deez.altfile) :open)) {:desc "alternate file"})

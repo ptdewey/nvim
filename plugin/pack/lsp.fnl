@@ -26,7 +26,8 @@
                :ts_query_ls
                :pyright
                :gleam
-               :tinymist]]
+               :tinymist
+               :astro]]
   (each [_ server (ipairs servers)]
     (vim.lsp.enable server)))
 

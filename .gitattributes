@@ -1,2 +1,3 @@
 deps/* linguist-vendored
+lua/sprig.lua linguist-generated
 queries/asciidoc linguist-vendored

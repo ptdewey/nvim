@@ -1,2 +1,2 @@
-{:filetypes [:javascript :typescript :javascriptreact :typescriptreact]
+{:filetypes [:javascript :typescript :javascriptreact :typescriptreact :astro]
  :settings {:implicitProjectConfiguration {:checkJs true}}}
