@@ -8,10 +8,6 @@
       "rev": "179da7aaacce7c52874af636255ede72dd6fe796",
       "src": "https://github.com/FabijanZulj/blame.nvim"
     },
-    "blink-copilot": {
-      "rev": "7ad8209b2f880a2840c94cdcd80ab4dc511d4f39",
-      "src": "https://github.com/fang2hou/blink-copilot"
-    },
     "blink-ripgrep.nvim": {
       "rev": "e834b577ac9cb41039ab8fc9396444726801bdf8",
       "src": "https://github.com/mikavilpas/blink-ripgrep.nvim"
@@ -32,10 +28,6 @@
     "darkearth-nvim": {
       "rev": "668968e81ce125544a3e25f21419c08bec9a3cc4",
       "src": "https://github.com/ptdewey/darkearth-nvim"
-    },
-    "deez-nvim": {
-      "rev": "0b5a68294af8be371610aee54de29ff131e67f0d",
-      "src": "https://codeberg.org/pdewey/deez-nvim"
     },
     "evergarden": {
       "rev": "762a37afe2e242144355fafe385d638ec347ec48",
@@ -122,7 +114,7 @@
     },
     "pi-nvim": {
       "rev": "d725aafd4c53f6256b5edcff4f28e88de1ae0d2e",
-      "src": "https://github.com/carderne/pi-nvim.git"
+      "src": "https://github.com/ptdewey/pi-nvim.git"
     },
     "slides-nvim": {
       "rev": "91bfe4d7db8982ac9fd4f672edf19b7463d99064",

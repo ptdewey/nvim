@@ -1,11 +1,9 @@
-(import-macros {: pack! : setup! : nmap} :macros)
+(import-macros {: pack! : setup! : nmap : vmap} :macros)
 
-(pack! "https://github.com/carderne/pi-nvim.git"
+(pack! "https://github.com/ptdewey/pi-nvim.git"
+       ; (vim.fn.expand :$HOME/projects/pi-nvim)
        {:after (setup! :pi-nvim {})
-        :cmd [:Pi
-              :PiSend
-              :PiSendFile
-              :PiSendSelection
-              :PiSendBuffer
-              :PiPing
-              :PiSessions]})
+        :cmd [:Pi :PiOpen :PiSendFile :PiSendBuffer :PiPing :PiSessions]})
+
+(nmap :<leader>ap :Pi)
+(vmap :<leader>ap :Pi)

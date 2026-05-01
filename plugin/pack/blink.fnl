@@ -30,13 +30,8 @@
                  :ripgrep {:module :blink-ripgrep
                            :name :rg
                            :opts {:backend {:ripgrep {:max_filesize :400K}}}
-                           :score_offset 1}
-                 :copilot {:name :copilot
-                           :module :blink-copilot
-                           :score_offset 40
-                           :async true}}
-      sources {:default [:lsp :path :snippets :buffer :ripgrep :copilot]
-               : providers}
+                           :score_offset 1}}
+      sources {:default [:lsp :path :snippets :buffer :ripgrep] : providers}
       opts {: keymap
             :appearance {:nerd_font_variant :mono}
             :signature {:enabled true}
@@ -54,6 +49,4 @@
                            ((. (require :profiler) :require_and_setup) :blink-cmp
                                                                        opts))})
           (spec! "https://github.com/mikavilpas/blink-ripgrep.nvim"
-                 {:dep_of :blink.cmp})
-          (spec! "https://github.com/fang2hou/blink-copilot"
                  {:dep_of :blink.cmp})]))

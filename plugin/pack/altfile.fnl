@@ -1,4 +1,6 @@
-(var config {:alternates [[:.go :_test.go]]})
+(import-macros {: nmap} :macros)
+
+(local config {:alternates [[:.go :_test.go]]})
 
 (fn escape-suffix [suffix]
   (suffix:gsub "%." "%%."))
@@ -21,7 +23,4 @@
     (when altfile
       (vim.cmd (.. "e " altfile)))))
 
-(fn setup [opts]
-  (set config (vim.tbl_deep_extend :force config (or opts {}))))
-
-{: open : setup}
+(nmap :<leader>af open {:desc "alternate file"})
