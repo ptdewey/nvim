@@ -22,6 +22,10 @@
 (vmap :J ":m '>+1<CR>gv=gv")
 (vmap :K ":m '<-2<CR>gv=gv")
 
+;; Better indents
+(vmap ">" :>gv)
+(vmap "<" :<gv)
+
 ;; merge in place
 (nmap :J "mzJ`z")
 
@@ -42,7 +46,6 @@
 
 ;; Netrw
 (nmap :<C-p> #(if (= vim.bo.filetype :netrw) (vim.cmd :bd) (vim.cmd :Explore)))
-;; TODO: netrw open s3? (this may not be possible)
 
 ;; diagnostic jumps
 (each [key cmd (pairs {"]d" vim.diagnostic.get_next

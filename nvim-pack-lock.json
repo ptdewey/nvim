@@ -4,10 +4,6 @@
       "rev": "0abc8f390b278c3b4aabc4c004ac8a088b65cf24",
       "src": "https://github.com/L3MON4D3/LuaSnip"
     },
-    "blame.nvim": {
-      "rev": "179da7aaacce7c52874af636255ede72dd6fe796",
-      "src": "https://github.com/FabijanZulj/blame.nvim"
-    },
     "blink-ripgrep.nvim": {
       "rev": "312ee9a8c6fb70955ef8615265e410cc756fb417",
       "src": "https://github.com/mikavilpas/blink-ripgrep.nvim"
@@ -46,8 +42,8 @@
       "src": "https://github.com/ptdewey/jj-diffconflicts"
     },
     "jj.nvim": {
-      "rev": "f30eefeaf3ce19a045ff12deb065ddb60cf611e5",
-      "src": "https://github.com/NicolasGB/jj.nvim"
+      "rev": "94a0ed4b32a077dc17d8d764a85ef3304080754a",
+      "src": "https://github.com/ptdewey/jj.nvim"
     },
     "kulala.nvim": {
       "rev": "87601ddef556f21888c59e0a2713873ad73f9c29",
@@ -99,10 +95,6 @@
       "rev": "8820505daa28eff1391019e4590d9c4e5fb1d908",
       "src": "https://github.com/obsidian-nvim/obsidian.nvim"
     },
-    "oxocarbon.nvim": {
-      "rev": "a7ba74849a00546a311f8c146320b433900393e7",
-      "src": "https://github.com/nyoom-engineering/oxocarbon.nvim"
-    },
     "pendulum-nvim": {
       "rev": "a2af32910db552fe7f88b9b5b63a2e95f5be456c",
       "src": "https://github.com/ptdewey/pendulum-nvim",
@@ -136,6 +128,10 @@
       "rev": "a0706a44103c189f090a6ae1f029117d02b647a6",
       "src": "https://github.com/ptdewey/yankbank-nvim",
       "version": "'main'"
+    },
+    "zenbones.nvim": {
+      "rev": "239bdb9a09c8d38c752c43590d02f654ed0da2b0",
+      "src": "https://github.com/zenbones-theme/zenbones.nvim"
     }
   }
 }

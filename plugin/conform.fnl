@@ -8,6 +8,7 @@
                                :html [:prettierd]
                                :css [:prettierd]
                                :go [:goimports :golangci-lint]
+                               :templ [:templ]
                                :nix [:nixfmt]
                                :rust [:rustfmt]
                                :python [:ruff]
@@ -16,7 +17,6 @@
                                :json [:prettierd]
                                :fennel [:fnlfmt]
                                :markdown [:prettierd]
-                               :templ [:templ]
                                :_ []}
             :format_on_save (fn [bufnr]
                               (when (not (. vim.b bufnr :disable_autoformat))

@@ -4,6 +4,9 @@ local config_dir = vim.fn.stdpath("config")
 local cache_dir = (vim.fn.stdpath("cache") .. "/sprig")
 local config_cache = {}
 local fennel_path = "/deps/fennel-1.6.1.lua"
+local function normalize_path(path)
+  return vim.fn.resolve(vim.fn.fnamemodify(path, ":p"))
+end
 local function find_config(fnl_path)
   local dir = vim.fn.fnamemodify(fnl_path, ":h")
   local cached = config_cache[dir]
@@ -103,7 +106,7 @@ local function get_fennel()
   end
 end
 M.compile = function(fnl_path)
-  local fnl_path0 = vim.fn.resolve(fnl_path)
+  local fnl_path0 = normalize_path(fnl_path)
   local cfg, root = find_config(fnl_path0)
   if (root and not is_ignored(fnl_path0, cfg, root) and not is_macro_file(fnl_path0, cfg, root)) then
     local f = io.open(fnl_path0, "r")
@@ -189,7 +192,7 @@ M.setup = function()
   end
   local group = vim.api.nvim_create_augroup("sprig", {clear = true})
   local function _23_(ev)
-    return M.compile(ev.match)
+    return M.compile(vim.api.nvim_buf_get_name(ev.buf))
   end
   vim.api.nvim_create_autocmd("BufWritePost", {pattern = "*.fnl", group = group, callback = _23_})
   local function _24_()

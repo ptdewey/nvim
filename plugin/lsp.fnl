@@ -26,6 +26,9 @@
                :ts_query_ls
                :pyright
                :gleam
+               :elixirls
+               :dexter
+               ; :expert
                :tinymist
                :astro]]
   (each [_ server (ipairs servers)]

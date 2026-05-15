@@ -36,6 +36,7 @@
             :appearance {:nerd_font_variant :mono}
             :signature {:enabled true}
             : completion
+            :cmdline {:enabled false}
             :snippets {:preset :luasnip}
             : sources
             :fuzzy {:implementation :prefer_rust_with_warning

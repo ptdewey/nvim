@@ -1,5 +1,3 @@
-;; TODO: rename back to sprig.fnl once finished the port.
-;; Make sure to update .sprig.lua to build this file in the nvim dir
 (local vim _G.vim)
 
 (local M {})
@@ -7,6 +5,9 @@
 (local cache-dir (.. (vim.fn.stdpath :cache) :/sprig))
 (local config-cache {})
 (local fennel-path :/deps/fennel-1.6.1.lua)
+
+(fn normalize-path [path]
+  (vim.fn.resolve (vim.fn.fnamemodify path ":p")))
 
 (fn find-config [fnl-path]
   (let [dir (vim.fn.fnamemodify fnl-path ":h")
@@ -72,7 +73,7 @@
           fennel))))
 
 (fn M.compile [fnl-path]
-  (let [fnl-path (vim.fn.resolve fnl-path)
+  (let [fnl-path (normalize-path fnl-path)
         (cfg root) (find-config fnl-path)]
     (when (and root (not (is-ignored fnl-path cfg root))
                (not (is-macro-file fnl-path cfg root)))
@@ -145,10 +146,12 @@
                package.path))
       (vim.loader.reset)))
   (let [group (vim.api.nvim_create_augroup :sprig {:clear true})]
+    ;; FIX: this event doesn't seem to work a lot of the time
     (vim.api.nvim_create_autocmd :BufWritePost
                                  {:pattern :*.fnl
                                   : group
-                                  :callback (fn [ev] (M.compile ev.match))})
+                                  :callback (fn [ev]
+                                              (M.compile (vim.api.nvim_buf_get_name ev.buf)))})
     (vim.api.nvim_create_user_command :SprigCompileAll (fn [] (M.compile_all))
                                       {:desc "Compile all .fnl files to .lua"})
     (vim.api.nvim_create_user_command :SprigClean

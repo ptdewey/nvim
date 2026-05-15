@@ -30,10 +30,10 @@
 ; (o :winborder :rounded)
 ; (o :winborder :bold)
 
-;; undo/swap
-(o :undofile true)
-;; TODO: undodir
+;; swap/undo
 (o :swapfile false)
+(o :undofile true)
+(o :undodir (.. (vim.fn.stdpath :state) :/undo))
 
 ;; spellcheck
 (o :spell true)
@@ -42,6 +42,12 @@
 
 ;; completion
 (o :completeopt "menuone,noselect")
+
+;; Popup menu settings
+(o :wildmenu true)
+(o :wildmode "noselect,full")
+(o :wildoptions "pum,fuzzy")
+(o :pumheight 15)
 
 ;; system settings
 (o :clipboard :unnamedplus)

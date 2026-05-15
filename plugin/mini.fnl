@@ -103,4 +103,7 @@
 ; (nmap "-" (fn []
 ;             ((. (require :mini.files) :open))) {})
 
+(mini! :cmdline :event :CmdlineEnter
+       {:autocomplete {:enable true} :autopeek {:enable true}})
+
 ((. (require! :lze) :load) [specs])
