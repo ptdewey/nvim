@@ -10,8 +10,8 @@
 ;; TODO: also search `lsp/` for configs, append here.
 ;; This list primarily exists to pull lspconfig configs
 (let [servers [:gopls
-               ;; :lua_ls
-               :emmylua_ls
+               ; :lua_ls
+               ; :emmylua_ls
                :templ
                :harper_ls
                :just
@@ -29,6 +29,7 @@
                :elixirls
                :dexter
                ; :expert
+               :svelte
                :tinymist
                :astro]]
   (each [_ server (ipairs servers)]

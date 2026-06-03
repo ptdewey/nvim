@@ -9,7 +9,7 @@
 
 ;; highlight on yank
 (let [yank-hl (vim.api.nvim_create_augroup :YankHighlight {:clear true})]
-  (autocmd! :TextYankPost {:callback #(vim.hl.on_yank)
+  (autocmd! :TextYankPost {:callback #(vim.hl.hl_op)
                            :group yank-hl
                            :pattern "*"}))
 

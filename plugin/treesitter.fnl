@@ -43,6 +43,10 @@
 (macro parser! [tbl name info]
   `(tset ,tbl ,name {:install_info ,info}))
 
+; Add no-op `is-not?` predicate to prevent errors with gleam queries
+; TODO: maybe PR a fix for this
+(vim.treesitter.query.add_predicate :is-not? (fn [] true) {:force true})
+
 (let [cb #(let [p (require :nvim-treesitter.parsers)
                 adocRev :fc36cdfc2577c5c64fcb1b1e00c910d572713586
                 adocUrl "https://github.com/cathaysia/tree-sitter-asciidoc"]
@@ -59,6 +63,8 @@
             (parser! p :d2 {:url "https://github.com/ravsii/tree-sitter-d2"
                             :revision :ffb66ce4c801a1e37ed145ebd5eca1ea8865e00f
                             :queries :queries})
+            (parser! p :gleam {:path :/home/patrick/projects/open-source/tree-sitter-gleam
+                               :queries :queries})
             (parser! p :snapshot
                      {:url "https://github.com/ptdewey/shutter"
                       :revision :3262e8451414b62a03e81bd2677dd299488db6f2

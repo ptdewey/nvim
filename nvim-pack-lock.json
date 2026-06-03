@@ -5,7 +5,7 @@
       "src": "https://github.com/L3MON4D3/LuaSnip"
     },
     "blink-ripgrep.nvim": {
-      "rev": "312ee9a8c6fb70955ef8615265e410cc756fb417",
+      "rev": "44bf40369c0cfa530174f6f6afeecf0440a21ed1",
       "src": "https://github.com/mikavilpas/blink-ripgrep.nvim"
     },
     "blink.cmp": {
@@ -14,7 +14,7 @@
       "version": "1.0.0 - 2.0.0"
     },
     "blink.indent": {
-      "rev": "15b3b25c2e76025733cc96df0144e9a9ef4d495c",
+      "rev": "5cb5ea0f942f17d6182fdad064a17d67f71b9375",
       "src": "https://github.com/saghen/blink.indent"
     },
     "conform.nvim": {
@@ -22,11 +22,11 @@
       "src": "https://github.com/stevearc/conform.nvim"
     },
     "darkearth-nvim": {
-      "rev": "668968e81ce125544a3e25f21419c08bec9a3cc4",
-      "src": "https://github.com/ptdewey/darkearth-nvim"
+      "rev": "7cd378605d046e6a7e6259f257d358b4d9c2a1be",
+      "src": "/home/patrick/projects/darkearth-nvim"
     },
     "fzf-lua": {
-      "rev": "fea9eedc6894c44d44cbb772a5cd11c93b82d7a1",
+      "rev": "988416cc782dfe28bff3f0da9b8c943b236cd86a",
       "src": "https://github.com/ibhagwan/fzf-lua"
     },
     "gokit-nvim": {
@@ -34,7 +34,7 @@
       "src": "https://github.com/ptdewey/gokit-nvim"
     },
     "grug-far.nvim": {
-      "rev": "5506c2f59dc9ab2ed6c233585412b24d31d51521",
+      "rev": "c995bbacf8229dc096ec1c3d60f8531059c86c1b",
       "src": "https://github.com/MagicDuck/grug-far.nvim"
     },
     "jj-diffconflicts": {
@@ -42,23 +42,23 @@
       "src": "https://github.com/ptdewey/jj-diffconflicts"
     },
     "jj.nvim": {
-      "rev": "94a0ed4b32a077dc17d8d764a85ef3304080754a",
+      "rev": "caca2c3454551a6893060b820955e63aa27f6dd3",
       "src": "https://github.com/ptdewey/jj.nvim"
     },
     "kulala.nvim": {
-      "rev": "87601ddef556f21888c59e0a2713873ad73f9c29",
+      "rev": "9945d576751c8a6a8331c46fc9436d62e796ff28",
       "src": "https://github.com/mistweaverco/kulala.nvim"
     },
     "lze": {
-      "rev": "37daa89a10a60bd153fa80e9041d6137f077d6fb",
+      "rev": "177bba953cf422e4b8e4fa6f9b0a603b135e169e",
       "src": "https://github.com/BirdeeHub/lze"
     },
     "mason.nvim": {
-      "rev": "bb639d4bf385a4d89f478b83af4d770be05ab7eb",
+      "rev": "2a6940af80375532e5e9e7c1f2fc6319a1b7a69d",
       "src": "https://github.com/williamboman/mason.nvim"
     },
     "mini.nvim": {
-      "rev": "44657837c7338e52727facc85c1d95bec1f6bd7c",
+      "rev": "7ed410c73ebb910754c2938a6dae50c51c3a096a",
       "src": "https://github.com/nvim-mini/mini.nvim"
     },
     "namu.nvim": {
@@ -74,11 +74,11 @@
       "src": "https://github.com/ptdewey/nvim-coverage"
     },
     "nvim-lint": {
-      "rev": "d48f3a76189d03b2239f6df1b2f7e3fa8353743b",
+      "rev": "99cbc3ca8a76845fca50e496be7212bebf907dd3",
       "src": "https://github.com/mfussenegger/nvim-lint"
     },
     "nvim-lspconfig": {
-      "rev": "6f76a3eeadc2ee235d74cd7d5319e95a261084af",
+      "rev": "a683e0ddf0cf64c6cd689e18ffb480ade3c162b7",
       "src": "https://github.com/neovim/nvim-lspconfig"
     },
     "nvim-parinfer": {
@@ -92,7 +92,7 @@
       "version": "'main'"
     },
     "obsidian.nvim": {
-      "rev": "8820505daa28eff1391019e4590d9c4e5fb1d908",
+      "rev": "ef7f5ee28f857431235c0cb847b9dd70c3714a47",
       "src": "https://github.com/obsidian-nvim/obsidian.nvim"
     },
     "pendulum-nvim": {
@@ -103,6 +103,10 @@
     "pi-nvim": {
       "rev": "d725aafd4c53f6256b5edcff4f28e88de1ae0d2e",
       "src": "https://github.com/ptdewey/pi-nvim.git"
+    },
+    "rose-pine": {
+      "rev": "ff483051a47e27d84bdef47703538df1ed9f4a47",
+      "src": "https://github.com/rose-pine/neovim"
     },
     "slides-nvim": {
       "rev": "91bfe4d7db8982ac9fd4f672edf19b7463d99064",
@@ -117,11 +121,11 @@
       "src": "https://github.com/folke/todo-comments.nvim"
     },
     "vim-startuptime": {
-      "rev": "f10474b400c197787a0434548d842a2db583c333",
+      "rev": "5f33e50f1e2e2a80370c9094e4c303ea54cd2aea",
       "src": "https://github.com/dstein64/vim-startuptime"
     },
     "vim-test": {
-      "rev": "7062b50979a28e804081f0e82b7321184ec1c20b",
+      "rev": "2676d84c6901e484df00b5d728bd6a345d47ee12",
       "src": "https://github.com/vim-test/vim-test"
     },
     "yankbank-nvim": {
