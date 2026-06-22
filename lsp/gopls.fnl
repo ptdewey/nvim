@@ -6,4 +6,5 @@
                             :assignVariableTypes true
                             :compositeLiteralFields true
                             :compositeLiteralTypes true
-                            :functionTypeParameters true}}}}
+                            :functionTypeParameters true}
+                    :semanticTokens false}}}
