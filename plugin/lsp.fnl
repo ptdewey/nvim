@@ -52,3 +52,7 @@
 ;                (vim.lsp.completion.enable true client.id args.buf
 ;                                           {:autotrigger true}))))]
 ;   (autocmd! :LspAttach {:callback cb}))
+
+(user-cmd! :LspLog
+           #(vim.cmd (.. :e (vim.fn.expand :$HOME/.local/state/nvim/lsp.log)))
+           {:nargs 0})

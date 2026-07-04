@@ -9,6 +9,5 @@
         (spec! "https://github.com/rose-pine/neovim"
                {:name :rose-pine :colorscheme [:rose-pine :rose-pine-main]})])
 
-; (vim.cmd.colorscheme :rose-pine)
-(vim.cmd.colorscheme :darkearth)
-; (vim.cmd.colorscheme :lightearth)
+; (vim.cmd.colorscheme :darkearth)
+(vim.cmd.colorscheme :lightearth)

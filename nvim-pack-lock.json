@@ -23,7 +23,7 @@
     },
     "darkearth-nvim": {
       "rev": "7cd378605d046e6a7e6259f257d358b4d9c2a1be",
-      "src": "/home/patrick/projects/darkearth-nvim"
+      "src": "https://github.com/ptdewey/darkearth-nvim"
     },
     "fzf-lua": {
       "rev": "988416cc782dfe28bff3f0da9b8c943b236cd86a",
