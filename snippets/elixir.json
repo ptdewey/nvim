@@ -1,0 +1,6 @@
+{
+  "module": {
+    "prefix": "mod",
+    "body": "%__MODULE__{${1}}${0}"
+  }
+}

@@ -1,11 +1,7 @@
 {
   "plugins": {
-    "LuaSnip": {
-      "rev": "0abc8f390b278c3b4aabc4c004ac8a088b65cf24",
-      "src": "https://github.com/L3MON4D3/LuaSnip"
-    },
     "blink-ripgrep.nvim": {
-      "rev": "44bf40369c0cfa530174f6f6afeecf0440a21ed1",
+      "rev": "14cddeb244d00b7ca620183c77d418b1c90df510",
       "src": "https://github.com/mikavilpas/blink-ripgrep.nvim"
     },
     "blink.cmp": {
@@ -14,27 +10,23 @@
       "version": "1.0.0 - 2.0.0"
     },
     "blink.indent": {
-      "rev": "5cb5ea0f942f17d6182fdad064a17d67f71b9375",
+      "rev": "8b69b9262891fe81fe728fe6a52fa2a84dd5d5e0",
       "src": "https://github.com/saghen/blink.indent"
     },
     "conform.nvim": {
-      "rev": "619363c30309d29ffa631e67c8183f2a72caa373",
+      "rev": "016802de402556da54c36bd7359b441266b01cdd",
       "src": "https://github.com/stevearc/conform.nvim"
     },
     "darkearth-nvim": {
       "rev": "7cd378605d046e6a7e6259f257d358b4d9c2a1be",
-      "src": "https://github.com/ptdewey/darkearth-nvim"
+      "src": "/home/patrick/projects/darkearth-nvim"
     },
     "fzf-lua": {
-      "rev": "988416cc782dfe28bff3f0da9b8c943b236cd86a",
+      "rev": "05e44d38de0a79c11fba5f7bf8138791b1dbdd1e",
       "src": "https://github.com/ibhagwan/fzf-lua"
     },
-    "gokit-nvim": {
-      "rev": "17b4c8fc4b8927049c15b8d9627394d3074e8286",
-      "src": "https://github.com/ptdewey/gokit-nvim"
-    },
     "grug-far.nvim": {
-      "rev": "c995bbacf8229dc096ec1c3d60f8531059c86c1b",
+      "rev": "11595bf747edc270bce2069d1020502ad4ae56cf",
       "src": "https://github.com/MagicDuck/grug-far.nvim"
     },
     "jj-diffconflicts": {
@@ -46,11 +38,11 @@
       "src": "https://github.com/ptdewey/jj.nvim"
     },
     "kulala.nvim": {
-      "rev": "9945d576751c8a6a8331c46fc9436d62e796ff28",
+      "rev": "232a9939919fe9bc88d573bce92de50f2f160c60",
       "src": "https://github.com/mistweaverco/kulala.nvim"
     },
     "lze": {
-      "rev": "177bba953cf422e4b8e4fa6f9b0a603b135e169e",
+      "rev": "f8f007cd73a08bc3453b001e4438da0f1a3e41ea",
       "src": "https://github.com/BirdeeHub/lze"
     },
     "mason.nvim": {
@@ -58,7 +50,7 @@
       "src": "https://github.com/williamboman/mason.nvim"
     },
     "mini.nvim": {
-      "rev": "7ed410c73ebb910754c2938a6dae50c51c3a096a",
+      "rev": "fb2bbae327f3c306f3c825031345b89dd176ce60",
       "src": "https://github.com/nvim-mini/mini.nvim"
     },
     "namu.nvim": {
@@ -66,7 +58,7 @@
       "src": "https://github.com/bassamsdata/namu.nvim"
     },
     "nvim-autopairs": {
-      "rev": "7b9923abad60b903ece7c52940e1321d39eccc79",
+      "rev": "430522f95fe4fb7c511ec64f8c1a90cc6a66c05c",
       "src": "https://github.com/windwp/nvim-autopairs"
     },
     "nvim-coverage": {
@@ -74,11 +66,11 @@
       "src": "https://github.com/ptdewey/nvim-coverage"
     },
     "nvim-lint": {
-      "rev": "99cbc3ca8a76845fca50e496be7212bebf907dd3",
+      "rev": "3d55c8f67c6ae5c15e1042571e107c7a3d5c5f4e",
       "src": "https://github.com/mfussenegger/nvim-lint"
     },
     "nvim-lspconfig": {
-      "rev": "a683e0ddf0cf64c6cd689e18ffb480ade3c162b7",
+      "rev": "684cb45c2faa24ce463b4fe9aaf011bfe1e0fb26",
       "src": "https://github.com/neovim/nvim-lspconfig"
     },
     "nvim-parinfer": {
@@ -87,30 +79,22 @@
       "version": "'lua-plugin'"
     },
     "nvim-treesitter": {
-      "rev": "4916d6592ede8c07973490d9322f187e07dfefac",
+      "rev": "857651fce37eba032ebe28f3a206283cdc65c45a",
       "src": "https://github.com/nvim-treesitter/nvim-treesitter",
       "version": "'main'"
     },
     "obsidian.nvim": {
-      "rev": "ef7f5ee28f857431235c0cb847b9dd70c3714a47",
+      "rev": "07f94ef04a417555ee56a5895ddeb740f2de0033",
       "src": "https://github.com/obsidian-nvim/obsidian.nvim"
     },
     "pendulum-nvim": {
-      "rev": "a2af32910db552fe7f88b9b5b63a2e95f5be456c",
-      "src": "https://github.com/ptdewey/pendulum-nvim",
+      "rev": "d89deea5dbf5907bddc2494382320096388c7742",
+      "src": "/home/patrick/projects/pendulum-nvim",
       "version": "'v2'"
     },
     "pi-nvim": {
       "rev": "d725aafd4c53f6256b5edcff4f28e88de1ae0d2e",
       "src": "https://github.com/ptdewey/pi-nvim.git"
-    },
-    "rose-pine": {
-      "rev": "ff483051a47e27d84bdef47703538df1ed9f4a47",
-      "src": "https://github.com/rose-pine/neovim"
-    },
-    "slides-nvim": {
-      "rev": "91bfe4d7db8982ac9fd4f672edf19b7463d99064",
-      "src": "https://github.com/ptdewey/slides-nvim"
     },
     "sqlite.lua": {
       "rev": "50092d60feb242602d7578398c6eb53b4a8ffe7b",
@@ -132,10 +116,6 @@
       "rev": "a0706a44103c189f090a6ae1f029117d02b647a6",
       "src": "https://github.com/ptdewey/yankbank-nvim",
       "version": "'main'"
-    },
-    "zenbones.nvim": {
-      "rev": "239bdb9a09c8d38c752c43590d02f654ed0da2b0",
-      "src": "https://github.com/zenbones-theme/zenbones.nvim"
     }
   }
 }

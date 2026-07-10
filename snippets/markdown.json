@@ -1,0 +1,18 @@
+{
+  "link": {
+    "prefix": "link",
+    "body": "[${1}](${2})${0}"
+  },
+  "image": {
+    "prefix": "image",
+    "body": "![${1}](${2})${0}"
+  },
+  "comment": {
+    "prefix": "comment",
+    "body": "<!-- ${1} -->${0}"
+  },
+  "html comment": {
+    "prefix": "<--",
+    "body": "<!-- ${1} -->${0}"
+  }
+}

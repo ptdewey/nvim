@@ -1,0 +1,10 @@
+{
+  "bash shebang": {
+    "prefix": "usr/bin",
+    "body": [
+      "#!/usr/bin/env bash",
+      "",
+      "${0}"
+    ]
+  }
+}

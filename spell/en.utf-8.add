@@ -316,7 +316,6 @@ Erlang
 html
 css
 frontmatter
-djot
 stylesheets
 SSG
 incrementing
@@ -406,3 +405,5 @@ scrobble
 decigrams
 cryptographic
 backoff
+Handoff
+handoff

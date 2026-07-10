@@ -37,7 +37,7 @@
             :signature {:enabled true}
             : completion
             :cmdline {:enabled false}
-            :snippets {:preset :luasnip}
+            :snippets {:preset :default}
             : sources
             :fuzzy {:implementation :prefer_rust_with_warning
                     :prebuilt_binaries {:force_version :v1.6.0}}}]
