@@ -5,11 +5,12 @@
             :num_behavior :jump
             :focus_gain_poll true
             :keymaps {}
-            :persist_type :sqlite
+            ; :persist_type :sqlite
+            :paste_register "*"
             :debug true
             :bind_indices :<leader>y}]
-  (pack! [(spec! "https://github.com/ptdewey/sqlite.lua"
-                 {:dep_of :yankbank-nvim})
+  (pack! [;;(spec! "https://github.com/ptdewey/sqlite.lua"
+          ;; {:dep_of :yankbank-nvim}
           (spec! "https://github.com/ptdewey/yankbank-nvim"
                  {:version :main
                   :event :VimEnter

@@ -1,7 +1,7 @@
 {
   "plugins": {
     "blink-ripgrep.nvim": {
-      "rev": "eb0c574723ae10e0d5297dea12b0447a76121cb1",
+      "rev": "47c9795bf1be9f4b6466d19a2bf0dca42bd65bf7",
       "src": "https://github.com/mikavilpas/blink-ripgrep.nvim"
     },
     "blink.cmp": {
@@ -10,23 +10,28 @@
       "version": "1.0.0 - 2.0.0"
     },
     "blink.indent": {
-      "rev": "8b69b9262891fe81fe728fe6a52fa2a84dd5d5e0",
+      "rev": "2e9c9768affeaf3a48b2dc329eb59763012f79f6",
       "src": "https://github.com/saghen/blink.indent"
     },
     "conform.nvim": {
       "rev": "016802de402556da54c36bd7359b441266b01cdd",
       "src": "https://github.com/stevearc/conform.nvim"
     },
+    "curl.nvim": {
+      "rev": "96d029107ed4daab9b3475fdd805b3b2b37ac8aa",
+      "src": "https://github.com/ptdewey/curl.nvim",
+      "version": "'main'"
+    },
     "darkearth-nvim": {
       "rev": "d894924296162bfb50c6ab753c30c479c100f0e6",
       "src": "https://github.com/ptdewey/darkearth-nvim"
     },
     "fzf-lua": {
-      "rev": "05e44d38de0a79c11fba5f7bf8138791b1dbdd1e",
+      "rev": "07fce8ac8dffba4e11f1cbe5490d730a2cc5ec7a",
       "src": "https://github.com/ibhagwan/fzf-lua"
     },
     "grug-far.nvim": {
-      "rev": "11595bf747edc270bce2069d1020502ad4ae56cf",
+      "rev": "91b7e58b6ffc6ddad5acb7a7c1df21257724449e",
       "src": "https://github.com/MagicDuck/grug-far.nvim"
     },
     "jj-diffconflicts": {
@@ -37,12 +42,8 @@
       "rev": "caca2c3454551a6893060b820955e63aa27f6dd3",
       "src": "https://github.com/ptdewey/jj.nvim"
     },
-    "kulala.nvim": {
-      "rev": "232a9939919fe9bc88d573bce92de50f2f160c60",
-      "src": "https://github.com/mistweaverco/kulala.nvim"
-    },
     "lze": {
-      "rev": "f8f007cd73a08bc3453b001e4438da0f1a3e41ea",
+      "rev": "5020f28b13055a9cb3f51ab8b2cfefcd069dd3f7",
       "src": "https://github.com/BirdeeHub/lze"
     },
     "mason.nvim": {
@@ -50,23 +51,27 @@
       "src": "https://github.com/williamboman/mason.nvim"
     },
     "mini.nvim": {
-      "rev": "a311ed247d527db9592bb434356badc705363746",
+      "rev": "6d5a29e86a7352739506c28e0bc50fe214b5216f",
       "src": "https://github.com/nvim-mini/mini.nvim"
     },
     "namu.nvim": {
-      "rev": "e7afbdf63a75ace6ccc6202d58a4f6f9ac09db92",
+      "rev": "69106f89d0d3f8c013a0185ec64ff734ae223410",
       "src": "https://github.com/bassamsdata/namu.nvim"
     },
+    "nvim": {
+      "rev": "edefef779ab08ce1a4a404713e3012b0d202bd35",
+      "src": "https://github.com/catppuccin/nvim.git"
+    },
     "nvim-autopairs": {
-      "rev": "430522f95fe4fb7c511ec64f8c1a90cc6a66c05c",
+      "rev": "3172f40c16563db871a58f20d205c710ad782311",
       "src": "https://github.com/windwp/nvim-autopairs"
     },
     "nvim-lint": {
-      "rev": "3d55c8f67c6ae5c15e1042571e107c7a3d5c5f4e",
+      "rev": "52107ce2076a27a285af781248e2c59bad817cd0",
       "src": "https://github.com/mfussenegger/nvim-lint"
     },
     "nvim-lspconfig": {
-      "rev": "16286347bdba1333c7d124d9de9fe6630731b2b2",
+      "rev": "adfbb74472f6c231b651b650a89f414c2680fb31",
       "src": "https://github.com/neovim/nvim-lspconfig"
     },
     "nvim-parinfer": {
@@ -75,13 +80,17 @@
       "version": "'lua-plugin'"
     },
     "nvim-treesitter": {
-      "rev": "19071296d3d643b48615ee574a20e8a03ac40872",
+      "rev": "0195cd62fa89950f34c0e0d648ea7897ab85d4d3",
       "src": "https://github.com/nvim-treesitter/nvim-treesitter",
       "version": "'main'"
     },
     "obsidian.nvim": {
-      "rev": "e49af4dac4c654c6749c36856af38300780932f7",
+      "rev": "15af492b64f4677959fe95008f1d5b782fe1f86a",
       "src": "https://github.com/obsidian-nvim/obsidian.nvim"
+    },
+    "oxocarbon.nvim": {
+      "rev": "cd6523a0836d6e8ee823d343149fd06c7b71fdde",
+      "src": "https://github.com/nyoom-engineering/oxocarbon.nvim"
     },
     "pendulum-nvim": {
       "rev": "d89deea5dbf5907bddc2494382320096388c7742",
@@ -92,16 +101,12 @@
       "rev": "d725aafd4c53f6256b5edcff4f28e88de1ae0d2e",
       "src": "https://github.com/ptdewey/pi-nvim.git"
     },
-    "sqlite.lua": {
-      "rev": "50092d60feb242602d7578398c6eb53b4a8ffe7b",
-      "src": "https://github.com/ptdewey/sqlite.lua"
-    },
     "todo-comments.nvim": {
       "rev": "31e3c38ce9b29781e4422fc0322eb0a21f4e8668",
       "src": "https://github.com/folke/todo-comments.nvim"
     },
     "yankbank-nvim": {
-      "rev": "a0706a44103c189f090a6ae1f029117d02b647a6",
+      "rev": "634cde1c2cd0b278cbff995d97ddb112f00c7fbd",
       "src": "https://github.com/ptdewey/yankbank-nvim",
       "version": "'main'"
     }

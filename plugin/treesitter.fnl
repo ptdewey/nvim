@@ -15,8 +15,7 @@
                          :yaml
                          :sql
                          :html
-                         :toml
-                         :http])
+                         :toml])
 
 (let [cb (fn [event]
            (let [ft (. vim.bo event.buf :ft)
