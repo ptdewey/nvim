@@ -26,6 +26,6 @@
   (#set! conceal "▶"))
 
 ; Conceal and set a nice icon for bullets
-; NOTE: done via matchadd in ftplugin/markdown.fnl because
+; NOTE: done via matchadd in ftplugin/markdown.lua because
 ; list_marker_minus node width varies with nesting depth (2-4 chars),
 ; so #offset! with fixed values can't reliably isolate just the dash

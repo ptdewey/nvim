@@ -1,1 +1,0 @@
-{:filetypes [:templ :gotmpl]}

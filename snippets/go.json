@@ -1,27 +1,19 @@
 {
   "function": {
     "prefix": "func",
-    "body": [
-      "func ${1}(${2}) ${3}{",
-      "\t${4}",
-      "}"
-    ]
+    "body": ["func ${1}(${2}) ${3}{", "\t${4}", "}"]
+  },
+  "iferr": {
+    "prefix": "err",
+    "body": ["if err != nil {", "\treturn ${1}, err", "}{$0}"]
   },
   "method": {
     "prefix": "meth",
-    "body": [
-      "func (${1}) ${2}(${3}) ${4}{",
-      "\t${5}",
-      "}"
-    ]
+    "body": ["func (${1}) ${2}(${3}) ${4}{", "\t${5}", "}"]
   },
   "type": {
     "prefix": "typ",
-    "body": [
-      "type ${1} ${2|struct,interface|} {",
-      "\t${3}",
-      "}${0}"
-    ]
+    "body": ["type ${1} ${2|struct,interface|} {", "\t${3}", "}${0}"]
   },
   "print": {
     "prefix": "print",

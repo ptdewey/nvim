@@ -1,6 +1,6 @@
 # nvim
 
-## Installation
+## Quick Install
 
 ```sh
 bash <(curl -fsSL https://github.com/ptdewey/nvim/raw/branch/main/setup.sh)
